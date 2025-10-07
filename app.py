@@ -178,8 +178,27 @@ def my_orders():
     if 'user' not in session:
         flash('Please log in first.')
         return redirect(url_for('login'))
-    user_orders = [o for o in orders if o['user'] == session['user']]
+    user_orders = []
+    for o in orders:
+        if o['user'] == session['user']:
+            items = [get_variety_by_id(pid) for pid in o['items']]
+            user_orders.append({'items': items})
     return render_template('orders.html', orders=user_orders)
+
+@app.route('/checkout')
+def checkout():
+    if 'user' not in session:
+        flash('Please log in first.')
+        return redirect(url_for('login'))
+    cart_ids = session.get('cart', [])
+    cart_items = []
+    total = 0
+    for pid in cart_ids:
+        item = get_variety_by_id(pid)
+        if item:
+            cart_items.append(item)
+            total += item['price']
+    return render_template('checkout.html', cart=cart_items, total=total)
 
 if __name__ == '__main__':
     app.run(debug=True)
