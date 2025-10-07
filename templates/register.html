@@ -1,21 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <title>Register - E-Commerce Store</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top left, #a1c4fd 0%, #c2e9fb 60%, #232946 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+        .bg-shape {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .shape1 {
+            top: -120px;
+            left: -120px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #6246ea 0%, #a1c4fd 80%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0.45;
+        }
+        .shape2 {
+            bottom: -100px;
+            right: -100px;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #16a34a 0%, #c2e9fb 80%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0.35;
+        }
+        .container {
+            max-width: 400px;
+            margin: 90px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(60,72,88,0.18);
+            padding: 48px 36px 36px 36px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #232946;
+            margin-bottom: 1.2em;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        input[type="text"], input[type="password"] {
+            padding: 12px 14px;
+            border-radius: 7px;
+            border: 1.5px solid #c7d2fe;
+            font-size: 1.08rem;
+            background: #f3f4f8;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border: 1.5px solid #6246ea;
+            outline: none;
+        }
+        .register-btn {
+            background: linear-gradient(90deg, #6246ea 60%, #16a34a 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 7px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
+        }
+        .register-btn:hover {
+            background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
+            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
+        }
+        .switch-link {
+            margin-top: 1.5em;
+            font-size: 1rem;
+        }
+        .switch-link a {
+            color: #6246ea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .switch-link a:hover {
+            color: #16a34a;
+        }
+        .messages {
+            margin-bottom: 1em;
+            color: #b91c1c;
+            background: #ffe5e5;
+            border-radius: 6px;
+            padding: 8px 0;
+        }
+    </style>
 </head>
 <body>
-    <h2>Register</h2>
-    <form method="post">
-        Username: <input type="text" name="username" required><br>
-        Password: <input type="password" name="password" required><br>
-        <input type="submit" value="Register">
-    </form>
-    <p><a href="{{ url_for('login') }}">Already have an account? Login</a></p>
-    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
-      {% endif %}
-    {% endwith %}
+    <div class="bg-shape shape1"></div>
+    <div class="bg-shape shape2"></div>
+    <div class="container">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    {{ message }}<br>
+                {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form method="post">
+            <input type="text" name="username" placeholder="Username" required autocomplete="username">
+            <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+        <div class="switch-link">
+            Already have an account?
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+        <div class="switch-link" style="margin-top:0.5em;">
+            <a href="{{ url_for('landing') }}">Back to Welcome</a>
+        </div>
+    </div>
 </body>
 </html>

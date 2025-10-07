@@ -1,26 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Your Cart</title>
+    <meta charset="UTF-8">
+    <title>Your Cart - E-Commerce Store</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top left, #a1c4fd 0%, #c2e9fb 60%, #232946 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+        .bg-shape {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .shape1 {
+            top: -120px;
+            left: -120px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #6246ea 0%, #a1c4fd 80%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0.45;
+        }
+        .shape2 {
+            bottom: -100px;
+            right: -100px;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #16a34a 0%, #c2e9fb 80%, transparent 100%);
+            border-radius: 50%;
+            opacity: 0.35;
+        }
+        .container {
+            max-width: 500px;
+            margin: 70px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(60,72,88,0.18);
+            padding: 40px 32px 32px 32px;
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #232946;
+            margin-bottom: 1.2em;
+            text-align: center;
+        }
+        .cart-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5em;
+        }
+        .cart-list li {
+            background: #f3f4f8;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: #232946;
+            box-shadow: 0 2px 8px rgba(60,72,88,0.06);
+        }
+        .total {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #16a34a;
+            margin-bottom: 1.5em;
+            text-align: right;
+        }
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5em;
+        }
+        .cart-btn {
+            background: linear-gradient(90deg, #6246ea 60%, #16a34a 100%);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 7px;
+            font-size: 1.08rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
+        }
+        .cart-btn:hover {
+            background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
+            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
+        }
+        .messages {
+            margin-top: 1.5em;
+            color: #b91c1c;
+            background: #ffe5e5;
+            border-radius: 6px;
+            padding: 8px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h2>Your Cart</h2>
-    {% if cart %}
-        <ul>
-            {% for item in cart %}
-                <li>{{ item.name }} - Rs.{{ item.price }}</li>
-            {% endfor %}
-        </ul>
-        <p>Total: Rs.{{ total }}</p>
-        <a href="{{ url_for('place_order') }}">Place Order</a>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
-    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
-      {% endif %}
-    {% endwith %}
+    <div class="bg-shape shape1"></div>
+    <div class="bg-shape shape2"></div>
+    <div class="container">
+        <h2>Your Cart</h2>
+        {% if cart %}
+            <ul class="cart-list">
+                {% for item in cart %}
+                    <li>{{ item.name }} - Rs.{{ item.price }}</li>
+                {% endfor %}
+            </ul>
+            <div class="total">Total: Rs.{{ total }}</div>
+            <div class="cart-actions">
+                <a href="{{ url_for('place_order') }}" class="cart-btn">Place Order</a>
+                <a href="{{ url_for('home') }}" class="cart-btn" style="background: #6246ea;">Back to Home</a>
+            </div>
+        {% else %}
+            <div style="text-align:center; color:#b91c1c; font-weight:600; margin-bottom:2em;">
+                Your cart is empty.
+            </div>
+            <div class="cart-actions" style="justify-content: center;">
+                <a href="{{ url_for('home') }}" class="cart-btn" style="background: #6246ea;">Back to Home</a>
+            </div>
+        {% endif %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="messages">
+                <ul style="margin:0; padding-left:18px; text-align:left;">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>
