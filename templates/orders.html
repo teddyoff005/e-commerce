@@ -115,12 +115,12 @@
     <div class="bg-shape shape2"></div>
     <div class="container">
         <h2>My Orders</h2>
-        {% if orders %}
-            {% for order in orders %}
+        {% if user_orders %}
+            {% for order in user_orders %}
                 <div class="order-block">
                     <ul>
                         {% for item in order.items %}
-                            <li>{{ item.name }} - Rs.{{ item.price }}</li>
+                            <li>{{ item.product }} - {{ item.name }} - Rs.{{ item.price }}</li>
                         {% endfor %}
                     </ul>
                 </div>

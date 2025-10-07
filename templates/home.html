@@ -50,6 +50,14 @@
             color: #232946;
             font-weight: 700;
         }
+        .section-title {
+            font-size: 1.5rem;
+            margin-top: 36px;
+            margin-bottom: 18px;
+            color: #6246ea;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
         .search-bar {
             width: 100%;
             max-width: 400px;
@@ -84,6 +92,9 @@
         }
         .search-btn:hover {
             background: #16a34a;
+        }
+        .products-section {
+            margin-bottom: 40px;
         }
         .products-list {
             display: grid;
@@ -161,15 +172,21 @@
     <script>
         function filterProducts() {
             const input = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.getElementsByClassName('product-card');
-            for (let card of cards) {
-                const name = card.getAttribute('data-name').toLowerCase();
-                const variety = card.getAttribute('data-variety').toLowerCase();
-                if (name.includes(input) || variety.includes(input)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
+            const sections = document.getElementsByClassName('products-section');
+            for (let section of sections) {
+                let foundInSection = false;
+                const cards = section.getElementsByClassName('product-card');
+                for (let card of cards) {
+                    const name = card.getAttribute('data-name').toLowerCase();
+                    const variety = card.getAttribute('data-variety').toLowerCase();
+                    if (name.includes(input) || variety.includes(input)) {
+                        card.style.display = '';
+                        foundInSection = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
                 }
+                section.style.display = foundInSection ? '' : 'none';
             }
         }
     </script>
@@ -193,19 +210,123 @@
             <input type="text" id="searchInput" placeholder="Search products or varieties..." onkeyup="filterProducts()">
             <button class="search-btn" onclick="filterProducts()">Search</button>
         </div>
-        <div class="products-list">
-            {% for product in products %}
-                {% for variety in product.varieties %}
-                <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
-                    <span class="product-name">{{ product.name }}</span>
-                    <span class="product-variety">{{ variety.name }}</span>
-                    <span class="product-price">Rs.{{ variety.price }}</span>
-                    {% if session.user %}
-                        <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
-                    {% endif %}
-                </div>
+
+        <!-- Electronics Section -->
+        <div class="products-section" id="electronics">
+            <div class="section-title">Electronics</div>
+            <div class="products-list">
+                {% for product in products if product.name in [
+                    'Laptop', 'Smartphone', 'Headphones', 'Smartwatch', 'Bluetooth Speaker', 'Desk Lamp', 'Wireless Mouse'
+                ] %}
+                    {% for variety in product.varieties %}
+                    <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-variety">{{ variety.name }}</span>
+                        <span class="product-price">Rs.{{ variety.price }}</span>
+                        {% if session.user %}
+                            <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
                 {% endfor %}
-            {% endfor %}
+            </div>
+        </div>
+
+        <!-- Fashion Section -->
+        <div class="products-section" id="fashion">
+            <div class="section-title">Fashion & Dresses</div>
+            <div class="products-list">
+                {% for product in products if 'Dress' in product.name or product.name == 'Shoes' or product.name == 'Sunglasses' or product.name == 'Backpack' %}
+                    {% for variety in product.varieties %}
+                    <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-variety">{{ variety.name }}</span>
+                        <span class="product-price">Rs.{{ variety.price }}</span>
+                        {% if session.user %}
+                            <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Books Section -->
+        <div class="products-section" id="books">
+            <div class="section-title">Books</div>
+            <div class="products-list">
+                {% for product in products if product.name == 'Book' %}
+                    {% for variety in product.varieties %}
+                    <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-variety">{{ variety.name }}</span>
+                        <span class="product-price">Rs.{{ variety.price }}</span>
+                        {% if session.user %}
+                            <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Home & Kitchen Section -->
+        <div class="products-section" id="home-kitchen">
+            <div class="section-title">Home & Kitchen</div>
+            <div class="products-list">
+                {% for product in products if product.name in ['Water Bottle'] %}
+                    {% for variety in product.varieties %}
+                    <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-variety">{{ variety.name }}</span>
+                        <span class="product-price">Rs.{{ variety.price }}</span>
+                        {% if session.user %}
+                            <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Vehicles Section -->
+        <div class="products-section" id="vehicles">
+            <div class="section-title">Vehicles</div>
+            <div class="products-list">
+                {% for product in products if product.name in ['Cycle', 'Bike', 'Car'] %}
+                    {% for variety in product.varieties %}
+                    <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-variety">{{ variety.name }}</span>
+                        <span class="product-price">Rs.{{ variety.price }}</span>
+                        {% if session.user %}
+                            <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Appliances & Gadgets Section -->
+        <div class="products-section" id="appliances">
+            <div class="section-title">Appliances & Gadgets</div>
+            <div class="products-list">
+                {% for product in products if product.name in [
+                    'Tablet', 'Camera', 'Gaming Console', 'Television', 'Refrigerator', 'Washing Machine', 'Microwave Oven'
+                ] %}
+                    {% for variety in product.varieties %}
+                    <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
+                        <span class="product-name">{{ product.name }}</span>
+                        <span class="product-variety">{{ variety.name }}</span>
+                        <span class="product-price">Rs.{{ variety.price }}</span>
+                        {% if session.user %}
+                            <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 </body>
