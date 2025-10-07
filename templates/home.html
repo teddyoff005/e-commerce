@@ -205,18 +205,15 @@
                 <a href="{{ url_for('register') }}">Register</a>
             {% endif %}
         </div>
-        <h2>Products</h2>
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search products or varieties..." onkeyup="filterProducts()">
-            <button class="search-btn" onclick="filterProducts()">Search</button>
-        </div>
+        {% block content %}
+        <h2 style="font-family: 'Montserrat', Arial, sans-serif; font-weight:900; color:#232946; margin-bottom:24px;">Products</h2>
 
         <!-- Electronics Section -->
         <div class="products-section" id="electronics">
-            <div class="section-title">Electronics</div>
+            <div class="section-title" style="font-size:1.3rem; color:#ff9900; font-weight:700; margin-bottom:12px;">Electronics</div>
             <div class="products-list">
                 {% for product in products if product.name in [
-                    'Laptop', 'Smartphone', 'Headphones', 'Smartwatch', 'Bluetooth Speaker', 'Desk Lamp', 'Wireless Mouse'
+                    'Laptop', 'Smartphone', 'Headphones', 'Smartwatch', 'Bluetooth Speaker', 'Desk Lamp', 'Wireless Mouse', 'Tablet', 'Camera', 'Gaming Console', 'Television'
                 ] %}
                     {% for variety in product.varieties %}
                     <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
@@ -328,6 +325,7 @@
                 {% endfor %}
             </div>
         </div>
+        {% endblock %}
     </div>
 </body>
 </html>

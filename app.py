@@ -222,12 +222,28 @@ users = {}
 orders = []
 
 @app.route('/')
-def landing():
+def root():
+    return redirect(url_for('cover'))
+
+@app.route('/cover')
+def cover():
     return render_template('landing.html')
 
 @app.route('/home')
 def home():
-    return render_template('home.html', products=products)
+    query = request.args.get('q', '').lower()
+    filtered_products = []
+    for product in products:
+        filtered_varieties = [
+            v for v in product['varieties']
+            if not query or query in v['name'].lower() or query in product['name'].lower()
+        ]
+        if filtered_varieties:
+            filtered_products.append({
+                'name': product['name'],
+                'varieties': filtered_varieties
+            })
+    return render_template('home.html', products=filtered_products)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -317,7 +333,7 @@ def my_orders():
             user_orders.append({'items': items})
     return render_template('orders.html', user_orders=user_orders)
 
-@app.route('/checkout')
+@app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     if 'user' not in session:
         flash('Please log in first.')
@@ -330,6 +346,25 @@ def checkout():
         if item:
             cart_items.append(item)
             total += item['price']
+    if request.method == 'POST':
+        name = request.form.get('name')
+        address = request.form.get('address')
+        method = request.form.get('method')
+        if not name or not address or not method:
+            flash('Please fill all checkout details.')
+            return render_template('checkout.html', cart=cart_items, total=total)
+        # Save order (add name, address, method to order)
+        orders.append({
+            'user': session['user'],
+            'items': cart_ids,
+            'name': name,
+            'address': address,
+            'method': method,
+            'total': total
+        })
+        session['cart'] = []
+        flash('Order placed successfully!')
+        return redirect(url_for('my_orders'))
     return render_template('checkout.html', cart=cart_items, total=total)
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Checkout - E-Commerce Store</title>
+    <title>Checkout - One Stop Store</title>
     <style>
         body {
             margin: 0;
@@ -10,7 +10,6 @@
             min-height: 100vh;
             background: radial-gradient(ellipse at top left, #a1c4fd 0%, #c2e9fb 60%, #232946 100%);
             font-family: 'Segoe UI', Arial, sans-serif;
-            overflow: hidden;
         }
         .bg-shape {
             position: fixed;
@@ -74,6 +73,24 @@
             margin-bottom: 1.5em;
             text-align: right;
         }
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 1.5em;
+        }
+        .checkout-form input, .checkout-form textarea, .checkout-form select {
+            padding: 10px 12px;
+            border-radius: 7px;
+            border: 1.5px solid #c7d2fe;
+            font-size: 1rem;
+            background: #f3f4f8;
+            transition: border 0.2s;
+        }
+        .checkout-form input:focus, .checkout-form textarea:focus, .checkout-form select:focus {
+            border: 1.5px solid #6246ea;
+            outline: none;
+        }
         .cart-actions {
             display: flex;
             justify-content: space-between;
@@ -96,6 +113,14 @@
             background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
             box-shadow: 0 4px 16px rgba(22,163,74,0.13);
         }
+        .messages {
+            margin-top: 1.5em;
+            color: #b91c1c;
+            background: #ffe5e5;
+            border-radius: 6px;
+            padding: 8px 0;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -110,8 +135,21 @@
                 {% endfor %}
             </ul>
             <div class="total">Total: Rs.{{ total }}</div>
+            <div style="font-size:1.15rem; font-weight:700; color:#232946; margin-bottom:1.5em; text-align:right;">
+                Amount to Pay: <span style="color:#16a34a;">Rs.{{ total }}</span>
+            </div>
+            <form class="checkout-form" method="post" action="{{ url_for('checkout') }}">
+                <input type="text" name="name" placeholder="Full Name" required>
+                <textarea name="address" placeholder="Delivery Address" rows="3" required></textarea>
+                <select name="method" required>
+                    <option value="">Select Checkout Method</option>
+                    <option value="Cash on Delivery">Cash on Delivery</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Credit/Debit Card">Credit/Debit Card</option>
+                </select>
+                <button type="submit" class="cart-btn" style="width:100%;">Confirm Order</button>
+            </form>
             <div class="cart-actions">
-                <a href="{{ url_for('place_order') }}" class="cart-btn">Confirm Order</a>
                 <a href="{{ url_for('view_cart') }}" class="cart-btn" style="background: #6246ea;">Back to Cart</a>
             </div>
         {% else %}
@@ -122,6 +160,17 @@
                 <a href="{{ url_for('home') }}" class="cart-btn" style="background: #6246ea;">Back to Home</a>
             </div>
         {% endif %}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="messages">
+                <ul style="margin:0; padding-left:18px; text-align:left;">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
     </div>
 </body>
 </html>
