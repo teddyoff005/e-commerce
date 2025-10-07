@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+</head>
+<body>
+    <h2>My Orders</h2>
+    {% if orders %}
+        {% for order in orders %}
+            <ul>
+                {% for item in order.items %}
+                    <li>{{ item.name }} - Rs.{{ item.price }}</li>
+                {% endfor %}
+            </ul>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

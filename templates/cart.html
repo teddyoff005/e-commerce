@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Cart</title>
+</head>
+<body>
+    <h2>Your Cart</h2>
+    {% if cart %}
+        <ul>
+            {% for item in cart %}
+                <li>{{ item.name }} - Rs.{{ item.price }}</li>
+            {% endfor %}
+        </ul>
+        <p>Total: Rs.{{ total }}</p>
+        <a href="{{ url_for('place_order') }}">Place Order</a>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+      {% endif %}
+    {% endwith %}
+</body>
+</html>

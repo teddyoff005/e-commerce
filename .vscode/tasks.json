@@ -1,0 +1,32 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run E-Commerce Store",
+			"type": "shell",
+			"command": "\"C:/Users/Tanmoy Dev/OneDrive/Desktop/e-commerce/.venv/Scripts/python.exe\" main.py",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run E-Commerce Store",
+			"type": "shell",
+			"command": "& 'C:/Users/Tanmoy Dev/OneDrive/Desktop/e-commerce/.venv/Scripts/python.exe' main.py",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run E-Commerce Store",
+			"type": "shell",
+			"command": "python main.py",
+			"args": [],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
