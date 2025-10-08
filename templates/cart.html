@@ -44,6 +44,8 @@
             padding: 40px 32px 32px 32px;
             position: relative;
             z-index: 1;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         h2 {
             font-size: 2rem;
@@ -56,6 +58,25 @@
             list-style: none;
             padding: 0;
             margin-bottom: 1.5em;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 8px;
+        }
+        .cart-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .cart-list::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 3px;
+        }
+        .cart-list::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .cart-list::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
         .cart-list li {
             background: #f3f4f8;
@@ -114,7 +135,18 @@
         {% if cart %}
             <ul class="cart-list">
                 {% for item in cart %}
-                    <li>{{ item.name }} - Rs.{{ item.price }}</li>
+                    <li>
+                        {{ item.name }}
+                        {% if item.get('discount', 0) > 0 %}
+                            <br>
+                            <span style="color: #b91c1c; text-decoration: line-through; font-size: 0.9em;">Original: Rs.{{ item.original_price }}</span>
+                            <br>
+                            <span style="color: #16a34a; font-weight: 700;">Discounted: Rs.{{ "%.0f"|format(item.discounted_price) }}</span>
+                            <span style="color: #16a34a; font-size: 0.9em;">({{ item.discount }}% off)</span>
+                        {% else %}
+                            - Rs.{{ item.price }}
+                        {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
             <div class="total">Total: Rs.{{ total }}</div>

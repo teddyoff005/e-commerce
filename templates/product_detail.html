@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:500px;margin:40px auto;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(60,72,88,0.10);padding:32px;">
+    <h2 style="font-family:'Montserrat',Arial,sans-serif;font-weight:900;color:#232946;">{{ variety.product }} - {{ variety.name }}</h2>
+    <h3 style="color:#16a34a;">
+        {% if variety.discount and variety.discount > 0 %}
+            <span style="text-decoration:line-through;color:#b91c1c;">Rs.{{ variety.price }}</span>
+            <span style="color:#16a34a;font-weight:700;margin-left:8px;">
+                Rs.{{ variety.price - (variety.price * variety.discount // 100) }}
+            </span>
+            <span style="color:#ff9800;font-size:0.95em;margin-left:6px;">
+                ({{ variety.discount }}% OFF{% if variety.occasion %} - {{ variety.occasion }}{% endif %})
+            </span>
+        {% else %}
+            Rs.{{ variety.price }}
+        {% endif %}
+    </h3>
+    <hr>
+    <h4 style="margin-top:24px;">Product Details</h4>
+    <ul style="list-style:none;padding:0;">
+        {% for key, value in variety.details.items() %}
+            <li style="margin-bottom:8px;"><b>{{ key }}:</b> {{ value }}</li>
+        {% endfor %}
+    </ul>
+    {% if session.user %}
+        <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}" style="margin-top:24px;display:inline-block;">Add to Cart</a>
+    {% endif %}
+    <a href="{{ url_for('home') }}" class="back-btn" style="margin-left:16px;">Back to Products</a>
+</div>
+{% endblock %}
