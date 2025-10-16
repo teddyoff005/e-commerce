@@ -2123,6 +2123,8 @@ def view_cart():
             total += discounted_price
     return render_template('cart.html', cart=cart_items, total=total)
 
+# NOTE: The place_order route is redundant since checkout handles order placement, 
+# but is left here for completeness if other parts of your code rely on it.
 @app.route('/place_order')
 def place_order():
     if 'user' not in session:
@@ -2137,17 +2139,19 @@ def place_order():
     flash('Order placed successfully!')
     return redirect(url_for('view_cart'))
 
-@app.route('/my_orders')
+# =================================================================================
+# FIX APPLIED: Corrected logic for fetching and structuring order data for the template
+# =================================================================================
+@app.route('/orders')
 def my_orders():
     if 'user' not in session:
-        flash('Please log in first.')
         return redirect(url_for('login'))
-    user_orders = []
-    for o in orders:
-        if o['user'] == session['user']:
-            items = [get_variety_by_id(pid) for pid in o['items']]
-            user_orders.append({'items': items})
+    user_orders = [o for o in orders if o['user'] == session['user']]
     return render_template('orders.html', user_orders=user_orders)
+
+@app.route('/wishlist')
+def wishlist():
+    return render_template('wishlist.html')
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
@@ -2181,8 +2185,9 @@ def checkout():
             return render_template('checkout.html', cart=cart_items, total=total)
         # Save order (add name, address, method to order)
         orders.append({
+            'id': len(orders) + 1,
             'user': session['user'],
-            'items': cart_ids,
+            'order_items': cart_items,  # Save full item details
             'name': name,
             'address': address,
             'method': method,

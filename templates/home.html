@@ -104,7 +104,7 @@
         .product-card {
             background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 100%);
             border-radius: 14px;
-            padding: 28px 22px 22px 22px;
+            padding: 0;
             box-shadow: 0 2px 12px rgba(60,72,88,0.07);
             display: flex;
             flex-direction: column;
@@ -112,11 +112,24 @@
             transition: box-shadow 0.2s, transform 0.2s;
             border: 2px solid #c7d2fe;
             position: relative;
+            overflow: hidden;
         }
         .product-card:hover {
             box-shadow: 0 8px 32px rgba(60,72,88,0.16);
             transform: translateY(-3px) scale(1.02);
             border-color: #6246ea;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 22px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
         .product-name {
             font-size: 1.18rem;
@@ -213,6 +226,34 @@
             document.getElementById('searchInput').value = '';
             filterProducts();
         }
+
+        function sortProducts() {
+            const sortValue = document.getElementById('sortOptions').value;
+            if (sortValue === 'default') {
+                return;
+            }
+
+            const productSections = document.querySelectorAll('.product-category-section');
+            productSections.forEach(section => {
+                const productList = section.querySelector('.products-list');
+                const products = Array.from(productList.querySelectorAll('.product-card'));
+
+                products.sort((a, b) => {
+                    const priceA = parseFloat(a.dataset.price);
+                    const priceB = parseFloat(b.dataset.price);
+
+                    if (sortValue === 'price-asc') {
+                        return priceA - priceB;
+                    } else {
+                        return priceB - priceA;
+                    }
+                });
+
+                // Clear the list and append sorted products
+                productList.innerHTML = '';
+                products.forEach(p => productList.appendChild(p));
+            });
+        }
         
         // Add Enter key support
         document.addEventListener('DOMContentLoaded', function() {
@@ -247,6 +288,14 @@
             <button class="search-btn" onclick="filterProducts()">Search</button>
             <button class="search-btn" onclick="clearSearch()" style="background: #dc2626;">Clear</button>
         </div>
+        <div class="sorting-container" style="margin-bottom: 24px;">
+            <label for="sortOptions" style="font-weight: 600; margin-right: 8px;">Sort by:</label>
+            <select id="sortOptions" onchange="sortProducts()" style="padding: 8px; border-radius: 6px; border: 1.5px solid #c7d2fe;">
+                <option value="default">Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+            </select>
+        </div>
         <h2 style="font-family: 'Montserrat', Arial, sans-serif; font-weight:900; color:#232946; margin-bottom:24px;">Products</h2>
 
         {% set categories = [
@@ -262,26 +311,32 @@
                     </div>
                     <div class="products-list" style="margin-bottom:0;">
                         {% for variety in cat_products[0].varieties %}
-                        <div class="product-card" data-name="{{ category }}" data-variety="{{ variety.name }}">
+                        <div class="product-card" data-name="{{ category }}" data-variety="{{ variety.name }}" data-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}">
                             <a href="{{ url_for('product_detail', pid=variety.id) }}" style="text-decoration:none;color:inherit;display:block;">
-                                <span class="product-variety" style="font-weight:700;font-size:1.08rem;">{{ variety.name }}</span>
-                                {% if variety.discount and variety.discount > 0 %}
-                                    <span class="product-price" style="display:block;">
-                                        <span style="text-decoration:line-through;color:#b91c1c;">Rs.{{ variety.price }}</span>
-                                        <span style="color:#16a34a;font-weight:700;margin-left:8px;">
-                                            Rs.{{ variety.price - (variety.price * variety.discount // 100) }}
+                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="https://via.placeholder.com/260x200.png?text={{ variety.name }}" alt="{{ variety.name }}" class="product-image lazy">
+                                <div class="product-info">
+                                    <span class="product-variety" style="font-weight:700;font-size:1.08rem;">{{ variety.name }}</span>
+                                    {% if variety.discount and variety.discount > 0 %}
+                                        <span class="product-price" style="display:block;">
+                                            <span style="text-decoration:line-through;color:#b91c1c;">Rs.{{ variety.price }}</span>
+                                            <span style="color:#16a34a;font-weight:700;margin-left:8px;">
+                                                Rs.{{ variety.price - (variety.price * variety.discount // 100) }}
+                                            </span>
+                                            <span style="color:#ff9800;font-size:0.95em;margin-left:6px;">
+                                                ({{ variety.discount }}% OFF{% if variety.occasion %} - {{ variety.occasion }}{% endif %})
+                                            </span>
                                         </span>
-                                        <span style="color:#ff9800;font-size:0.95em;margin-left:6px;">
-                                            ({{ variety.discount }}% OFF{% if variety.occasion %} - {{ variety.occasion }}{% endif %})
-                                        </span>
-                                    </span>
-                                {% else %}
-                                    <span class="product-price" style="display:block;">Rs.{{ variety.price }}</span>
-                                {% endif %}
-                                <span style="color:#6246ea;font-size:0.98rem;text-decoration:underline;display:inline-block;margin-top:8px;">View Details</span>
+                                    {% else %}
+                                        <span class="product-price" style="display:block;">Rs.{{ variety.price }}</span>
+                                    {% endif %}
+                                    <span style="color:#6246ea;font-size:0.98rem;text-decoration:underline;display:inline-block;margin-top:8px;">View Details</span>
+                                </div>
                             </a>
                             {% if session.user %}
-                                <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                                <div style="padding: 0 22px 22px 22px; margin-top: auto; align-self: flex-end; display: flex; gap: 8px;">
+                                    <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
+                                    <button class="add-to-wishlist-btn" data-product-id="{{ variety.id }}" data-product-name="{{ variety.name }}" data-product-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}">❤️</button>
+                                </div>
                             {% endif %}
                         </div>
                         {% endfor %}

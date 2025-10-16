@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Wishlist - E-Commerce Store</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at top left, #a1c4fd 0%, #c2e9fb 60%, #232946 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 500px;
+            margin: 70px auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(60,72,88,0.18);
+            padding: 40px 32px 32px 32px;
+            position: relative;
+            z-index: 1;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #232946;
+            margin-bottom: 1.2em;
+            text-align: center;
+        }
+        .wishlist-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5em;
+        }
+        .wishlist-list li {
+            background: #f3f4f8;
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 1.08rem;
+            font-weight: 600;
+            color: #232946;
+            box-shadow: 0 2px 8px rgba(60,72,88,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .remove-btn {
+            background: #dc2626;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Wishlist</h2>
+        <div id="wishlist-items">
+            <!-- Wishlist items will be injected here by JavaScript -->
+        </div>
+        <a href="{{ url_for('home') }}" class="back-btn" style="display: block; text-align: center; margin-top: 20px;">Back to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const wishlistContainer = document.getElementById('wishlist-items');
+
+            if (wishlist.length === 0) {
+                wishlistContainer.innerHTML = '<p style="text-align: center;">Your wishlist is empty.</p>';
+                return;
+            }
+
+            const ul = document.createElement('ul');
+ul.className = 'wishlist-list';
+            wishlist.forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>${item.name} - Rs. ${item.price}</span> <button class="remove-btn" data-id="${item.id}">Remove</button>`;
+                ul.appendChild(li);
+            });
+
+            wishlistContainer.appendChild(ul);
+
+            wishlistContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-btn')) {
+                    const productId = e.target.dataset.id;
+                    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                    wishlist = wishlist.filter(item => item.id !== productId);
+                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                    location.reload(); // Reload to update the list
+                }
+            });
+        });
+    </script>
+</body>
+</html>

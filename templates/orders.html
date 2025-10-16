@@ -58,22 +58,37 @@
             padding: 18px 20px 12px 20px;
             margin-bottom: 22px;
             box-shadow: 0 2px 8px rgba(60,72,88,0.06);
+            border: 1px solid #c7d2fe; 
         }
         .order-block ul {
             list-style: none;
             padding: 0;
-            margin: 0 0 8px 0;
+            margin: 10px 0 0 0;
         }
         .order-block li {
-            font-size: 1.08rem;
-            font-weight: 600;
+            font-size: 1rem;
             color: #232946;
             margin-bottom: 6px;
+            padding: 4px 0;
+            border-bottom: 1px dotted #e0e7ff;
         }
-        .order-divider {
-            border: none;
-            border-top: 1.5px solid #c7d2fe;
-            margin: 18px 0;
+        .order-block h4 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            color: #6246ea;
+        }
+        .order-block p {
+            margin: 4px 0;
+            font-size: 1.05rem;
+        }
+        .total-summary {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #16a34a;
+            margin-top: 15px;
+            text-align: right;
+            padding-top: 10px;
+            border-top: 2px dashed #c7d2fe;
         }
         .no-orders {
             text-align: center;
@@ -82,7 +97,8 @@
             margin-bottom: 2em;
         }
         .back-btn {
-            display: inline-block;
+            display: block; 
+            width: fit-content;
             background: linear-gradient(90deg, #6246ea 60%, #16a34a 100%);
             color: #fff;
             border: none;
@@ -94,7 +110,7 @@
             transition: background 0.2s, box-shadow 0.2s;
             text-decoration: none;
             box-shadow: 0 2px 8px rgba(98,70,234,0.08);
-            margin: 0 auto;
+            margin: 20px auto 0 auto; 
         }
         .back-btn:hover {
             background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
@@ -118,15 +134,38 @@
         {% if user_orders %}
             {% for order in user_orders %}
                 <div class="order-block">
+                    <h4>Order #{{ order.id }} Details</h4>
+                    <p><strong>Total Paid:</strong> <span style="color:#16a34a;">Rs.{{ "%.2f"|format(order.total) }}</span></p>
+                    <p><strong>Shipping To:</strong> {{ order.name }}</p>
+                    <p><strong>Address:</strong> {{ order.address }}</p>
+                    <p><strong>Payment Method:</strong> {{ order.method }}</p>
+
+                    <h4 style="font-size: 1.15rem; color:#232946; margin-top: 12px; border-top: 1px dashed #c7d2fe; padding-top: 10px;">Products Ordered:</h4>
                     <ul>
-                        {% for item in order.items %}
-                            <li>{{ item.product }} - {{ item.name }} - Rs.{{ item.price }}</li>
+                        {% for item in order.order_items %}
+                            <li>
+                                <strong>{{ item.name }}</strong> ({{ item.product }}) 
+                                {% if item.get('discount', 0) > 0 %}
+                                    <br>
+                                    <span style="color: #b91c1c; text-decoration: line-through; font-size: 0.9em;">(Rs.{{ "%.0f"|format(item.price) }})</span>
+                                    <span style="color: #16a34a; font-weight: 700;">Rs.{{ "%.0f"|format(item.discounted_price) }}</span>
+                                    <span style="color: #16a34a; font-size: 0.9em;">({{ item.discount }}% off)</span>
+                                {% else %}
+                                    - Rs.{{ "%.0f"|format(item.price) }}
+                                {% endif %}
+                            </li>
                         {% endfor %}
                     </ul>
+                    <div class="total-summary">
+                        Order Total: Rs.{{ "%.2f"|format(order.total) }}
+                    </div>
                 </div>
             {% endfor %}
         {% else %}
-            <div class="no-orders">No orders found.</div>
+            <div class="no-orders">
+                <p>You haven't placed any orders yet.</p>
+                <p>Time to shop!</p>
+            </div>
         {% endif %}
         <a href="{{ url_for('home') }}" class="back-btn">Back to Home</a>
         {% with messages = get_flashed_messages() %}
