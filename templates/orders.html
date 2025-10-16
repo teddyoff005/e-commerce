@@ -1,184 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Orders - E-Commerce Store</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            background: radial-gradient(ellipse at top left, #a1c4fd 0%, #c2e9fb 60%, #232946 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            overflow: hidden;
-        }
-        .bg-shape {
-            position: fixed;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .shape1 {
-            top: -120px;
-            left: -120px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, #6246ea 0%, #a1c4fd 80%, transparent 100%);
-            border-radius: 50%;
-            opacity: 0.45;
-        }
-        .shape2 {
-            bottom: -100px;
-            right: -100px;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, #16a34a 0%, #c2e9fb 80%, transparent 100%);
-            border-radius: 50%;
-            opacity: 0.35;
-        }
-        .container {
-            max-width: 600px;
-            margin: 70px auto;
-            background: rgba(255,255,255,0.97);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(60,72,88,0.18);
-            padding: 40px 32px 32px 32px;
-            position: relative;
-            z-index: 1;
-        }
-        h2 {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #232946;
-            margin-bottom: 1.2em;
-            text-align: center;
-        }
-        .order-block {
-            background: #f3f4f8;
-            border-radius: 12px;
-            padding: 18px 20px 12px 20px;
-            margin-bottom: 22px;
-            box-shadow: 0 2px 8px rgba(60,72,88,0.06);
-            border: 1px solid #c7d2fe; 
-        }
-        .order-block ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 0 0;
-        }
-        .order-block li {
-            font-size: 1rem;
-            color: #232946;
-            margin-bottom: 6px;
-            padding: 4px 0;
-            border-bottom: 1px dotted #e0e7ff;
-        }
-        .order-block h4 {
-            font-size: 1.25rem;
-            margin-bottom: 8px;
-            color: #6246ea;
-        }
-        .order-block p {
-            margin: 4px 0;
-            font-size: 1.05rem;
-        }
-        .total-summary {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #16a34a;
-            margin-top: 15px;
-            text-align: right;
-            padding-top: 10px;
-            border-top: 2px dashed #c7d2fe;
-        }
-        .no-orders {
-            text-align: center;
-            color: #b91c1c;
-            font-weight: 600;
-            margin-bottom: 2em;
-        }
-        .back-btn {
-            display: block; 
-            width: fit-content;
-            background: linear-gradient(90deg, #6246ea 60%, #16a34a 100%);
-            color: #fff;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 7px;
-            font-size: 1.08rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
-            margin: 20px auto 0 auto; 
-        }
-        .back-btn:hover {
-            background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
-            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
-        }
-        .messages {
-            margin-top: 1.5em;
-            color: #b91c1c;
-            background: #ffe5e5;
-            border-radius: 6px;
-            padding: 8px 0;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <div class="bg-shape shape1"></div>
-    <div class="bg-shape shape2"></div>
-    <div class="container">
-        <h2>My Orders</h2>
-        {% if user_orders %}
-            {% for order in user_orders %}
-                <div class="order-block">
-                    <h4>Order #{{ order.id }} Details</h4>
-                    <p><strong>Total Paid:</strong> <span style="color:#16a34a;">Rs.{{ "%.2f"|format(order.total) }}</span></p>
+
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+    .content-wrapper {
+        max-width: 800px;
+        margin: 40px auto;
+    }
+
+    .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        font-family: 'Space Grotesk', sans-serif;
+        background: linear-gradient(135deg, #00d9ff, #9d4edd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 40px;
+    }
+
+    .order-block {
+        backdrop-filter: blur(10px);
+        background: rgba(20, 25, 50, 0.4);
+        border: 1px solid rgba(100, 100, 255, 0.15);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
+    }
+
+    .order-header h2 {
+        font-size: 1.5rem;
+        font-family: 'Space Grotesk', sans-serif;
+        color: #00d9ff;
+        margin: 0 0 20px 0;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(100, 100, 255, 0.15);
+    }
+
+    .order-details p {
+        margin: 0 0 10px 0;
+        color: #c0c0e0;
+        font-size: 1rem;
+    }
+
+    .order-details p strong {
+        color: #e0e0ff;
+        font-weight: 600;
+    }
+
+    .products-title {
+        font-size: 1.2rem;
+        color: #c0c0e0;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(100, 100, 255, 0.15);
+    }
+
+    .product-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .product-list li {
+        background: rgba(30, 35, 70, 0.6);
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .order-total {
+        text-align: right;
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #50fa7b;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(100, 100, 255, 0.15);
+    }
+
+    .no-orders-message, .back-action {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .no-orders-message p {
+        font-size: 1.2rem;
+        color: #a0a0c0;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+    <h1 class="page-title">My Order History</h1>
+
+    {% if user_orders %}
+        {% for order in user_orders %}
+            <div class="order-block">
+                <div class="order-header">
+                    <h2>Order #{{ order.id }}</h2>
+                </div>
+                <div class="order-details">
                     <p><strong>Shipping To:</strong> {{ order.name }}</p>
                     <p><strong>Address:</strong> {{ order.address }}</p>
                     <p><strong>Payment Method:</strong> {{ order.method }}</p>
-
-                    <h4 style="font-size: 1.15rem; color:#232946; margin-top: 12px; border-top: 1px dashed #c7d2fe; padding-top: 10px;">Products Ordered:</h4>
-                    <ul>
-                        {% for item in order.order_items %}
-                            <li>
-                                <strong>{{ item.name }}</strong> ({{ item.product }}) 
-                                {% if item.get('discount', 0) > 0 %}
-                                    <br>
-                                    <span style="color: #b91c1c; text-decoration: line-through; font-size: 0.9em;">(Rs.{{ "%.0f"|format(item.price) }})</span>
-                                    <span style="color: #16a34a; font-weight: 700;">Rs.{{ "%.0f"|format(item.discounted_price) }}</span>
-                                    <span style="color: #16a34a; font-size: 0.9em;">({{ item.discount }}% off)</span>
-                                {% else %}
-                                    - Rs.{{ "%.0f"|format(item.price) }}
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <div class="total-summary">
-                        Order Total: Rs.{{ "%.2f"|format(order.total) }}
-                    </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            <div class="no-orders">
-                <p>You haven't placed any orders yet.</p>
-                <p>Time to shop!</p>
-            </div>
-        {% endif %}
-        <a href="{{ url_for('home') }}" class="back-btn">Back to Home</a>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="messages">
-                <ul style="margin:0; padding-left:18px; text-align:left;">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
+
+                <h3 class="products-title">Products Ordered:</h3>
+                <ul class="product-list">
+                    {% for item in order.order_items %}
+                        <li>
+                            <span>{{ item.name }} ({{ item.product }})</span>
+                            <span>Rs.{{ "%.0f"|format(item.discounted_price) if item.get('discount', 0) > 0 else item.price }}</span>
+                        </li>
                     {% endfor %}
                 </ul>
+
+                <div class="order-total">
+                    Order Total: Rs.{{ "%.2f"|format(order.total) }}
+                </div>
             </div>
-          {% endif %}
-        {% endwith %}
+        {% endfor %}
+    {% else %}
+        <div class="no-orders-message">
+            <p>You haven't placed any orders yet.</p>
+        </div>
+    {% endif %}
+
+    <div class="back-action">
+        <a href="{{ url_for('home') }}" class="theme-button">Back to Home</a>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

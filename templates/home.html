@@ -1,351 +1,334 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>One Stop Store</title>
-    <!-- Google Fonts for a modern look -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 48px auto;
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(60,72,88,0.13);
-            padding: 48px 56px 56px 56px;
-        }
-        h1 {
-            font-size: 2.8rem;
-            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-            font-weight: 900;
-            color: #232946;
-            margin-bottom: 0.5em;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 24px rgba(98,70,234,0.10);
-        }
-        .nav {
-            margin-bottom: 32px;
-        }
-        .nav a {
-            color: #6246ea;
-            text-decoration: none;
-            margin-right: 24px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: color 0.2s;
-        }
-        .nav a:hover {
-            color: #16a34a;
-        }
-        h2 {
-            font-size: 2rem;
-            margin-top: 32px;
-            margin-bottom: 18px;
-            color: #232946;
-            font-weight: 700;
-        }
-        .section-title {
-            font-size: 1.5rem;
-            margin-top: 36px;
-            margin-bottom: 18px;
-            color: #6246ea;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .search-bar {
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 32px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .search-bar input[type="text"] {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: 8px;
-            border: 1.5px solid #c7d2fe;
-            font-size: 1.08rem;
-            background: #f3f4f8;
-            transition: border 0.2s;
-        }
-        .search-bar input[type="text"]:focus {
-            border: 1.5px solid #6246ea;
-            outline: none;
-        }
-        .search-btn {
-            background: #6246ea;
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        .search-btn:hover {
-            background: #16a34a;
-        }
-        .products-section {
-            margin-bottom: 40px;
-        }
-        .products-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 28px;
-        }
-        .product-card {
-            background: linear-gradient(135deg, #e0e7ff 0%, #f1f5f9 100%);
-            border-radius: 14px;
-            padding: 0;
-            box-shadow: 0 2px 12px rgba(60,72,88,0.07);
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            transition: box-shadow 0.2s, transform 0.2s;
-            border: 2px solid #c7d2fe;
-            position: relative;
-            overflow: hidden;
-        }
-        .product-card:hover {
-            box-shadow: 0 8px 32px rgba(60,72,88,0.16);
-            transform: translateY(-3px) scale(1.02);
-            border-color: #6246ea;
-        }
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        .product-info {
-            padding: 22px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .product-name {
-            font-size: 1.18rem;
-            font-weight: 700;
-            color: #232946;
-            margin-bottom: 8px;
-            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
-        }
-        .product-variety {
-            font-size: 1rem;
-            color: #4a4e69;
-            margin-bottom: 8px;
-        }
-        .product-price {
-            font-size: 1.08rem;
-            color: #16a34a;
-            margin-bottom: 18px;
-            font-weight: 600;
-        }
-        .add-btn {
-            background: linear-gradient(90deg, #6246ea 60%, #16a34a 100%);
-            color: #fff;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
-            margin-top: auto;
-            align-self: flex-end;
-        }
-        .add-btn:hover {
-            background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
-            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
-        }
-        @media (max-width: 900px) {
-            .container {
-                padding: 18px 2vw 32px 2vw;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-        }
-        @media (max-width: 600px) {
-            .products-list {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-    <script>
-        function filterProducts() {
-            const input = document.getElementById('searchInput').value.toLowerCase().trim();
-            const productSections = document.querySelectorAll('.product-category-section');
-            
-            if (input === '') {
-                // Show all products when search is empty
-                productSections.forEach(section => {
-                    section.style.display = '';
-                    const cards = section.querySelectorAll('.product-card');
-                    cards.forEach(card => card.style.display = '');
-                });
-                return;
-            }
-            
-            productSections.forEach(section => {
-                let foundInSection = false;
-                const cards = section.querySelectorAll('.product-card');
-                
-                cards.forEach(card => {
-                    const categoryName = card.getAttribute('data-name') ? card.getAttribute('data-name').toLowerCase() : '';
-                    const varietyName = card.getAttribute('data-variety') ? card.getAttribute('data-variety').toLowerCase() : '';
-                    
-                    // Search in category name, variety name, and also check for partial matches
-                    if (categoryName.includes(input) || 
-                        varietyName.includes(input) ||
-                        categoryName.split(' ').some(word => word.startsWith(input)) ||
-                        varietyName.split(' ').some(word => word.startsWith(input))) {
-                        card.style.display = '';
-                        foundInSection = true;
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                // Show/hide entire category section
-                section.style.display = foundInSection ? '' : 'none';
-            });
-        }
-        
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            filterProducts();
-        }
+{% extends "base.html" %}
 
-        function sortProducts() {
-            const sortValue = document.getElementById('sortOptions').value;
-            if (sortValue === 'default') {
-                return;
-            }
+{% block head %}
+<style>
+    /* Add canvas to the background */
+    #bg-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Behind all content */
+    }
 
-            const productSections = document.querySelectorAll('.product-category-section');
-            productSections.forEach(section => {
-                const productList = section.querySelector('.products-list');
-                const products = Array.from(productList.querySelectorAll('.product-card'));
+    .page-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
 
-                products.sort((a, b) => {
-                    const priceA = parseFloat(a.dataset.price);
-                    const priceB = parseFloat(b.dataset.price);
+    .page-title {
+        font-size: 3rem;
+        font-weight: 700;
+        font-family: 'Space Grotesk', sans-serif;
+        background: linear-gradient(135deg, #e8e8ff 0%, #9d4edd 50%, #00d9ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+    }
 
-                    if (sortValue === 'price-asc') {
-                        return priceA - priceB;
-                    } else {
-                        return priceB - priceA;
-                    }
-                });
+    .controls-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        backdrop-filter: blur(5px);
+        background: rgba(20, 25, 50, 0.4);
+        border: 1px solid rgba(100, 100, 255, 0.15);
+        border-radius: 12px;
+    }
 
-                // Clear the list and append sorted products
-                productList.innerHTML = '';
-                products.forEach(p => productList.appendChild(p));
-            });
-        }
-        
-        // Add Enter key support
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        filterProducts();
-                    }
-                });
-            }
-        });
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1>One Stop Store</h1>
-        <div class="nav">
-            {% if session.user %}
-                Hello, <b>{{ session.user }}</b> |
-                <a href="{{ url_for('logout') }}">Logout</a>
-                <a href="{{ url_for('view_cart') }}">Cart</a>
-                <a href="{{ url_for('my_orders') }}">My Orders</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
-            {% endif %}
-        </div>
-        {% block content %}
-        <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
-            <button class="search-btn" onclick="filterProducts()">Search</button>
-            <button class="search-btn" onclick="clearSearch()" style="background: #dc2626;">Clear</button>
-        </div>
-        <div class="sorting-container" style="margin-bottom: 24px;">
-            <label for="sortOptions" style="font-weight: 600; margin-right: 8px;">Sort by:</label>
-            <select id="sortOptions" onchange="sortProducts()" style="padding: 8px; border-radius: 6px; border: 1.5px solid #c7d2fe;">
-                <option value="default">Default</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-            </select>
-        </div>
-        <h2 style="font-family: 'Montserrat', Arial, sans-serif; font-weight:900; color:#232946; margin-bottom:24px;">Products</h2>
+    .sorting-container select {
+        padding: 10px;
+        background: rgba(30, 35, 70, 0.8);
+        border: 1.5px solid rgba(100, 120, 255, 0.25);
+        border-radius: 8px;
+        color: #e8e8ff;
+        font-size: 0.9rem;
+        outline: none;
+    }
 
-        {% set categories = [
-            'Laptop', 'Smartphone', 'Headphones', 'Smartwatch', 'Bluetooth Speaker', 'Tablet', 'Camera', 'Gaming Console', 'Television', 'Refrigerator', 'Washing Machine', 'Microwave Oven', 'Cycle', 'Bike', 'Car', 'Book', 'Dress (Men)', 'Dress (Women)', 'Dress (Kids)', 'Dress (Unisex)', 'Shoes', 'Sunglasses', 'Backpack', 'Desk Lamp', 'Wireless Mouse', 'Water Bottle', 'Air Conditioner', 'Gaming Laptop', 'Fitness Equipment', 'Kitchen Appliances', 'Home Decor', 'Pet Supplies', 'Office Supplies', 'Beauty & Personal Care', 'Sports & Outdoor', 'Travel & Luggage', 'Health & Wellness', 'Garden & Outdoor', 'Baby & Kids', 'Smart Home Devices', 'Automotive Accessories', 'Musical Instruments', 'Photography Equipment', 'Jewelry & Watches', 'Books & Stationery', 'Food & Beverages', 'Art & Craft Supplies', 'Tools & Hardware', 'Seasonal Items'
-        ] %}
+    .category-section-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        font-family: 'Space Grotesk', sans-serif;
+        color: #00d9ff;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+    }
 
-        {% for category in categories %}
-            {% set cat_products = products | selectattr('name', 'equalto', category) | list %}
-            {% if cat_products and cat_products[0].varieties %}
-                <div class="product-category-section" style="margin-bottom:38px;">
-                    <div style="font-size:1.35rem;font-family:'Montserrat',Arial,sans-serif;font-weight:800;color:#6246ea;margin-bottom:12px;">
-                        {{ category }}
-                    </div>
-                    <div class="products-list" style="margin-bottom:0;">
-                        {% for variety in cat_products[0].varieties %}
-                        <div class="product-card" data-name="{{ category }}" data-variety="{{ variety.name }}" data-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}">
-                            <a href="{{ url_for('product_detail', pid=variety.id) }}" style="text-decoration:none;color:inherit;display:block;">
-                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="https://via.placeholder.com/260x200.png?text={{ variety.name }}" alt="{{ variety.name }}" class="product-image lazy">
-                                <div class="product-info">
-                                    <span class="product-variety" style="font-weight:700;font-size:1.08rem;">{{ variety.name }}</span>
-                                    {% if variety.discount and variety.discount > 0 %}
-                                        <span class="product-price" style="display:block;">
-                                            <span style="text-decoration:line-through;color:#b91c1c;">Rs.{{ variety.price }}</span>
-                                            <span style="color:#16a34a;font-weight:700;margin-left:8px;">
-                                                Rs.{{ variety.price - (variety.price * variety.discount // 100) }}
-                                            </span>
-                                            <span style="color:#ff9800;font-size:0.95em;margin-left:6px;">
-                                                ({{ variety.discount }}% OFF{% if variety.occasion %} - {{ variety.occasion }}{% endif %})
-                                            </span>
-                                        </span>
-                                    {% else %}
-                                        <span class="product-price" style="display:block;">Rs.{{ variety.price }}</span>
-                                    {% endif %}
-                                    <span style="color:#6246ea;font-size:0.98rem;text-decoration:underline;display:inline-block;margin-top:8px;">View Details</span>
-                                </div>
-                            </a>
-                            {% if session.user %}
-                                <div style="padding: 0 22px 22px 22px; margin-top: auto; align-self: flex-end; display: flex; gap: 8px;">
-                                    <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
-                                    <button class="add-to-wishlist-btn" data-product-id="{{ variety.id }}" data-product-name="{{ variety.name }}" data-product-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}">❤️</button>
-                                </div>
-                            {% endif %}
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+    .products-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+    }
 
-        {% endblock %}
+    .product-card {
+        backdrop-filter: blur(10px);
+        background: rgba(20, 25, 50, 0.4);
+        border: 1px solid rgba(100, 100, 255, 0.15);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(0, 217, 255, 0.4);
+        box-shadow: 0 10px 30px rgba(0, 217, 255, 0.15);
+    }
+
+    .product-card a {
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .product-card:hover .product-image {
+        opacity: 1;
+    }
+
+    .product-info {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-variety {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #e0e0ff;
+        margin-bottom: 8px;
+    }
+
+    .product-price {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    .product-price .original-price {
+        text-decoration: line-through;
+        color: #ff4d6d;
+        margin-right: 10px;
+    }
+
+    .product-price .discounted-price {
+        color: #50fa7b;
+        font-weight: 600;
+    }
+
+    .product-price .discount-tag {
+        color: #ffb86c;
+        font-size: 0.9em;
+        margin-left: 8px;
+        font-weight: 500;
+    }
+
+    .details-link {
+        color: #00d9ff;
+        font-size: 0.9rem;
+        text-decoration: underline;
+        margin-top: auto; /* Pushes to the bottom */
+    }
+
+    .card-actions {
+        padding: 0 20px 20px 20px;
+        display: flex;
+        gap: 10px;
+        margin-top: auto; /* Pushes to the bottom */
+    }
+
+    .add-to-wishlist-btn {
+        background: rgba(100, 120, 255, 0.2);
+        color: #c0c0e0;
+        border: 1px solid rgba(100, 120, 255, 0.3);
+        padding: 10px 12px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .add-to-wishlist-btn:hover {
+        background: rgba(255, 77, 109, 0.3);
+        color: #ff79c6;
+        border-color: #ff79c6;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<canvas id="bg-canvas"></canvas>
+
+<div class="page-header">
+    <h1 class="page-title">Explore Our Products</h1>
+</div>
+
+<div class="controls-container">
+    <div class="sorting-container">
+        <label for="sortOptions" style="font-weight: 500; margin-right: 10px;">Sort by:</label>
+        <select id="sortOptions" onchange="sortProducts()">
+            <option value="default">Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+        </select>
     </div>
-</body>
-</html>
+</div>
+
+{% set categories = products | map(attribute='name') | unique | list %}
+
+{% for category in categories %}
+    {% set cat_products = products | selectattr('name', 'equalto', category) | list %}
+    {% if cat_products and cat_products[0].varieties %}
+        <section class="product-category-section" style="margin-bottom:40px;">
+            <h2 class="category-section-title">{{ category }}</h2>
+            <div class="products-list">
+                {% for variety in cat_products[0].varieties %}
+                <div class="product-card" data-name="{{ category }}" data-variety="{{ variety.name }}" data-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}">
+                    <a href="{{ url_for('product_detail', pid=variety.id) }}">
+                        <img src="https://source.unsplash.com/400x300/?{{ variety.name.replace(' ', '+') }}" alt="{{ variety.name }}" class="product-image">
+                        <div class="product-info">
+                            <span class="product-variety">{{ variety.name }}</span>
+                            <div class="product-price">
+                                {% if variety.discount and variety.discount > 0 %}
+                                    <span class="original-price">Rs.{{ variety.price }}</span>
+                                    <span class="discounted-price">Rs.{{ variety.price - (variety.price * variety.discount // 100) }}</span>
+                                    <span class="discount-tag">({{ variety.discount }}% OFF)</span>
+                                {% else %}
+                                    <span class="discounted-price">Rs.{{ variety.price }}</span>
+                                {% endif %}
+                            </div>
+                            <span class="details-link">View Details</span>
+                        </div>
+                    </a>
+                    {% if session.user %}
+                        <div class="card-actions">
+                            <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}" style="flex-grow: 1; text-align: center;">Add to Cart</a>
+                            <button class="add-to-wishlist-btn" data-product-id="{{ variety.id }}" data-product-name="{{ variety.name }}" data-product-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}"><i class="fas fa-heart"></i></button>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Start of Wishlist Add --- 
+        const wishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
+        wishlistButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const productId = this.dataset.productId;
+                const productName = this.dataset.productName;
+                const productPrice = this.dataset.productPrice;
+
+                if (!productId || !productName || !productPrice) {
+                    console.error('Wishlist button is missing data attributes.');
+                    return;
+                }
+
+                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+                if (wishlist.find(item => item.id === productId)) {
+                    alert('This item is already in your wishlist!');
+                    return;
+                }
+
+                wishlist.push({ id: productId, name: productName, price: productPrice });
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                alert('Added to wishlist!');
+            });
+        });
+        // --- End of Wishlist Add ---
+
+        // --- Start of Scroll Position Save/Restore --- 
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                sessionStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            sessionStorage.removeItem('scrollPosition');
+        }
+        // --- End of Scroll Position Save/Restore ---
+
+        // This script is a direct copy from the new login page design
+        // It creates the animated background effect.
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0x0a0e27, 1);
+        camera.position.z = 5;
+
+        const ambientLight = new THREE.AmbientLight(0x5050ff, 0.5);
+        scene.add(ambientLight);
+        const cyanLight = new THREE.PointLight(0x00d9ff, 1.5, 200); cyanLight.position.set(5, 3, 2); scene.add(cyanLight);
+        const purpleLight = new THREE.PointLight(0x9d4edd, 1.5, 200); purpleLight.position.set(-5, -3, 2); scene.add(purpleLight);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000;
+        const posArray = new Float32Array(particlesCount * 3);
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * (Math.random() * 5) * 10;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({ size: 0.015, color: 0x6080ff, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.8 });
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        let scrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            scrollY = window.scrollY;
+        });
+
+        const clock = new THREE.Clock();
+        const animate = () => {
+            requestAnimationFrame(animate);
+            const elapsed = clock.getElapsedTime();
+            particles.rotation.y = elapsed * 0.05;
+            particles.position.y = -scrollY * 0.01; // Move particles as user scrolls
+            renderer.render(scene, camera);
+        };
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Sorting and filtering logic (can be enhanced)
+        function sortProducts() { /* Implement if needed */ }
+    });
+</script>
+{% endblock %}

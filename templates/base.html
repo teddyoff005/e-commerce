@@ -1,237 +1,181 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>One Stop Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             margin: 0;
-            background: #f3f4f6;
-            font-family: 'Roboto', Arial, sans-serif;
+            background: #0a0e27; /* Dark background */
+            color: #e8e8ff;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
         }
+
         .navbar {
-            background: #232f3e;
-            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             display: flex;
             align-items: center;
-            padding: 0 32px;
-            height: 64px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            justify-content: space-between;
+            padding: 15px 5%;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 14, 39, 0.7);
+            border-bottom: 1px solid rgba(100, 100, 255, 0.15);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
+
         .navbar .logo {
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-weight: 900;
-            font-size: 1.7rem;
-            color: #ff9900;
-            letter-spacing: 1px;
-            margin-right: 32px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
             text-decoration: none;
+            background: linear-gradient(135deg, #00d9ff, #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+
         .navbar .nav-links {
             display: flex;
             align-items: center;
-            gap: 24px;
-            flex: 1;
+            gap: 25px;
         }
-        .navbar .nav-links a {
-            color: #fff;
+
+        .navbar .nav-links a, .navbar .nav-links span {
+            color: #c0c0e0;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1.08rem;
-            transition: color 0.2s;
+            font-size: 1rem;
+            transition: color 0.3s, text-shadow 0.3s;
         }
+
         .navbar .nav-links a:hover {
-            color: #ff9900;
+            color: #00d9ff;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
         }
-        .navbar .search-bar {
-            flex: none;
-            margin: 0 0 0 24px;
-            display: flex;
-            align-items: center;
-        }
-        .navbar .search-bar input[type="text"] {
-            width: 100%;
-            padding: 10px 16px;
-            border-radius: 4px 0 0 4px;
-            border: none;
-            font-size: 1rem;
-        }
-        .navbar .search-bar button {
-            padding: 10px 18px;
-            border: none;
-            background: #ff9900;
-            color: #232f3e;
-            font-weight: 700;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 32px auto;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 24px rgba(60,72,88,0.10);
-            padding: 32px 32px 40px 32px;
-            min-height: 70vh;
-        }
-        .footer {
-            background: #232f3e;
+        
+        .navbar .nav-links .user-greeting b {
             color: #fff;
-            text-align: center;
-            padding: 18px 0;
-            font-size: 1rem;
-            margin-top: 40px;
-        }
-        /* Product grid styles */
-        .products-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 28px;
-        }
-        .product-card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(60,72,88,0.10);
-            padding: 22px 18px 18px 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            transition: box-shadow 0.2s, transform 0.2s;
-            border: 1.5px solid #e5e7eb;
-            position: relative;
-        }
-        .product-card:hover {
-            box-shadow: 0 8px 32px rgba(60,72,88,0.18);
-            transform: translateY(-2px) scale(1.02);
-            border-color: #ff9900;
-        }
-        .product-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #232946;
-            margin-bottom: 6px;
-            font-family: 'Montserrat', Arial, sans-serif;
-        }
-        .product-variety {
-            font-size: 1rem;
-            color: #4a4e69;
-            margin-bottom: 8px;
-        }
-        .product-price {
-            font-size: 1.08rem;
-            color: #16a34a;
-            margin-bottom: 18px;
             font-weight: 600;
         }
-        .add-btn {
-            background: linear-gradient(90deg, #ff9900 60%, #facc15 100%);
-            color: #232f3e;
-            border: none;
-            padding: 10px 28px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
-            margin-top: auto;
-            align-self: flex-end;
+
+        .navbar .search-bar {
+            position: relative;
         }
-        .add-btn:hover {
-            background: linear-gradient(90deg, #facc15 60%, #ff9900 100%);
-            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
-        }
-        /* Form styles */
-        .checkout-form input, .checkout-form textarea, .checkout-form select {
-            padding: 10px 12px;
-            border-radius: 7px;
-            border: 1.5px solid #c7d2fe;
-            font-size: 1rem;
-            background: #f3f4f8;
-            transition: border 0.2s;
-            margin-bottom: 12px;
-            width: 100%;
-        }
-        .checkout-form input:focus, .checkout-form textarea:focus, .checkout-form select:focus {
-            border: 1.5px solid #ff9900;
+
+        .navbar .search-input {
+            padding: 8px 15px 8px 40px;
+            background: rgba(30, 35, 70, 0.6);
+            border: 1.5px solid rgba(100, 120, 255, 0.25);
+            border-radius: 8px;
+            color: #e8e8ff;
+            font-size: 0.9rem;
             outline: none;
+            transition: all 0.3s ease;
+            width: 250px;
         }
-        .cart-btn, .back-btn {
-            background: linear-gradient(90deg, #ff9900 60%, #facc15 100%);
-            color: #232f3e;
-            border: none;
-            padding: 12px 28px;
-            border-radius: 7px;
-            font-size: 1.08rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
+
+        .navbar .search-input:focus {
+            border-color: rgba(0, 217, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
         }
-        .cart-btn:hover, .back-btn:hover {
-            background: linear-gradient(90deg, #facc15 60%, #ff9900 100%);
-            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
+
+        .navbar .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6080c0;
         }
-        .messages {
-            margin-top: 1.5em;
-            color: #b91c1c;
-            background: #ffe5e5;
-            border-radius: 6px;
-            padding: 8px 0;
+
+        .container {
+            padding: 100px 5% 40px 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer {
             text-align: center;
+            padding: 20px 0;
+            font-size: 0.9rem;
+            color: #a0a0c0;
+            border-top: 1px solid rgba(100, 100, 255, 0.15);
+            margin-top: 40px;
         }
-        @media (max-width: 900px) {
-            .container {
-                padding: 18px 2vw 32px 2vw;
-            }
-            .navbar {
-                flex-direction: column;
-                height: auto;
-                padding: 12px 8px;
-            }
-            .navbar .search-bar {
-                margin: 12px 0;
-            }
+
+        /* General button style from the new theme */
+        .theme-button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #00d9ff 0%, #9d4edd 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
+            text-decoration: none;
         }
-        @media (max-width: 600px) {
-            .products-list {
-                grid-template-columns: 1fr;
-            }
+
+        .theme-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
         }
+
+        /* Flash messages */
+        .messages {
+            max-width: 1200px;
+            margin: -80px auto 20px auto;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            color: #ff3366;
+            background: rgba(255, 51, 102, 0.15);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            position: relative;
+            z-index: 100;
+        }
+        .messages ul { list-style: none; padding: 0; margin: 0; }
+
     </style>
     {% block head %}{% endblock %}
 </head>
 <body>
-    <div class="navbar" style="display:flex;align-items:center;gap:32px;">
-    <a href="{{ url_for('home') }}" class="logo" style="font-family:'Montserrat',Arial,sans-serif;font-weight:900;font-size:2rem;color:#232946;text-decoration:none;margin-right:32px;">
-        One Stop Store
-    </a>
-    <div class="nav-links" style="flex:1;">
-        {% if session.user %}
-            Hello, <b>{{ session.user }}</b>
-            <a href="{{ url_for('logout') }}">Logout</a>
-            <a href="{{ url_for('view_cart') }}">Cart</a>
-            <a href="{{ url_for('my_orders') }}">My Orders</a>
-            <a href="{{ url_for('wishlist') }}">Wishlist</a>
-        {% else %}
-            <a href="{{ url_for('login') }}">Login</a>
-            <a href="{{ url_for('register') }}">Register</a>
-        {% endif %}
-    </div>
-    <form class="search-bar" action="{{ url_for('home') }}" method="get" style="display:flex;align-items:center;gap:0;max-width:350px;">
-        <input type="text" name="q" placeholder="Search products or varieties..." value="{{ request.args.get('q', '') }}" style="padding:8px 14px;border-radius:4px 0 0 4px;border:1px solid #ccc;font-size:1rem;width:180px;">
-        <button type="submit" style="padding:8px 18px;border:none;background:#6246ea;color:#fff;font-weight:700;border-radius:0 4px 4px 0;cursor:pointer;">Search</button>
-    </form>
-</div>
-    <div class="container">
+    <nav class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">◆ One Stop Store</a>
+        <div class="nav-links">
+            {% if session.user %}
+                <span class="user-greeting">Hello, <b>{{ session.user }}</b></span>
+                <a href="{{ url_for('view_cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a>
+                <a href="{{ url_for('my_orders') }}"><i class="fas fa-box"></i> My Orders</a>
+                <a href="{{ url_for('wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a>
+                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+        </div>
+        <form class="search-bar" action="{{ url_for('home') }}" method="get">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" name="q" class="search-input" placeholder="Search products..." value="{{ request.args.get('q', '') }}">
+        </form>
+    </nav>
+
+    <main class="container">
         {% with messages = get_flashed_messages() %}
           {% if messages %}
             <div class="messages">
-                <ul style="margin:0; padding-left:18px; text-align:left;">
+                <ul>
                     {% for message in messages %}
                         <li>{{ message }}</li>
                     {% endfor %}
@@ -239,96 +183,15 @@
             </div>
           {% endif %}
         {% endwith %}
+        
         {% block content %}
-        {% set query = request.args.get('q', '').lower() %}
-<div class="products-section" id="electronics">
-    <div class="section-title" style="font-size:1.3rem; color:#ff9900; font-weight:700; margin-bottom:12px;">Electronics</div>
-    <div class="products-list">
-        {% for product in products if product.name in [
-            'Laptop', 'Smartphone', 'Headphones', 'Smartwatch', 'Bluetooth Speaker', 'Desk Lamp', 'Wireless Mouse', 'Tablet', 'Camera', 'Gaming Console', 'Television'
-        ] %}
-            {% for variety in product.varieties if (not query or query in variety.name.lower() or query in product.name.lower()) %}
-            <div class="product-card" data-name="{{ product.name }}" data-variety="{{ variety.name }}">
-                <span class="product-name">{{ product.name }}</span>
-                <span class="product-variety">{{ variety.name }}</span>
-                <span class="product-price">Rs.{{ variety.price }}</span>
-                {% if session.user %}
-                    <a class="add-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}">Add to Cart</a>
-                {% endif %}
-            </div>
-            {% endfor %}
-        {% endfor %}
-    </div>
-</div>
         {% endblock %}
-    </div>
-    <div class="footer">
-        &copy; {{ 2025 }} One Stop Store. All rights reserved.
-    </div>
+    </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const wishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
-            wishlistButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.dataset.productId;
-                    const productName = this.dataset.productName;
-                    const productPrice = this.dataset.productPrice;
+    <footer class="footer">
+        &copy; {{ 2025 }} One Stop Store. The Future of E-commerce.
+    </footer>
 
-                    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-                    // Check if product is already in wishlist
-                    if (wishlist.find(item => item.id === productId)) {
-                        alert('This item is already in your wishlist!');
-                        return;
-                    }
-
-                    wishlist.push({ id: productId, name: productName, price: productPrice });
-                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                    alert('Added to wishlist!');
-                });
-            });
-
-            // Lazy loading images
-            const lazyImages = document.querySelectorAll('img.lazy');
-
-            if ('IntersectionObserver' in window) {
-                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            let lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
-                            lazyImage.classList.remove('lazy');
-                            lazyImageObserver.unobserve(lazyImage);
-                        }
-                    });
-                });
-
-                lazyImages.forEach(function(lazyImage) {
-                    lazyImageObserver.observe(lazyImage);
-                });
-            } else {
-                // Fallback for browsers that don't support IntersectionObserver
-                let lazyLoad = function() {
-                    for (let i = 0; i < lazyImages.length; i++) {
-                        if (lazyImages[i].getBoundingClientRect().top <= window.innerHeight && lazyImages[i].getBoundingClientRect().bottom >= 0 && getComputedStyle(lazyImages[i]).display !== 'none') {
-                            lazyImages[i].src = lazyImages[i].dataset.src;
-                            lazyImages[i].classList.remove('lazy');
-                        }
-                    }
-                    if (lazyImages.length === 0) {
-                        document.removeEventListener('scroll', lazyLoad);
-                        window.removeEventListener('resize', lazyLoad);
-                        window.removeEventListener('orientationchange', lazyLoad);
-                    }
-                };
-
-                document.addEventListener('scroll', lazyLoad);
-                window.addEventListener('resize', lazyLoad);
-                window.addEventListener('orientationchange', lazyLoad);
-                lazyLoad();
-            }
-        });
-    </script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

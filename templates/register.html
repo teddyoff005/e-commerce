@@ -2,136 +2,683 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register - E-Commerce Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Stop Store | Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        body {
+        /* ======================================= */
+        /* === COPIED CSS FROM NEW DESIGN START === */
+        /* ======================================= */
+        * {
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            background: radial-gradient(ellipse at top left, #a1c4fd 0%, #c2e9fb 60%, #232946 100%);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            overflow: hidden;
+            box-sizing: border-box;
         }
-        .bg-shape {
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0e27;
+            color: #e8e8ff;
+            overflow: hidden;
+            line-height: 1.6;
+        }
+
+        /* Canvas background */
+        #bg-canvas {
             position: fixed;
-            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: block;
+        }
+
+        /* Main container */
+        .wrapper {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
             pointer-events: none;
         }
-        .shape1 {
-            top: -120px;
-            left: -120px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, #6246ea 0%, #a1c4fd 80%, transparent 100%);
-            border-radius: 50%;
-            opacity: 0.45;
-        }
-        .shape2 {
-            bottom: -100px;
-            right: -100px;
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, #16a34a 0%, #c2e9fb 80%, transparent 100%);
-            border-radius: 50%;
-            opacity: 0.35;
-        }
-        .container {
-            max-width: 400px;
-            margin: 90px auto;
-            background: rgba(255,255,255,0.97);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(60,72,88,0.18);
-            padding: 48px 36px 36px 36px;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #232946;
-            margin-bottom: 1.2em;
-        }
-        form {
+
+        /* Left side - Branding (Adjusted for simpler E-commerce use) */
+        .landing-left {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 8%;
+            pointer-events: all;
+            max-width: 50%;
         }
-        input[type="text"], input[type="password"] {
-            padding: 12px 14px;
-            border-radius: 7px;
-            border: 1.5px solid #c7d2fe;
-            font-size: 1.08rem;
-            background: #f3f4f8;
-            transition: border 0.2s;
+
+        .brand-section {
+            margin-bottom: 60px;
         }
-        input[type="text"]:focus, input[type="password"]:focus {
-            border: 1.5px solid #6246ea;
-            outline: none;
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d9ff, #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 15px;
+            letter-spacing: -2px;
+            text-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
         }
-        .register-btn {
-            background: linear-gradient(90deg, #6246ea 60%, #16a34a 100%);
-            color: #fff;
-            border: none;
-            padding: 12px 0;
-            border-radius: 7px;
+
+        .tagline {
             font-size: 1.1rem;
+            color: #a0a0ff;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero-text {
+            margin-top: 40px;
+            max-width: 500px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 8px rgba(98,70,234,0.08);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #e8e8ff 0%, #9d4edd 50%, #00d9ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
         }
-        .register-btn:hover {
-            background: linear-gradient(90deg, #16a34a 60%, #6246ea 100%);
-            box-shadow: 0 4px 16px rgba(22,163,74,0.13);
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #b0b0d0;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 40px;
         }
-        .switch-link {
-            margin-top: 1.5em;
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: #c0c0e0;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            color: #00d9ff;
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, #00d9ff, #9d4edd);
+            border-radius: 50%;
+        }
+
+        /* Right side - Form */
+        .landing-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: all;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 420px;
+            backdrop-filter: blur(10px);
+            background: rgba(20, 25, 50, 0.4);
+            border: 1px solid rgba(100, 100, 255, 0.15);
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d9ff, #9d4edd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .form-subtitle {
+            font-size: 0.9rem;
+            color: #a0a0c0;
+            font-weight: 300;
+        }
+
+        /* FLASK MESSAGE STYLE */
+        .flask-messages {
+            margin-bottom: 20px;
+            text-align: center;
             font-size: 1rem;
+            color: #ff3366; /* Error color for general flash messages */
+            background: rgba(255, 51, 102, 0.15);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            padding: 10px;
+            border-radius: 8px;
         }
-        .switch-link a {
-            color: #6246ea;
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #a0a0ff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: #6080c0;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: rgba(30, 35, 70, 0.6);
+            border: 1.5px solid rgba(100, 120, 255, 0.25);
+            border-radius: 12px;
+            color: #e8e8ff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(4px);
+        }
+
+        .form-input::placeholder {
+            color: #7080b0;
+        }
+
+        .form-input:focus {
+            border-color: rgba(0, 217, 255, 0.6);
+            background: rgba(30, 40, 80, 0.8);
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.25),
+                        inset 0 0 10px rgba(0, 217, 255, 0.1);
+        }
+
+        .form-input:focus + .input-icon {
+            color: #00d9ff;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
+        }
+
+        .register-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00d9ff 0%, #9d4edd 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            margin-top: 10px; /* Added margin for spacing */
+        }
+
+        .register-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.5);
+        }
+
+        .register-button:hover::before {
+            left: 100%;
+        }
+
+        .register-button:active {
+            transform: translateY(0);
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #a0a0c0;
+        }
+
+        .login-link {
+            color: #00d9ff;
             text-decoration: none;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .switch-link a:hover {
-            color: #16a34a;
+
+        .login-link:hover {
+            color: #9d4edd;
         }
-        .messages {
-            margin-bottom: 1em;
-            color: #b91c1c;
-            background: #ffe5e5;
-            border-radius: 6px;
-            padding: 8px 0;
+
+        /* Gradient orb effect */
+        .gradient-orb {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            z-index: 0;
         }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #00d9ff, transparent);
+            top: -100px;
+            right: -100px;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #9d4edd, transparent);
+            bottom: -50px;
+            left: -50px;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, 30px); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .landing-left {
+                max-width: 60%;
+                padding-left: 5%;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .landing-right {
+                max-width: 40%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+                padding: 40px 20px;
+                position: relative; /* Allow content to scroll if needed */
+                overflow-y: auto;
+                height: auto;
+            }
+
+            .landing-left {
+                max-width: 100%;
+                padding-left: 0;
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            .brand-section {
+                align-items: center;
+                text-align: center;
+            }
+            .landing-left .logo, .landing-left .tagline {
+                margin: 0 auto 15px auto;
+                background: linear-gradient(135deg, #00d9ff, #9d4edd);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .landing-right {
+                max-width: 100%;
+                margin-bottom: 40px;
+            }
+
+            .form-container {
+                max-width: 100%;
+            }
+            /* Re-enable scrolling for body on small screens */
+            body {
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        }
+        /* ===================================== */
+        /* === COPIED CSS FROM NEW DESIGN END === */
+        /* ===================================== */
     </style>
 </head>
 <body>
-    <div class="bg-shape shape1"></div>
-    <div class="bg-shape shape2"></div>
-    <div class="container">
-        <h2>Register</h2>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    {{ message }}<br>
-                {% endfor %}
+
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="wrapper">
+        <div class="landing-left">
+            <div class="brand-section">
+                <a href="{{ url_for('cover') }}" class="logo">◆ One Stop Store</a>
+                <div class="tagline">Join the Future of Shopping</div>
             </div>
-          {% endif %}
-        {% endwith %}
-        <form method="post">
-            <input type="text" name="username" placeholder="Username" required autocomplete="username">
-            <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
-            <button type="submit" class="register-btn">Register</button>
-        </form>
-        <div class="switch-link">
-            Already have an account?
-            <a href="{{ url_for('login') }}">Login</a>
+
+            <div class="hero-text">
+                <h1 class="hero-title">Create Your Account to Begin</h1>
+                <p class="hero-subtitle">Join our community to unlock exclusive deals, manage your orders with ease, and enjoy a shopping experience tailored just for you.</p>
+
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon"></div>
+                        <span>Save your favorite items to a wishlist</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"></div>
+                        <span>Track your order status in real-time</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"></div>
+                        <span>Receive members-only discounts</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="switch-link" style="margin-top:0.5em;">
-            <a href="{{ url_for('cover') }}">Back to Welcome</a>
+
+        <div class="landing-right">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2 class="form-title">Register Account</h2>
+                    <p class="form-subtitle">Fill in your details to get started</p>
+                </div>
+
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="flask-messages">
+                            {% for message in messages %}
+                                {{ message }}<br>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form method="post"> 
+                    <div class="input-group">
+                        <label class="input-label" for="username">Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="form-input" id="username" name="username" placeholder="Choose a unique username" required autocomplete="username">
+                            <i class="fas fa-user input-icon"></i> 
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" class="form-input" id="password" name="password" placeholder="Create a strong password" required autocomplete="new-password">
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="register-button">Create Account</button>
+                </form>
+
+                <div class="login-text">
+                    Already have an account? <a href="{{ url_for('login') }}" class="login-link">Log in here</a>
+                </div>
+                 <div class="login-text" style="margin-top: 10px;">
+                    <a href="{{ url_for('cover') }}" class="login-link">Back to Welcome</a>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // This script is a direct copy from the new login page design
+        // It creates the animated background effect.
+        
+        // ========== SCENE SETUP ==========
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('bg-canvas'),
+            antialias: true,
+            alpha: true
+        });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0x0a0e27, 1);
+        camera.position.z = 5;
+
+        // ========== LIGHTING ==========
+        const ambientLight = new THREE.AmbientLight(0x5050ff, 0.5);
+        scene.add(ambientLight);
+
+        const cyanLight = new THREE.PointLight(0x00d9ff, 2, 150);
+        cyanLight.position.set(8, 5, 3);
+        scene.add(cyanLight);
+
+        const purpleLight = new THREE.PointLight(0x9d4edd, 2, 150);
+        purpleLight.position.set(-8, -5, 3);
+        scene.add(purpleLight);
+
+        // ========== BACKGROUND PARTICLES ==========
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 8000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount * 3; i += 3) {
+            posArray[i] = (Math.random() - 0.5) * 50;
+            posArray[i + 1] = (Math.random() - 0.5) * 50;
+            posArray[i + 2] = (Math.random() - 0.5) * 50;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x6080ff,
+            transparent: true,
+            opacity: 0.6,
+            sizeAttenuation: true,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        // ========== FLOATING GEOMETRIC OBJECTS ==========
+        const geometries = [
+            new THREE.IcosahedronGeometry(0.8, 4),
+            new THREE.TetrahedronGeometry(1),
+            new THREE.OctahedronGeometry(0.7)
+        ];
+
+        const objects = [];
+
+        geometries.forEach((geom, idx) => {
+            const material = new THREE.MeshPhysicalMaterial({
+                color: idx % 2 === 0 ? 0x00d9ff : 0x9d4edd,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.2,
+                emissive: idx % 2 === 0 ? 0x00d9ff : 0x9d4edd,
+                emissiveIntensity: 0.3
+            });
+
+            const obj = new THREE.Mesh(geom, material);
+            obj.position.set(
+                (Math.random() - 0.5) * 20,
+                (Math.random() - 0.5) * 20,
+                (Math.random() - 0.5) * 15 - 10
+            );
+            obj.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+            obj.scale.set(1.5, 1.5, 1.5);
+
+            scene.add(obj);
+            objects.push({
+                mesh: obj,
+                speed: Math.random() * 0.002 + 0.001,
+                rotationSpeed: Math.random() * 0.005 + 0.001
+            });
+        });
+
+        // ========== GLOWING TORUS ==========
+        const torusGeometry = new THREE.TorusGeometry(3, 0.3, 16, 64);
+        const torusMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x00d9ff,
+            emissive: 0x00d9ff,
+            emissiveIntensity: 0.5,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.3,
+            metalness: 0.8,
+            roughness: 0.2
+        });
+
+        const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+        torus.position.set(-8, 3, -8);
+        torus.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        scene.add(torus);
+
+        // ========== MOUSE INTERACTION ==========
+        let mouseX = 0, mouseY = 0;
+        let targetCameraX = 0, targetCameraY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // ========== ANIMATION LOOP ==========
+        const clock = new THREE.Clock();
+
+        const animate = () => {
+            requestAnimationFrame(animate);
+            const elapsed = clock.getElapsedTime();
+
+            particles.rotation.y = elapsed * 0.02;
+            particles.rotation.x = elapsed * 0.01;
+
+            objects.forEach((obj) => {
+                obj.mesh.rotation.x += obj.rotationSpeed;
+                obj.mesh.rotation.y += obj.rotationSpeed * 0.7;
+                obj.mesh.position.y += Math.sin(elapsed * obj.speed) * 0.01;
+            });
+
+            torus.rotation.x += 0.003;
+            torus.rotation.z += 0.002;
+
+            cyanLight.position.x = Math.sin(elapsed * 0.3) * 12;
+            cyanLight.position.z = Math.cos(elapsed * 0.3) * 12;
+
+            purpleLight.position.x = Math.cos(elapsed * 0.4) * 12;
+            purpleLight.position.z = Math.sin(elapsed * 0.4) * 12;
+
+            targetCameraX = mouseX * 0.3;
+            targetCameraY = mouseY * 0.3;
+
+            camera.position.x += (targetCameraX - camera.position.x) * 0.05;
+            camera.position.y += (targetCameraY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        };
+
+        animate();
+
+        // ========== RESIZE HANDLER ==========
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>
