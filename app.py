@@ -10,6 +10,7 @@ products = [
         "varieties": [
             {
                 "id": 1, "name": "Dell Inspiron 15", "price": 50000,
+                "image_url": "https://source.unsplash.com/400x300/?laptop,Dell",
                 "details": {
                     "RAM": "8GB DDR4",
                     "CPU": "Intel Core i5 11th Gen",
@@ -17,11 +18,12 @@ products = [
                     "Storage": "512GB SSD",
                     "Display": "15.6\" FHD"
                 },
-                "discount": 10,  # 10% off
+                "discount": 10,
                 "occasion": "Diwali"
             },
             {
                 "id": 2, "name": "HP Pavilion x360", "price": 62000,
+                "image_url": "https://source.unsplash.com/400x300/?laptop,HP",
                 "details": {
                     "RAM": "16GB DDR4",
                     "CPU": "Intel Core i7 12th Gen",
@@ -33,6 +35,7 @@ products = [
             },
             {
                 "id": 3, "name": "Apple MacBook Air", "price": 95000,
+                "image_url": "https://source.unsplash.com/400x300/?laptop,Apple",
                 "details": {
                     "RAM": "8GB Unified",
                     "CPU": "Apple M1",
@@ -48,6 +51,7 @@ products = [
         "varieties": [
             {
                 "id": 4, "name": "Samsung Galaxy S23", "price": 70000,
+                "image_url": "https://source.unsplash.com/400x300/?smartphone,samsung",
                 "details": {
                     "RAM": "8GB",
                     "CPU": "Snapdragon 8 Gen 2",
@@ -60,6 +64,7 @@ products = [
             },
             {
                 "id": 5, "name": "iPhone 14", "price": 80000,
+                "image_url": "https://source.unsplash.com/400x300/?smartphone,iphone",
                 "details": {
                     "RAM": "6GB",
                     "CPU": "Apple A15 Bionic",
@@ -70,6 +75,7 @@ products = [
             },
             {
                 "id": 6, "name": "OnePlus 11", "price": 60000,
+                "image_url": "https://source.unsplash.com/400x300/?smartphone,oneplus",
                 "details": {
                     "RAM": "8GB",
                     "CPU": "Snapdragon 8 Gen 2",
@@ -85,6 +91,7 @@ products = [
         "varieties": [
             {
                 "id": 7, "name": "Sony WH-1000XM4", "price": 25000,
+                "image_url": "https://source.unsplash.com/400x300/?headphones,sony",
                 "details": {
                     "Type": "Over-ear Wireless",
                     "Battery": "30 hours",
@@ -97,6 +104,7 @@ products = [
             },
             {
                 "id": 8, "name": "Boat Rockerz 450", "price": 1500,
+                "image_url": "https://source.unsplash.com/400x300/?headphones,boat",
                 "details": {
                     "Type": "Over-ear Wireless",
                     "Battery": "15 hours",
@@ -110,6 +118,7 @@ products = [
             },
             {
                 "id": 9, "name": "JBL Tune 510BT", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?headphones,jbl",
                 "details": {
                     "Type": "Over-ear Wireless",
                     "Battery": "40 hours",
@@ -128,6 +137,7 @@ products = [
         "varieties": [
             {
                 "id": 10, "name": "Atomic Habits", "price": 500,
+                "image_url": "https://source.unsplash.com/400x300/?book,reading",
                 "details": {
                     "Author": "James Clear",
                     "Pages": "320 pages",
@@ -140,6 +150,7 @@ products = [
             },
             {
                 "id": 11, "name": "The Alchemist", "price": 400,
+                "image_url": "https://source.unsplash.com/400x300/?book,adventure",
                 "details": {
                     "Author": "Paulo Coelho",
                     "Pages": "208 pages",
@@ -153,6 +164,7 @@ products = [
             },
             {
                 "id": 12, "name": "Rich Dad Poor Dad", "price": 450,
+                "image_url": "https://source.unsplash.com/400x300/?book,finance",
                 "details": {
                     "Author": "Robert Kiyosaki",
                     "Pages": "336 pages",
@@ -171,6 +183,7 @@ products = [
         "varieties": [
             {
                 "id": 13, "name": "Apple Watch SE", "price": 32000,
+                "image_url": "https://source.unsplash.com/400x300/?smartwatch,apple",
                 "details": {
                     "Display": "40mm/44mm Retina",
                     "Battery": "18 hours",
@@ -183,6 +196,7 @@ products = [
             },
             {
                 "id": 14, "name": "Samsung Galaxy Watch 5", "price": 28000,
+                "image_url": "https://source.unsplash.com/400x300/?smartwatch,samsung",
                 "details": {
                     "Display": "1.4\" AMOLED",
                     "Battery": "50 hours",
@@ -196,6 +210,7 @@ products = [
             },
             {
                 "id": 15, "name": "Noise ColorFit Pro", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?smartwatch,noise",
                 "details": {
                     "Display": "1.55\" HD Color",
                     "Battery": "10 days",
@@ -214,6 +229,7 @@ products = [
         "varieties": [
             {
                 "id": 16, "name": "JBL Flip 5", "price": 8000,
+                "image_url": "https://source.unsplash.com/400x300/?speaker,jbl",
                 "details": {
                     "Power": "20W",
                     "Battery": "12 hours",
@@ -226,6 +242,7 @@ products = [
             },
             {
                 "id": 17, "name": "Boat Stone 650", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?speaker,boat",
                 "details": {
                     "Power": "10W",
                     "Battery": "8 hours",
@@ -239,6 +256,7 @@ products = [
             },
             {
                 "id": 18, "name": "Sony SRS-XB13", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?speaker,sony",
                 "details": {
                     "Power": "16W",
                     "Battery": "16 hours",
@@ -257,6 +275,7 @@ products = [
         "varieties": [
             {
                 "id": 19, "name": "Wildcraft 35L", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?backpack,wildcraft",
                 "details": {
                     "Capacity": "35L",
                     "Material": "Ripstop Nylon",
@@ -269,6 +288,7 @@ products = [
             },
             {
                 "id": 20, "name": "Skybags Brat", "price": 1400,
+                "image_url": "https://source.unsplash.com/400x300/?backpack,skybags",
                 "details": {
                     "Capacity": "30L",
                     "Material": "Polyester",
@@ -282,6 +302,7 @@ products = [
             },
             {
                 "id": 21, "name": "American Tourister", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?backpack,tourister",
                 "details": {
                     "Capacity": "40L",
                     "Material": "Nylon + PVC",
@@ -300,6 +321,7 @@ products = [
         "varieties": [
             {
                 "id": 22, "name": "Philips LED Desk Lamp", "price": 900,
+                "image_url": "https://source.unsplash.com/400x300/?lamp,philips",
                 "details": {
                     "Power": "5W LED",
                     "Brightness": "400 Lumens",
@@ -312,6 +334,7 @@ products = [
             },
             {
                 "id": 23, "name": "Wipro Garnet", "price": 1100,
+                "image_url": "https://source.unsplash.com/400x300/?lamp,wipro",
                 "details": {
                     "Power": "8W LED",
                     "Brightness": "600 Lumens",
@@ -325,6 +348,7 @@ products = [
             },
             {
                 "id": 24, "name": "Syska Table Lamp", "price": 850,
+                "image_url": "https://source.unsplash.com/400x300/?lamp,syska",
                 "details": {
                     "Power": "6W LED",
                     "Brightness": "500 Lumens",
@@ -343,6 +367,7 @@ products = [
         "varieties": [
             {
                 "id": 25, "name": "Logitech M235", "price": 700,
+                "image_url": "https://source.unsplash.com/400x300/?mouse,logitech",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "12 months",
@@ -355,6 +380,7 @@ products = [
             },
             {
                 "id": 26, "name": "HP X200", "price": 650,
+                "image_url": "https://source.unsplash.com/400x300/?mouse,hp",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "15 months",
@@ -368,6 +394,7 @@ products = [
             },
             {
                 "id": 27, "name": "Dell WM126", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?mouse,dell",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "18 months",
@@ -386,6 +413,7 @@ products = [
         "varieties": [
             {
                 "id": 28, "name": "Milton Thermosteel", "price": 900,
+                "image_url": "https://source.unsplash.com/400x300/?bottle,milton",
                 "details": {
                     "Capacity": "1L",
                     "Material": "Stainless Steel",
@@ -398,6 +426,7 @@ products = [
             },
             {
                 "id": 29, "name": "Cello Puro", "price": 400,
+                "image_url": "https://source.unsplash.com/400x300/?bottle,cello",
                 "details": {
                     "Capacity": "750ml",
                     "Material": "BPA Free Plastic",
@@ -411,6 +440,7 @@ products = [
             },
             {
                 "id": 30, "name": "Borosil Hydra", "price": 650,
+                "image_url": "https://source.unsplash.com/400x300/?bottle,borosil",
                 "details": {
                     "Capacity": "1L",
                     "Material": "Borosilicate Glass",
@@ -429,6 +459,7 @@ products = [
         "varieties": [
             {
                 "id": 31, "name": "Formal Shirt", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?men,shirt",
                 "details": {
                     "Material": "100% Cotton",
                     "Size": "S, M, L, XL, XXL",
@@ -441,6 +472,7 @@ products = [
             },
             {
                 "id": 32, "name": "Casual T-Shirt", "price": 600,
+                "image_url": "https://source.unsplash.com/400x300/?men,t-shirt",
                 "details": {
                     "Material": "Cotton Blend",
                     "Size": "S, M, L, XL, XXL",
@@ -454,6 +486,7 @@ products = [
             },
             {
                 "id": 33, "name": "Jeans", "price": 1500,
+                "image_url": "https://source.unsplash.com/400x300/?men,jeans",
                 "details": {
                     "Material": "Denim",
                     "Size": "28, 30, 32, 34, 36, 38",
@@ -467,6 +500,7 @@ products = [
             },
             {
                 "id": 34, "name": "Kurta", "price": 900,
+                "image_url": "https://source.unsplash.com/400x300/?men,kurta",
                 "details": {
                     "Material": "Cotton",
                     "Size": "S, M, L, XL, XXL",
@@ -485,6 +519,7 @@ products = [
         "varieties": [
             {
                 "id": 35, "name": "Saree", "price": 2000,
+                "image_url": "https://source.unsplash.com/400x300/?women,saree",
                 "details": {
                     "Material": "Silk/Cotton/Georgette",
                     "Size": "5.5 meters length",
@@ -497,6 +532,7 @@ products = [
             },
             {
                 "id": 36, "name": "Kurti", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?women,kurti",
                 "details": {
                     "Material": "Cotton/Rayon",
                     "Size": "S, M, L, XL, XXL",
@@ -510,6 +546,7 @@ products = [
             },
             {
                 "id": 37, "name": "Western Dress", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?women,dress",
                 "details": {
                     "Material": "Polyester/Cotton Blend",
                     "Size": "S, M, L, XL, XXL",
@@ -523,6 +560,7 @@ products = [
             },
             {
                 "id": 38, "name": "Leggings", "price": 400,
+                "image_url": "https://source.unsplash.com/400x300/?women,leggings",
                 "details": {
                     "Material": "Cotton Lycra",
                     "Size": "S, M, L, XL, XXL",
@@ -541,6 +579,7 @@ products = [
         "varieties": [
             {
                 "id": 39, "name": "Frock", "price": 700,
+                "image_url": "https://source.unsplash.com/400x300/?kids,frock",
                 "details": {
                     "Material": "Cotton",
                     "Size": "2-3Y, 3-4Y, 4-5Y, 5-6Y, 6-7Y",
@@ -553,6 +592,7 @@ products = [
             },
             {
                 "id": 40, "name": "Dungaree", "price": 900,
+                "image_url": "https://source.unsplash.com/400x300/?kids,dungaree",
                 "details": {
                     "Material": "Denim/Cotton",
                     "Size": "2-3Y, 3-4Y, 4-5Y, 5-6Y, 6-7Y",
@@ -566,6 +606,7 @@ products = [
             },
             {
                 "id": 41, "name": "Kids T-Shirt", "price": 350,
+                "image_url": "https://source.unsplash.com/400x300/?kids,t-shirt",
                 "details": {
                     "Material": "Cotton Blend",
                     "Size": "2-3Y, 3-4Y, 4-5Y, 5-6Y, 6-7Y",
@@ -579,6 +620,7 @@ products = [
             },
             {
                 "id": 42, "name": "Shorts", "price": 400,
+                "image_url": "https://source.unsplash.com/400x300/?kids,shorts",
                 "details": {
                     "Material": "Cotton",
                     "Size": "2-3Y, 3-4Y, 4-5Y, 5-6Y, 6-7Y",
@@ -597,6 +639,7 @@ products = [
         "varieties": [
             {
                 "id": 43, "name": "Hoodie", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?unisex,hoodie",
                 "details": {
                     "Material": "Cotton Blend",
                     "Size": "S, M, L, XL, XXL",
@@ -609,6 +652,7 @@ products = [
             },
             {
                 "id": 44, "name": "Track Pants", "price": 900,
+                "image_url": "https://source.unsplash.com/400x300/?unisex,trackpants",
                 "details": {
                     "Material": "Polyester/Cotton",
                     "Size": "S, M, L, XL, XXL",
@@ -622,6 +666,7 @@ products = [
             },
             {
                 "id": 45, "name": "Raincoat", "price": 1100,
+                "image_url": "https://source.unsplash.com/400x300/?unisex,raincoat",
                 "details": {
                     "Material": "PVC Waterproof",
                     "Size": "S, M, L, XL, XXL",
@@ -640,6 +685,7 @@ products = [
         "varieties": [
             {
                 "id": 46, "name": "Nike Running Shoes", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?shoes,nike",
                 "details": {
                     "Type": "Running Shoes",
                     "Size": "6, 7, 8, 9, 10, 11, 12",
@@ -652,6 +698,7 @@ products = [
             },
             {
                 "id": 47, "name": "Adidas Sneakers", "price": 4000,
+                "image_url": "https://source.unsplash.com/400x300/?shoes,adidas",
                 "details": {
                     "Type": "Casual Sneakers",
                     "Size": "6, 7, 8, 9, 10, 11, 12",
@@ -665,6 +712,7 @@ products = [
             },
             {
                 "id": 48, "name": "Bata Formal Shoes", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?shoes,formal",
                 "details": {
                     "Type": "Formal Leather Shoes",
                     "Size": "6, 7, 8, 9, 10, 11, 12",
@@ -683,6 +731,7 @@ products = [
         "varieties": [
             {
                 "id": 49, "name": "Ray-Ban Aviator", "price": 6500,
+                "image_url": "https://source.unsplash.com/400x300/?sunglasses,rayban",
                 "details": {
                     "Style": "Aviator",
                     "Lens Color": "Green/Gray/Brown",
@@ -695,6 +744,7 @@ products = [
             },
             {
                 "id": 50, "name": "Fastrack Wayfarer", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?sunglasses,fastrack",
                 "details": {
                     "Style": "Wayfarer",
                     "Lens Color": "Black/Brown/Blue",
@@ -708,6 +758,7 @@ products = [
             },
             {
                 "id": 51, "name": "Vincent Chase Round", "price": 900,
+                "image_url": "https://source.unsplash.com/400x300/?sunglasses,round",
                 "details": {
                     "Style": "Round",
                     "Lens Color": "Black/Brown/Green",
@@ -726,6 +777,7 @@ products = [
         "varieties": [
             {
                 "id": 52, "name": "Hero Sprint Next 26T", "price": 8500,
+                "image_url": "https://source.unsplash.com/400x300/?cycle,mountain",
                 "details": {
                     "Type": "Mountain Bike",
                     "Wheel Size": "26 inches",
@@ -738,6 +790,7 @@ products = [
             },
             {
                 "id": 53, "name": "Firefox Bad Attitude 8", "price": 12000,
+                "image_url": "https://source.unsplash.com/400x300/?cycle,firefox",
                 "details": {
                     "Type": "Mountain Bike",
                     "Wheel Size": "26 inches",
@@ -751,6 +804,7 @@ products = [
             },
             {
                 "id": 54, "name": "Btwin Rockrider ST 100", "price": 15000,
+                "image_url": "https://source.unsplash.com/400x300/?cycle,rockrider",
                 "details": {
                     "Type": "Mountain Bike",
                     "Wheel Size": "27.5 inches",
@@ -769,6 +823,7 @@ products = [
         "varieties": [
             {
                 "id": 55, "name": "Royal Enfield Classic 350", "price": 210000,
+                "image_url": "https://source.unsplash.com/400x300/?bike,enfield",
                 "details": {
                     "Engine": "349cc Single Cylinder",
                     "Power": "20.2 bhp",
@@ -781,6 +836,7 @@ products = [
             },
             {
                 "id": 56, "name": "Bajaj Pulsar 150", "price": 120000,
+                "image_url": "https://source.unsplash.com/400x300/?bike,pulsar",
                 "details": {
                     "Engine": "149.5cc Single Cylinder",
                     "Power": "14 bhp",
@@ -794,6 +850,7 @@ products = [
             },
             {
                 "id": 57, "name": "Yamaha FZ-S V3", "price": 130000,
+                "image_url": "https://source.unsplash.com/400x300/?bike,yamaha",
                 "details": {
                     "Engine": "149cc Single Cylinder",
                     "Power": "12.4 bhp",
@@ -812,6 +869,7 @@ products = [
         "varieties": [
             {
                 "id": 58, "name": "Maruti Suzuki Swift", "price": 600000,
+                "image_url": "https://source.unsplash.com/400x300/?car,swift",
                 "details": {
                     "Engine": "1.2L Petrol",
                     "Power": "82 bhp",
@@ -824,6 +882,7 @@ products = [
             },
             {
                 "id": 59, "name": "Hyundai Creta", "price": 1100000,
+                "image_url": "https://source.unsplash.com/400x300/?car,creta",
                 "details": {
                     "Engine": "1.5L Diesel",
                     "Power": "113 bhp",
@@ -837,6 +896,7 @@ products = [
             },
             {
                 "id": 60, "name": "Tata Nexon", "price": 900000,
+                "image_url": "https://source.unsplash.com/400x300/?car,nexon",
                 "details": {
                     "Engine": "1.2L Turbo Petrol",
                     "Power": "118 bhp",
@@ -855,6 +915,7 @@ products = [
         "varieties": [
             {
                 "id": 61, "name": "Apple iPad 9th Gen", "price": 32000,
+                "image_url": "https://source.unsplash.com/400x300/?tablet,ipad",
                 "details": {
                     "Display": "10.2\" Retina Display",
                     "Storage": "64GB/256GB",
@@ -867,6 +928,7 @@ products = [
             },
             {
                 "id": 62, "name": "Samsung Galaxy Tab A8", "price": 18000,
+                "image_url": "https://source.unsplash.com/400x300/?tablet,samsung",
                 "details": {
                     "Display": "10.5\" TFT Display",
                     "Storage": "32GB/64GB",
@@ -880,6 +942,7 @@ products = [
             },
             {
                 "id": 63, "name": "Lenovo Tab M10", "price": 15000,
+                "image_url": "https://source.unsplash.com/400x300/?tablet,lenovo",
                 "details": {
                     "Display": "10.1\" HD Display",
                     "Storage": "32GB/64GB",
@@ -898,6 +961,7 @@ products = [
         "varieties": [
             {
                 "id": 64, "name": "Canon EOS 1500D", "price": 35000,
+                "image_url": "https://source.unsplash.com/400x300/?camera,canon",
                 "details": {
                     "Sensor": "24.1MP APS-C",
                     "Lens": "18-55mm Kit Lens",
@@ -910,6 +974,7 @@ products = [
             },
             {
                 "id": 65, "name": "Nikon D3500", "price": 40000,
+                "image_url": "https://source.unsplash.com/400x300/?camera,nikon",
                 "details": {
                     "Sensor": "24.2MP APS-C",
                     "Lens": "18-55mm Kit Lens",
@@ -923,6 +988,7 @@ products = [
             },
             {
                 "id": 66, "name": "Sony Alpha ILCE-6100", "price": 65000,
+                "image_url": "https://source.unsplash.com/400x300/?camera,sony",
                 "details": {
                     "Sensor": "24.2MP APS-C",
                     "Lens": "16-50mm Kit Lens",
@@ -941,6 +1007,7 @@ products = [
         "varieties": [
             {
                 "id": 67, "name": "Sony PlayStation 5", "price": 49990,
+                "image_url": "https://source.unsplash.com/400x300/?gaming,playstation",
                 "details": {
                     "Storage": "825GB SSD",
                     "Resolution": "4K Gaming",
@@ -953,6 +1020,7 @@ products = [
             },
             {
                 "id": 68, "name": "Microsoft Xbox Series S", "price": 34990,
+                "image_url": "https://source.unsplash.com/400x300/?gaming,xbox",
                 "details": {
                     "Storage": "512GB SSD",
                     "Resolution": "1440p Gaming",
@@ -966,6 +1034,7 @@ products = [
             },
             {
                 "id": 69, "name": "Nintendo Switch", "price": 29990,
+                "image_url": "https://source.unsplash.com/400x300/?gaming,nintendo",
                 "details": {
                     "Storage": "32GB",
                     "Display": "6.2\" Touchscreen",
@@ -984,6 +1053,7 @@ products = [
         "varieties": [
             {
                 "id": 70, "name": "Samsung 43\" 4K UHD", "price": 35000,
+                "image_url": "https://source.unsplash.com/400x300/?tv,samsung",
                 "details": {
                     "Size": "43 inches",
                     "Resolution": "4K UHD (3840x2160)",
@@ -996,6 +1066,7 @@ products = [
             },
             {
                 "id": 71, "name": "Sony Bravia 50\" 4K", "price": 55000,
+                "image_url": "https://source.unsplash.com/400x300/?tv,sony",
                 "details": {
                     "Size": "50 inches",
                     "Resolution": "4K UHD (3840x2160)",
@@ -1009,6 +1080,7 @@ products = [
             },
             {
                 "id": 72, "name": "Mi 40\" Full HD", "price": 25000,
+                "image_url": "https://source.unsplash.com/400x300/?tv,mi",
                 "details": {
                     "Size": "40 inches",
                     "Resolution": "Full HD (1920x1080)",
@@ -1027,6 +1099,7 @@ products = [
         "varieties": [
             {
                 "id": 73, "name": "LG 260L Double Door", "price": 27000,
+                "image_url": "https://source.unsplash.com/400x300/?refrigerator,lg",
                 "details": {
                     "Capacity": "260L",
                     "Type": "Double Door",
@@ -1039,6 +1112,7 @@ products = [
             },
             {
                 "id": 74, "name": "Samsung 253L 3 Star", "price": 24000,
+                "image_url": "https://source.unsplash.com/400x300/?refrigerator,samsung",
                 "details": {
                     "Capacity": "253L",
                     "Type": "Double Door",
@@ -1052,6 +1126,7 @@ products = [
             },
             {
                 "id": 75, "name": "Whirlpool 190L Single Door", "price": 16000,
+                "image_url": "https://source.unsplash.com/400x300/?refrigerator,whirlpool",
                 "details": {
                     "Capacity": "190L",
                     "Type": "Single Door",
@@ -1070,6 +1145,7 @@ products = [
         "varieties": [
             {
                 "id": 76, "name": "Bosch 7kg Front Load", "price": 32000,
+                "image_url": "https://source.unsplash.com/400x300/?washingmachine,bosch",
                 "details": {
                     "Capacity": "7kg",
                     "Type": "Front Load",
@@ -1082,6 +1158,7 @@ products = [
             },
             {
                 "id": 77, "name": "LG 6.5kg Top Load", "price": 21000,
+                "image_url": "https://source.unsplash.com/400x300/?washingmachine,lg",
                 "details": {
                     "Capacity": "6.5kg",
                     "Type": "Top Load",
@@ -1095,6 +1172,7 @@ products = [
             },
             {
                 "id": 78, "name": "Samsung 7kg Top Load", "price": 22000,
+                "image_url": "https://source.unsplash.com/400x300/?washingmachine,samsung",
                 "details": {
                     "Capacity": "7kg",
                     "Type": "Top Load",
@@ -1113,6 +1191,7 @@ products = [
         "varieties": [
             {
                 "id": 79, "name": "IFB 20L Convection", "price": 9500,
+                "image_url": "https://source.unsplash.com/400x300/?microwave,ifb",
                 "details": {
                     "Capacity": "20L",
                     "Type": "Convection",
@@ -1124,6 +1203,7 @@ products = [
             },
             {
                 "id": 80, "name": "Samsung 23L Solo", "price": 8000,
+                "image_url": "https://source.unsplash.com/400x300/?microwave,samsung",
                 "details": {
                     "Capacity": "23L",
                     "Type": "Solo",
@@ -1134,6 +1214,7 @@ products = [
             },
             {
                 "id": 81, "name": "LG 28L Convection", "price": 14000,
+                "image_url": "https://source.unsplash.com/400x300/?microwave,lg",
                 "details": {
                     "Capacity": "28L",
                     "Type": "Convection",
@@ -1150,6 +1231,7 @@ products = [
         "varieties": [
             {
                 "id": 82, "name": "LG 1.5 Ton 3 Star", "price": 35000,
+                "image_url": "https://source.unsplash.com/400x300/?airconditioner,lg",
                 "details": {
                     "Capacity": "1.5 Ton",
                     "Energy Rating": "3 Star",
@@ -1161,6 +1243,7 @@ products = [
             },
             {
                 "id": 83, "name": "Samsung 1 Ton 5 Star", "price": 32000,
+                "image_url": "https://source.unsplash.com/400x300/?airconditioner,samsung",
                 "details": {
                     "Capacity": "1 Ton",
                     "Energy Rating": "5 Star",
@@ -1172,6 +1255,7 @@ products = [
             },
             {
                 "id": 84, "name": "Voltas 2 Ton 4 Star", "price": 45000,
+                "image_url": "https://source.unsplash.com/400x300/?airconditioner,voltas",
                 "details": {
                     "Capacity": "2 Ton",
                     "Energy Rating": "4 Star",
@@ -1187,6 +1271,7 @@ products = [
         "varieties": [
             {
                 "id": 85, "name": "ASUS ROG Strix G15", "price": 85000,
+                "image_url": "https://source.unsplash.com/400x300/?gaming,laptop,asus",
                 "details": {
                     "RAM": "16GB DDR4",
                     "CPU": "AMD Ryzen 7 5800H",
@@ -1199,6 +1284,7 @@ products = [
             },
             {
                 "id": 86, "name": "MSI GF63 Thin", "price": 65000,
+                "image_url": "https://source.unsplash.com/400x300/?gaming,laptop,msi",
                 "details": {
                     "RAM": "8GB DDR4",
                     "CPU": "Intel Core i5 10th Gen",
@@ -1211,6 +1297,7 @@ products = [
             },
             {
                 "id": 87, "name": "HP Omen 15", "price": 95000,
+                "image_url": "https://source.unsplash.com/400x300/?gaming,laptop,hp",
                 "details": {
                     "RAM": "16GB DDR4",
                     "CPU": "Intel Core i7 11th Gen",
@@ -1227,6 +1314,7 @@ products = [
         "varieties": [
             {
                 "id": 88, "name": "Treadmill Pro Max", "price": 25000,
+                "image_url": "https://source.unsplash.com/400x300/?fitness,treadmill",
                 "details": {
                     "Motor": "2.5HP",
                     "Speed": "1-12 km/h",
@@ -1238,6 +1326,7 @@ products = [
             },
             {
                 "id": 89, "name": "Dumbbell Set 20kg", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?fitness,dumbbell",
                 "details": {
                     "Weight": "20kg Total",
                     "Material": "Cast Iron",
@@ -1249,6 +1338,7 @@ products = [
             },
             {
                 "id": 90, "name": "Yoga Mat Premium", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?fitness,yoga",
                 "details": {
                     "Material": "TPE",
                     "Thickness": "6mm",
@@ -1265,6 +1355,7 @@ products = [
         "varieties": [
             {
                 "id": 91, "name": "Mixer Grinder 750W", "price": 4500,
+                "image_url": "https://source.unsplash.com/400x300/?kitchen,mixer",
                 "details": {
                     "Power": "750W",
                     "Jars": "3 Stainless Steel",
@@ -1276,6 +1367,7 @@ products = [
             },
             {
                 "id": 92, "name": "Electric Kettle 1.5L", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?kitchen,kettle",
                 "details": {
                     "Capacity": "1.5L",
                     "Material": "Stainless Steel",
@@ -1286,6 +1378,7 @@ products = [
             },
             {
                 "id": 93, "name": "Air Fryer 4.2L", "price": 8500,
+                "image_url": "https://source.unsplash.com/400x300/?kitchen,airfryer",
                 "details": {
                     "Capacity": "4.2L",
                     "Power": "1500W",
@@ -1302,6 +1395,7 @@ products = [
         "varieties": [
             {
                 "id": 94, "name": "LED Strip Lights 5m", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?decor,led",
                 "details": {
                     "Length": "5 meters",
                     "Color": "RGB",
@@ -1313,6 +1407,7 @@ products = [
             },
             {
                 "id": 95, "name": "Wall Clock Modern", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?decor,clock",
                 "details": {
                     "Size": "30cm",
                     "Material": "Wooden Frame",
@@ -1323,6 +1418,7 @@ products = [
             },
             {
                 "id": 96, "name": "Artificial Plants Set", "price": 1500,
+                "image_url": "https://source.unsplash.com/400x300/?decor,plants",
                 "details": {
                     "Quantity": "3 Plants",
                     "Material": "High Quality Plastic",
@@ -1339,6 +1435,7 @@ products = [
         "varieties": [
             {
                 "id": 97, "name": "Dog Food Premium 5kg", "price": 2500,
+                "image_url": "https://source.unsplash.com/400x300/?pet,dogfood",
                 "details": {
                     "Weight": "5kg",
                     "Type": "Adult Dog Food",
@@ -1350,6 +1447,7 @@ products = [
             },
             {
                 "id": 98, "name": "Cat Litter 10L", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?pet,catlitter",
                 "details": {
                     "Volume": "10L",
                     "Type": "Clumping",
@@ -1360,6 +1458,7 @@ products = [
             },
             {
                 "id": 99, "name": "Pet Carrier Medium", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?pet,carrier",
                 "details": {
                     "Size": "Medium",
                     "Material": "Hard Plastic",
@@ -1376,6 +1475,7 @@ products = [
         "varieties": [
             {
                 "id": 100, "name": "Wireless Mouse Logitech", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?office,mouse",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "12 months",
@@ -1387,6 +1487,7 @@ products = [
             },
             {
                 "id": 101, "name": "Mechanical Keyboard", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?office,keyboard",
                 "details": {
                     "Switch": "Blue Mechanical",
                     "Backlight": "RGB",
@@ -1397,6 +1498,7 @@ products = [
             },
             {
                 "id": 102, "name": "Monitor Stand Adjustable", "price": 2200,
+                "image_url": "https://source.unsplash.com/400x300/?office,stand",
                 "details": {
                     "Material": "Aluminum",
                     "Height": "Adjustable 8-20cm",
@@ -1413,6 +1515,7 @@ products = [
         "varieties": [
             {
                 "id": 103, "name": "Hair Dryer Professional", "price": 2800,
+                "image_url": "https://source.unsplash.com/400x300/?beauty,hairdryer",
                 "details": {
                     "Power": "2000W",
                     "Speed": "2 Speed + Cool Shot",
@@ -1424,6 +1527,7 @@ products = [
             },
             {
                 "id": 104, "name": "Electric Toothbrush", "price": 1500,
+                "image_url": "https://source.unsplash.com/400x300/?beauty,toothbrush",
                 "details": {
                     "Battery": "30 days",
                     "Modes": "3 Cleaning Modes",
@@ -1434,6 +1538,7 @@ products = [
             },
             {
                 "id": 105, "name": "Facial Cleansing Brush", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?beauty,cleansing",
                 "details": {
                     "Brushes": "4 Different Heads",
                     "Speed": "2 Speed Settings",
@@ -1450,6 +1555,7 @@ products = [
         "varieties": [
             {
                 "id": 106, "name": "Cricket Bat English Willow", "price": 4500,
+                "image_url": "https://source.unsplash.com/400x300/?sports,cricket",
                 "details": {
                     "Material": "English Willow",
                     "Weight": "2.8-3.0 lbs",
@@ -1461,6 +1567,7 @@ products = [
             },
             {
                 "id": 107, "name": "Football Size 5", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?sports,football",
                 "details": {
                     "Size": "Size 5 (Official)",
                     "Material": "Synthetic Leather",
@@ -1471,6 +1578,7 @@ products = [
             },
             {
                 "id": 108, "name": "Badminton Racket Set", "price": 2200,
+                "image_url": "https://source.unsplash.com/400x300/?sports,badminton",
                 "details": {
                     "Rackets": "2 Rackets",
                     "Material": "Carbon Fiber",
@@ -1487,6 +1595,7 @@ products = [
         "varieties": [
             {
                 "id": 109, "name": "Hard Shell Suitcase 24\"", "price": 4500,
+                "image_url": "https://source.unsplash.com/400x300/?travel,suitcase",
                 "details": {
                     "Size": "24 inches",
                     "Material": "ABS Hard Shell",
@@ -1498,6 +1607,7 @@ products = [
             },
             {
                 "id": 110, "name": "Backpack 40L Travel", "price": 2800,
+                "image_url": "https://source.unsplash.com/400x300/?travel,backpack",
                 "details": {
                     "Capacity": "40L",
                     "Material": "Nylon",
@@ -1508,6 +1618,7 @@ products = [
             },
             {
                 "id": 111, "name": "Travel Adapter Universal", "price": 600,
+                "image_url": "https://source.unsplash.com/400x300/?travel,adapter",
                 "details": {
                     "Compatibility": "150+ Countries",
                     "USB Ports": "2 USB-A + 1 USB-C",
@@ -1524,6 +1635,7 @@ products = [
         "varieties": [
             {
                 "id": 112, "name": "Digital Blood Pressure Monitor", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?health,monitor",
                 "details": {
                     "Cuff Size": "22-42cm",
                     "Memory": "99 Readings",
@@ -1535,6 +1647,7 @@ products = [
             },
             {
                 "id": 113, "name": "Pulse Oximeter", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?health,oximeter",
                 "details": {
                     "Measurement": "SpO2 & Heart Rate",
                     "Display": "OLED Screen",
@@ -1545,6 +1658,7 @@ products = [
             },
             {
                 "id": 114, "name": "Digital Thermometer", "price": 400,
+                "image_url": "https://source.unsplash.com/400x300/?health,thermometer",
                 "details": {
                     "Type": "Infrared",
                     "Range": "32-42.9°C",
@@ -1561,6 +1675,7 @@ products = [
         "varieties": [
             {
                 "id": 115, "name": "Garden Hose 50ft", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?garden,hose",
                 "details": {
                     "Length": "50 feet",
                     "Material": "Reinforced PVC",
@@ -1572,6 +1687,7 @@ products = [
             },
             {
                 "id": 116, "name": "Plant Pot Set Ceramic", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?garden,pot",
                 "details": {
                     "Quantity": "3 Pots",
                     "Sizes": "6\", 8\", 10\"",
@@ -1582,6 +1698,7 @@ products = [
             },
             {
                 "id": 117, "name": "Garden Tools Set", "price": 1500,
+                "image_url": "https://source.unsplash.com/400x300/?garden,tools",
                 "details": {
                     "Tools": "5 Piece Set",
                     "Material": "Stainless Steel",
@@ -1598,6 +1715,7 @@ products = [
         "varieties": [
             {
                 "id": 118, "name": "Baby Stroller 3-in-1", "price": 8500,
+                "image_url": "https://source.unsplash.com/400x300/?baby,stroller",
                 "details": {
                     "Type": "3-in-1 Convertible",
                     "Weight": "12kg",
@@ -1609,6 +1727,7 @@ products = [
             },
             {
                 "id": 119, "name": "Kids Learning Tablet", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?baby,tablet",
                 "details": {
                     "Screen": "7\" Touch Screen",
                     "Storage": "32GB",
@@ -1619,6 +1738,7 @@ products = [
             },
             {
                 "id": 120, "name": "Building Blocks Set", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?baby,blocks",
                 "details": {
                     "Pieces": "100+ Blocks",
                     "Material": "Non-toxic Plastic",
@@ -1635,6 +1755,7 @@ products = [
         "varieties": [
             {
                 "id": 121, "name": "Smart Speaker with Alexa", "price": 4500,
+                "image_url": "https://source.unsplash.com/400x300/?smarthome,alexa",
                 "details": {
                     "Voice Assistant": "Amazon Alexa",
                     "Audio": "360° Sound",
@@ -1646,6 +1767,7 @@ products = [
             },
             {
                 "id": 122, "name": "Smart Doorbell Camera", "price": 6500,
+                "image_url": "https://source.unsplash.com/400x300/?smarthome,doorbell",
                 "details": {
                     "Resolution": "1080p HD",
                     "Night Vision": "Yes",
@@ -1657,6 +1779,7 @@ products = [
             },
             {
                 "id": 123, "name": "Smart Light Bulbs Pack", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?smarthome,bulbs",
                 "details": {
                     "Quantity": "4 Bulbs",
                     "Color": "16 Million Colors",
@@ -1673,6 +1796,7 @@ products = [
         "varieties": [
             {
                 "id": 124, "name": "Car Dash Cam 4K", "price": 8500,
+                "image_url": "https://source.unsplash.com/400x300/?automotive,dashcam",
                 "details": {
                     "Resolution": "4K Ultra HD",
                     "Storage": "128GB SD Card",
@@ -1684,6 +1808,7 @@ products = [
             },
             {
                 "id": 125, "name": "Car Phone Mount Magnetic", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?automotive,phonemount",
                 "details": {
                     "Type": "Magnetic Mount",
                     "Compatibility": "Universal",
@@ -1694,6 +1819,7 @@ products = [
             },
             {
                 "id": 126, "name": "Car Air Purifier", "price": 3200,
+                "image_url": "https://source.unsplash.com/400x300/?automotive,airpurifier",
                 "details": {
                     "Filter": "HEPA + Activated Carbon",
                     "Coverage": "Small Car",
@@ -1710,6 +1836,7 @@ products = [
         "varieties": [
             {
                 "id": 127, "name": "Acoustic Guitar 6-String", "price": 8500,
+                "image_url": "https://source.unsplash.com/400x300/?musical,guitar",
                 "details": {
                     "Type": "Acoustic Guitar",
                     "Strings": "6 Steel Strings",
@@ -1721,6 +1848,7 @@ products = [
             },
             {
                 "id": 128, "name": "Digital Piano 88 Keys", "price": 25000,
+                "image_url": "https://source.unsplash.com/400x300/?musical,piano",
                 "details": {
                     "Keys": "88 Weighted Keys",
                     "Sounds": "128 Voices",
@@ -1731,6 +1859,7 @@ products = [
             },
             {
                 "id": 129, "name": "Electronic Drum Kit", "price": 18000,
+                "image_url": "https://source.unsplash.com/400x300/?musical,drums",
                 "details": {
                     "Pads": "8 Drum Pads",
                     "Sounds": "200+ Drum Kits",
@@ -1747,6 +1876,7 @@ products = [
         "varieties": [
             {
                 "id": 130, "name": "DSLR Camera Kit", "price": 45000,
+                "image_url": "https://source.unsplash.com/400x300/?photography,dslr",
                 "details": {
                     "Sensor": "24.2MP APS-C",
                     "Lens": "18-55mm Kit Lens",
@@ -1758,6 +1888,7 @@ products = [
             },
             {
                 "id": 131, "name": "Tripod Professional", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?photography,tripod",
                 "details": {
                     "Height": "60-160cm Adjustable",
                     "Material": "Aluminum",
@@ -1768,6 +1899,7 @@ products = [
             },
             {
                 "id": 132, "name": "Camera Lens 50mm Prime", "price": 12000,
+                "image_url": "https://source.unsplash.com/400x300/?photography,lens",
                 "details": {
                     "Focal Length": "50mm",
                     "Aperture": "f/1.8",
@@ -1784,6 +1916,7 @@ products = [
         "varieties": [
             {
                 "id": 133, "name": "Gold Chain 22K", "price": 25000,
+                "image_url": "https://source.unsplash.com/400x300/?jewelry,goldchain",
                 "details": {
                     "Material": "22K Gold",
                     "Weight": "8 grams",
@@ -1795,6 +1928,7 @@ products = [
             },
             {
                 "id": 134, "name": "Smart Watch Fitness", "price": 8500,
+                "image_url": "https://source.unsplash.com/400x300/?jewelry,smartwatch",
                 "details": {
                     "Display": "1.4\" AMOLED",
                     "Battery": "7 days",
@@ -1805,6 +1939,7 @@ products = [
             },
             {
                 "id": 135, "name": "Diamond Earrings", "price": 18000,
+                "image_url": "https://source.unsplash.com/400x300/?jewelry,diamondearrings",
                 "details": {
                     "Diamonds": "0.5 carat total",
                     "Setting": "White Gold",
@@ -1821,6 +1956,7 @@ products = [
         "varieties": [
             {
                 "id": 136, "name": "Programming Book Set", "price": 2500,
+                "image_url": "https://source.unsplash.com/400x300/?books,programming",
                 "details": {
                     "Books": "5 Programming Books",
                     "Languages": "Python, JavaScript, Java",
@@ -1832,6 +1968,7 @@ products = [
             },
             {
                 "id": 137, "name": "Fountain Pen Set", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?stationery,fountainpen",
                 "details": {
                     "Quantity": "3 Pens",
                     "Nib": "Medium Point",
@@ -1842,6 +1979,7 @@ products = [
             },
             {
                 "id": 138, "name": "Notebook Set Premium", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?stationery,notebook",
                 "details": {
                     "Quantity": "5 Notebooks",
                     "Pages": "200 pages each",
@@ -1858,6 +1996,7 @@ products = [
         "varieties": [
             {
                 "id": 139, "name": "Organic Green Tea Pack", "price": 600,
+                "image_url": "https://source.unsplash.com/400x300/?food,greentea",
                 "details": {
                     "Quantity": "100 Tea Bags",
                     "Type": "Organic Green Tea",
@@ -1869,6 +2008,7 @@ products = [
             },
             {
                 "id": 140, "name": "Coffee Beans Premium", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?food,coffeebeans",
                 "details": {
                     "Weight": "500g",
                     "Type": "Arabica Beans",
@@ -1879,6 +2019,7 @@ products = [
             },
             {
                 "id": 141, "name": "Protein Powder 1kg", "price": 2800,
+                "image_url": "https://source.unsplash.com/400x300/?food,proteinpowder",
                 "details": {
                     "Weight": "1kg",
                     "Type": "Whey Protein",
@@ -1895,6 +2036,7 @@ products = [
         "varieties": [
             {
                 "id": 142, "name": "Oil Paint Set 24 Colors", "price": 1800,
+                "image_url": "https://source.unsplash.com/400x300/?art,oilpaint",
                 "details": {
                     "Colors": "24 Oil Paint Tubes",
                     "Size": "12ml each",
@@ -1906,6 +2048,7 @@ products = [
             },
             {
                 "id": 143, "name": "Sketching Pencils Set", "price": 600,
+                "image_url": "https://source.unsplash.com/400x300/?art,pencils",
                 "details": {
                     "Pencils": "12 Different Grades",
                     "Type": "Graphite Pencils",
@@ -1916,6 +2059,7 @@ products = [
             },
             {
                 "id": 144, "name": "Watercolor Paper Pad", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?art,watercolor",
                 "details": {
                     "Size": "A4",
                     "Sheets": "20 sheets",
@@ -1932,6 +2076,7 @@ products = [
         "varieties": [
             {
                 "id": 145, "name": "Drill Machine Cordless", "price": 4500,
+                "image_url": "https://source.unsplash.com/400x300/?tools,drill",
                 "details": {
                     "Power": "18V Lithium Battery",
                     "Torque": "50Nm",
@@ -1943,6 +2088,7 @@ products = [
             },
             {
                 "id": 146, "name": "Tool Kit 50 Pieces", "price": 2200,
+                "image_url": "https://source.unsplash.com/400x300/?tools,toolkit",
                 "details": {
                     "Pieces": "50 Tools",
                     "Case": "Hard Plastic Case",
@@ -1953,6 +2099,7 @@ products = [
             },
             {
                 "id": 147, "name": "Measuring Tape 5m", "price": 300,
+                "image_url": "https://source.unsplash.com/400x300/?tools,tape",
                 "details": {
                     "Length": "5 meters",
                     "Width": "25mm",
@@ -1969,6 +2116,7 @@ products = [
         "varieties": [
             {
                 "id": 148, "name": "Electric Blanket", "price": 3500,
+                "image_url": "https://source.unsplash.com/400x300/?seasonal,blanket",
                 "details": {
                     "Size": "Double Bed",
                     "Material": "Fleece",
@@ -1980,6 +2128,7 @@ products = [
             },
             {
                 "id": 149, "name": "Portable Fan USB", "price": 800,
+                "image_url": "https://source.unsplash.com/400x300/?seasonal,fan",
                 "details": {
                     "Power": "USB Powered",
                     "Speed": "3 Speed Settings",
@@ -1990,6 +2139,7 @@ products = [
             },
             {
                 "id": 150, "name": "Raincoat Adult", "price": 1200,
+                "image_url": "https://source.unsplash.com/400x300/?seasonal,raincoat",
                 "details": {
                     "Size": "Universal Fit",
                     "Material": "PVC Waterproof",

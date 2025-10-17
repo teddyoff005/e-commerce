@@ -103,7 +103,7 @@
 {% block content %}
 <div class="product-detail-wrapper">
     <div class="product-image-container">
-        <img src="https://source.unsplash.com/500x500/?{{ variety.name.replace(' ', '+') }}" alt="{{ variety.name }}" class="product-image-large">
+        <img src="{{ variety.image_url.replace('400x300', '500x500') if variety.image_url else 'https://source.unsplash.com/500x500/?' + variety.name.replace(' ', '+') }}" alt="{{ variety.name }}" class="product-image-large">
     </div>
 
     <div class="product-info-container">

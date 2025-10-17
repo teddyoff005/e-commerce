@@ -203,7 +203,7 @@
                 {% for variety in cat_products[0].varieties %}
                 <div class="product-card" data-name="{{ category }}" data-variety="{{ variety.name }}" data-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}">
                     <a href="{{ url_for('product_detail', pid=variety.id) }}">
-                        <img src="https://source.unsplash.com/400x300/?{{ variety.name.replace(' ', '+') }}" alt="{{ variety.name }}" class="product-image">
+                        <img src="{{ variety.image_url }}" alt="{{ variety.name }}" class="product-image">
                         <div class="product-info">
                             <span class="product-variety">{{ variety.name }}</span>
                             <div class="product-price">
