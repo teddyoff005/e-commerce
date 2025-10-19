@@ -787,6 +787,7 @@ products = [
 ]
 users = {}
 orders = []
+wishlists = {}
 
 @app.route('/')
 def root():
@@ -803,15 +804,36 @@ def cover():
     new_arrivals = [v for v in all_varieties if v['id'] in new_arrival_ids]
     return render_template('landing.html', new_arrivals=new_arrivals)
 
+@app.route('/add_to_wishlist/<int:pid>')
+def add_to_wishlist(pid):
+    if 'user' not in session:
+        return jsonify({'success': False, 'message': 'Please log in first.'}), 401
+    
+    user = session['user']
+    if user not in wishlists:
+        wishlists[user] = []
+    
+    if pid not in wishlists[user]:
+        wishlists[user].append(pid)
+        message = 'Added to wishlist.'
+    else:
+        message = 'Item already in wishlist.'
+    
+    return jsonify({'success': True, 'message': message, 'wishlist_count': len(wishlists[user])})
+
 @app.route('/home')
 def home():
     query = request.args.get('q', '').lower()
+    category_filter = request.args.get('category', '').lower()
+
     filtered_products = []
     trending_products = []
     deals = []
 
     all_varieties = []
+    all_product_categories = []
     for p in products:
+        all_product_categories.append(p['name'])
         for v in p['varieties']:
             all_varieties.append(v)
 
@@ -822,16 +844,23 @@ def home():
     # Filter for deals (e.g., discount >= 20%)
     deals = [v for v in all_varieties if v.get('discount', 0) >= 20]
 
-    for product in products:
-        filtered_varieties = []
-        for v in product['varieties']:
-            # Search in product name, variety name, and details
+    # Apply filters
+    for product_category_data in products:
+        if category_filter and product_category_data['name'].lower() != category_filter:
+            continue
+
+        filtered_varieties_for_category = []
+        for v in product_category_data['varieties']:
+            current_price = v['price'] - (v['price'] * v.get('discount', 0) // 100)
+
+            # No price filtering
+
             matches = False
             if not query:
                 matches = True
             else:
                 # Search in product category name
-                if query in product['name'].lower():
+                if query in product_category_data['name'].lower():
                     matches = True
                 # Search in variety name
                 elif query in v['name'].lower():
@@ -847,14 +876,18 @@ def home():
                     matches = True
             
             if matches:
-                filtered_varieties.append(v)
+                filtered_varieties_for_category.append(v)
         
-        if filtered_varieties:
+        if filtered_varieties_for_category:
+            # Apply sorting to varieties within each category
+            # No sorting applied
+
             filtered_products.append({
-                'name': product['name'],
-                'varieties': filtered_varieties
+                'name': product_category_data['name'],
+                'varieties': filtered_varieties_for_category
             })
-    return render_template('home.html', products=filtered_products, trending_products=trending_products, deals=deals)
+
+    return render_template('home.html', products=filtered_products, trending_products=trending_products, deals=deals, all_product_categories=sorted(list(set(all_product_categories))))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -902,7 +935,7 @@ def add_to_cart(pid):
     cart.append(pid)
     session['cart'] = cart
     
-    return jsonify({'success': True, 'message': 'Added to cart.'})
+    return jsonify({'success': True, 'message': 'Added to cart.', 'cart_count': len(session.get('cart', []))})
 
 def get_variety_by_id(pid):
     for p in products:
@@ -910,6 +943,31 @@ def get_variety_by_id(pid):
             if v['id'] == pid:
                 return {"product": p["name"], **v}
     return None
+
+@app.context_processor
+def cart_item_count():
+    return {'cart_count': len(session.get('cart', []))}
+
+@app.context_processor
+def wishlist_item_count():
+    user = session.get('user')
+    if user and user in wishlists:
+        return {'wishlist_count': len(wishlists[user])}
+    return {'wishlist_count': 0}
+
+@app.route('/remove_from_wishlist/<int:pid>')
+def remove_from_wishlist(pid):
+    if 'user' not in session:
+        return jsonify({'success': False, 'message': 'Please log in first.'}), 401
+    
+    user = session['user']
+    if user in wishlists and pid in wishlists[user]:
+        wishlists[user].remove(pid)
+        message = 'Removed from wishlist.'
+    else:
+        message = 'Item not found in wishlist.'
+    
+    return jsonify({'success': True, 'message': message, 'wishlist_count': len(wishlists.get(user, []))})
 
 @app.route('/cart')
 def view_cart():
@@ -961,7 +1019,27 @@ def my_orders():
 
 @app.route('/wishlist')
 def wishlist():
-    return render_template('wishlist.html')
+    if 'user' not in session:
+        flash('Please log in to view your wishlist.')
+        return redirect(url_for('login'))
+    
+    user = session['user']
+    user_wishlist_ids = wishlists.get(user, [])
+    wishlist_items = []
+    for pid in user_wishlist_ids:
+        item = get_variety_by_id(pid)
+        if item:
+            wishlist_items.append(item)
+            
+    return render_template('wishlist.html', wishlist_items=wishlist_items)
+
+@app.route('/profile')
+def profile():
+    if 'user' not in session:
+        flash('Please log in to view your profile.')
+        return redirect(url_for('login'))
+    user_orders = [o for o in orders if o['user'] == session['user']]
+    return render_template('profile.html', user_orders=user_orders)
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():

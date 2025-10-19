@@ -232,13 +232,15 @@
 {% endblock %}
 
 {% block nav_form %}
-<div class="sorting-container ms-2">
-    <select id="sortOptions" onchange="sortProducts()" class="form-select form-select-sm">
-        <option value="default">Sort by</option>
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
+<form class="d-flex align-items-center" action="{{ url_for('home') }}" method="get">
+    <select name="category" class="form-select form-select-sm">
+        <option value="">All Categories</option>
+        {% for product_category in all_product_categories %}
+            <option value="{{ product_category }}" {% if request.args.get('category') == product_category %}selected{% endif %}>{{ product_category }}</option>
+        {% endfor %}
     </select>
-</div>
+    <button class="btn btn-outline-info btn-sm ms-1" type="submit">Apply</button>
+</form>
 {% endblock %}
 
 {% block content %}
@@ -354,29 +356,6 @@
 {% block scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-    function sortProducts() {
-        const sortValue = document.getElementById('sortOptions').value;
-        if (sortValue === 'default') return;
-
-        const productsLists = document.querySelectorAll('.products-list');
-        productsLists.forEach(productsList => {
-            const products = Array.from(productsList.children);
-
-            products.sort((a, b) => {
-                const priceA = parseFloat(a.dataset.price);
-                const priceB = parseFloat(b.dataset.price);
-
-                if (sortValue === 'price-asc') {
-                    return priceA - priceB;
-                } else {
-                    return priceB - priceA;
-                }
-            });
-
-            products.forEach(product => productsList.appendChild(product));
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', function() {
         // --- Start of Add to Cart (AJAX) ---
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
@@ -409,34 +388,6 @@
             });
         });
         // --- End of Add to Cart (AJAX) ---
-
-        // --- Start of Wishlist Add --- 
-        const wishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
-        wishlistButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const productId = this.dataset.productId;
-                const productName = this.dataset.productName;
-                const productPrice = this.dataset.productPrice;
-
-                if (!productId || !productName || !productPrice) {
-                    console.error('Wishlist button is missing data attributes.');
-                    return;
-                }
-
-                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-                if (wishlist.find(item => item.id === productId)) {
-                    alert('This item is already in your wishlist!');
-                    return;
-                }
-
-                wishlist.push({ id: productId, name: productName, price: productPrice });
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                alert('Added to wishlist!');
-            });
-        });
-        // --- End of Wishlist Add ---
 
         // This script is a direct copy from the new login page design
         // It creates the animated background effect.

@@ -75,6 +75,10 @@
             flex: 1;
             justify-content: center;
         }
+        .navbar-nav .nav-link {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+        }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -89,18 +93,18 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('view_cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('view_cart') }}"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-badge" class="badge bg-info rounded-pill ms-1" {% if cart_count == 0 %}style="display: none;"{% endif %}>{{ cart_count }}</span></a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('my_orders') }}"><i class="fas fa-box"></i> My Orders</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('wishlist') }}"><i class="fas fa-heart"></i> Wishlist <span id="wishlist-badge" class="badge bg-info rounded-pill ms-1" {% if wishlist_count == 0 %}style="display: none;"{% endif %}>{{ wishlist_count }}</span></a></li>
                     </ul>
                     <div class="d-flex align-items-center">
-                        <form class="d-flex me-2" action="{{ url_for('home') }}" method="get">
+                        <form class="d-flex me-1" action="{{ url_for('home') }}" method="get">
                             <input class="form-control form-control-sm" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.args.get('q', '') }}">
                             <button class="btn btn-outline-info btn-sm" type="submit">Search</button>
                         </form>
                         {% block nav_form %}{% endblock %}
                     </div>
-                    <ul class="navbar-nav ms-3">
+                    <ul class="navbar-nav ms-2">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="locationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-map-marker-alt"></i> {% if session.location %}{{ session.location }}{% else %}Select Location{% endif %}
@@ -124,6 +128,7 @@
                                     Hello, <b>{{ session.user }}</b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
                                 </ul>
                             </li>
@@ -183,6 +188,90 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartCountBadge = document.getElementById('cart-badge');
+            const wishlistCountBadge = document.getElementById('wishlist-badge');
+            const flashContainer = document.querySelector('main .container');
+
+            // Function to display flash messages
+            function displayFlashMessage(message, category) {
+                const alertDiv = `<div class="alert alert-${category} alert-dismissible fade show" role="alert">
+                                    ${message}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>`;
+                flashContainer.insertAdjacentHTML('afterbegin', alertDiv);
+            }
+
+            // Handle Add to Cart
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const productId = this.dataset.productId;
+
+                    fetch(this.href, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (cartCountBadge) {
+                                cartCountBadge.textContent = data.cart_count;
+                                cartCountBadge.style.display = data.cart_count > 0 ? 'inline-block' : 'none';
+                            }
+                            displayFlashMessage(data.message, 'success');
+                        } else {
+                            displayFlashMessage(data.message, 'danger');
+                            if (data.message === 'Please log in first.') {
+                                window.location.href = '{{ url_for('login') }}';
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        displayFlashMessage('An error occurred while adding to cart.', 'danger');
+                    });
+                });
+            });
+
+            // Handle Add to Wishlist
+            document.querySelectorAll('.add-to-wishlist-btn').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const productId = this.dataset.productId;
+
+                    fetch('/add_to_wishlist/' + productId, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (wishlistCountBadge) {
+                                wishlistCountBadge.textContent = data.wishlist_count;
+                                wishlistCountBadge.style.display = data.wishlist_count > 0 ? 'inline-block' : 'none';
+                            }
+                            displayFlashMessage(data.message, 'success');
+                        } else {
+                            displayFlashMessage(data.message, 'danger');
+                            if (data.message === 'Please log in first.') {
+                                window.location.href = '{{ url_for('login') }}';
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        displayFlashMessage('An error occurred while adding to wishlist.', 'danger');
+                    });
+                });
+            });
+        });
+    </script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

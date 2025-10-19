@@ -83,7 +83,18 @@
     <h1 class="page-title">Your Wishlist</h1>
 
     <div id="wishlist-items">
-        <!-- Wishlist items will be dynamically injected here by JavaScript -->
+        {% if wishlist_items %}
+            <ul class="wishlist-list">
+                {% for item in wishlist_items %}
+                    <li id="wishlist-item-{{ item.id }}">
+                        <span>{{ item.name }} - Rs. {{ item.price }}</span>
+                        <button class="remove-btn" data-product-id="{{ item.id }}">Remove</button>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="empty-wishlist-message"><p>Your wishlist is empty.</p></div>
+        {% endif %}
     </div>
 
     <div class="back-action">
@@ -96,31 +107,47 @@
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
         const wishlistContainer = document.getElementById('wishlist-items');
-
-        if (wishlist.length === 0) {
-            wishlistContainer.innerHTML = '<div class="empty-wishlist-message"><p>Your wishlist is empty.</p></div>';
-            return;
-        }
-
-        const ul = document.createElement('ul');
-        ul.className = 'wishlist-list';
-        wishlist.forEach(item => {
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${item.name} - Rs. ${item.price}</span> <button class="remove-btn" data-id="${item.id}">Remove</button>`;
-            ul.appendChild(li);
-        });
-
-        wishlistContainer.appendChild(ul);
+        const wishlistCountBadge = document.getElementById('wishlist-badge');
 
         wishlistContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-btn')) {
-                const productId = e.target.dataset.id;
-                let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-                wishlist = wishlist.filter(item => item.id !== productId);
-                localStorage.setItem('wishlist', JSON.stringify(wishlist));
-                location.reload(); // Reload to update the list
+                e.preventDefault();
+                const productId = e.target.dataset.productId;
+                
+                fetch('/remove_from_wishlist/' + productId, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Remove item from DOM
+                        const listItem = document.getElementById('wishlist-item-' + productId);
+                        if (listItem) {
+                            listItem.remove();
+                        }
+
+                        // Update wishlist count in navbar
+                        if (wishlistCountBadge) {
+                            wishlistCountBadge.textContent = data.wishlist_count;
+                            wishlistCountBadge.style.display = data.wishlist_count > 0 ? 'inline-block' : 'none';
+                        }
+
+                        // If wishlist becomes empty, display message
+                        if (data.wishlist_count === 0) {
+                            wishlistContainer.innerHTML = '<div class="empty-wishlist-message"><p>Your wishlist is empty.</p></div>';
+                        }
+                    } else {
+                        // Handle error, e.g., display a flash message
+                        console.error('Error removing from wishlist:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error:', error);
+                });
             }
         });
     });
