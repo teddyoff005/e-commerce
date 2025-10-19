@@ -483,7 +483,7 @@
     <div class="wrapper">
         <div class="landing-left">
             <div class="brand-section">
-                <a href="{{ url_for('cover') }}" class="logo">◆ One Stop Store</a>
+                <a href="{{ url_for('landing') }}" class="logo">◆ One Stop Store</a>
                 <div class="tagline">The Future of E-commerce Access</div>
             </div>
 
@@ -540,6 +540,9 @@
                             <input type="password" class="form-input" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
                             <i class="fas fa-lock input-icon"></i>
                         </div>
+                        <div style="margin-top: 10px;">
+                            <input type="checkbox" onclick="showPassword()"> Show Password
+                        </div>
                     </div>
 
                     <div class="options-row">
@@ -557,7 +560,7 @@
                     Don't have an account? <a href="{{ url_for('register') }}" class="signup-link">Create one now</a>
                 </div>
                 <div class="signup-text" style="margin-top: 10px;">
-                    <a href="{{ url_for('cover') }}" class="signup-link">Back to Welcome</a>
+                    <a href="{{ url_for('landing') }}" class="signup-link">Back to Welcome</a>
                 </div>
             </div>
         </div>
@@ -730,6 +733,15 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        function showPassword() {
+            var password = document.getElementById("password");
+            if (password.type === "password") {
+                password.type = "text";
+            } else {
+                password.type = "password";
+            }
+        }
 
         // NOTE: Removed the original alert('Authentication initiated!') JavaScript form handler
         // to allow the Flask form submission to work correctly.

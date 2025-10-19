@@ -791,10 +791,10 @@ wishlists = {}
 
 @app.route('/')
 def root():
-    return redirect(url_for('cover'))
+    return render_template('animation.html')
 
-@app.route('/cover')
-def cover():
+@app.route('/get-landing-content')
+def get_landing_content():
     all_varieties = []
     for p in products:
         for v in p['varieties']:
@@ -803,6 +803,10 @@ def cover():
     new_arrival_ids = [2, 5, 9, 14, 21]
     new_arrivals = [v for v in all_varieties if v['id'] in new_arrival_ids]
     return render_template('landing.html', new_arrivals=new_arrivals)
+
+@app.route('/landing')
+def landing():
+    return render_template('animation.html')
 
 @app.route('/add_to_wishlist/<int:pid>')
 def add_to_wishlist(pid):
