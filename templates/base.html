@@ -1,118 +1,56 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>One Stop Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}One Stop Store{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            margin: 0;
-            background: #0a0e27; /* Dark background */
+            padding-top: 70px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #0a0e27;
             color: #e8e8ff;
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
         }
-
+        main {
+            flex: 1;
+        }
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 5%;
+            background-color: rgba(10, 14, 39, 0.7) !important;
             backdrop-filter: blur(10px);
-            background: rgba(10, 14, 39, 0.7);
             border-bottom: 1px solid rgba(100, 100, 255, 0.15);
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
-
-        .navbar .logo {
+        .navbar-brand {
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 1.8rem;
-            text-decoration: none;
-            background: linear-gradient(135deg, #00d9ff, #9d4edd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.5rem;
         }
-
-        .navbar .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .navbar .nav-links a, .navbar .nav-links span {
-            color: #c0c0e0;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-
-        .navbar .nav-links a:hover {
-            color: #00d9ff;
-            text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
-        }
-        
-        .navbar .nav-links .user-greeting b {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .navbar .search-bar {
-            position: relative;
-        }
-
-        .navbar .search-input {
-            padding: 8px 15px 8px 40px;
-            background: rgba(30, 35, 70, 0.6);
-            border: 1.5px solid rgba(100, 120, 255, 0.25);
-            border-radius: 8px;
-            color: #e8e8ff;
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.3s ease;
-            width: 250px;
-        }
-
-        .navbar .search-input:focus {
-            border-color: rgba(0, 217, 255, 0.6);
-            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
-        }
-
-        .navbar .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #6080c0;
-        }
-
-        .container {
-            padding: 100px 5% 40px 5%;
-            position: relative;
-            z-index: 2;
-        }
-
         .footer {
-            text-align: center;
-            padding: 20px 0;
-            font-size: 0.9rem;
-            color: #a0a0c0;
+            background-color: #0a0e27;
             border-top: 1px solid rgba(100, 100, 255, 0.15);
-            margin-top: 40px;
+            padding: 40px 0;
+            color: #a0a0c0;
+        }
+        .footer h5 {
+            color: #00d9ff;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .footer a {
+            color: #a0a0c0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer a:hover {
+            color: #00d9ff;
         }
 
-        /* General button style from the new theme */
         .theme-button {
             padding: 10px 20px;
             background: linear-gradient(135deg, #00d9ff 0%, #9d4edd 100%);
@@ -125,73 +63,101 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
             text-decoration: none;
+            display: inline-block;
         }
 
         .theme-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
         }
-
-        /* Flash messages */
-        .messages {
-            max-width: 1200px;
-            margin: -80px auto 20px auto;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            color: #ff3366;
-            background: rgba(255, 51, 102, 0.15);
-            border: 1px solid rgba(255, 51, 102, 0.3);
-            position: relative;
-            z-index: 100;
-        }
-        .messages ul { list-style: none; padding: 0; margin: 0; }
-
     </style>
     {% block head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar">
-        <a href="{{ url_for('home') }}" class="logo">◆ One Stop Store</a>
-        <div class="nav-links">
-            {% if session.user %}
-                <span class="user-greeting">Hello, <b>{{ session.user }}</b></span>
-                <a href="{{ url_for('view_cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a>
-                <a href="{{ url_for('my_orders') }}"><i class="fas fa-box"></i> My Orders</a>
-                <a href="{{ url_for('wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a>
-                <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Register</a>
-            {% endif %}
-        </div>
-        <form class="search-bar" action="{{ url_for('home') }}" method="get">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" name="q" class="search-input" placeholder="Search products..." value="{{ request.args.get('q', '') }}">
-        </form>
-    </nav>
-
-    <main class="container">
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="messages">
-                <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('home') }}">◆ One Stop Store</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('view_cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('my_orders') }}"><i class="fas fa-box"></i> My Orders</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
+                    </ul>
+                    <form class="d-flex" action="{{ url_for('home') }}" method="get">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.args.get('q', '') }}">
+                        <button class="btn btn-outline-info" type="submit">Search</button>
+                    </form>
+                    <ul class="navbar-nav ms-3">
+                        {% if session.user %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello, <b>{{ session.user }}</b>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-          {% endif %}
+        </nav>
+    </header>
+
+    <main class="container my-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
-        
-        {% block content %}
-        {% endblock %}
+        {% block content %}{% endblock %}
     </main>
 
-    <footer class="footer">
-        &copy; {{ 2025 }} One Stop Store. The Future of E-commerce.
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>About Us</h5>
+                    <p>Your one-stop destination for the best products, curated with passion and delivered with care.</p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 Tech Lane, Future City</li>
+                        <li><i class="fas fa-phone me-2"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope me-2"></i> contact@onestopstore.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: rgba(100, 100, 255, 0.15);"/>
+            <div class="text-center pt-3">
+                <p>&copy; 2025 One Stop Store. All Rights Reserved.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     {% block scripts %}{% endblock %}
 </body>
 </html>

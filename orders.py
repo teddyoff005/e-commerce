@@ -22,6 +22,8 @@ def view_orders(user):
             found = True
             print("Order:")
             for item in order["items"]:
-                print(f"- {item['name']} - Rs.{item['price']}")
+                product = item['product']
+                quantity = item['quantity']
+                print(f"- {product['name']} - Rs.{product['price']} x {quantity}")
     if not found:
         print("No orders found.")
