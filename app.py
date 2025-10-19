@@ -749,7 +749,7 @@ products = [
         "name": "Beauty & Personal Care",
         "varieties": [
             {
-                "id": 103, "name": "Hair Dryer Professional", "price": 2800,
+                "id": 97, "name": "Hair Dryer Professional", "price": 2800,
                 "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Hair+Dryer+Professional",
                 "details": {
                     "Power": "2000W",
@@ -760,7 +760,7 @@ products = [
                 "discount": 0
             },
             {
-                "id": 104, "name": "Electric Toothbrush", "price": 1500,
+                "id": 98, "name": "Electric Toothbrush", "price": 1500,
                 "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Electric+Toothbrush",
                 "details": {
                     "Battery": "30 days",
@@ -772,7 +772,7 @@ products = [
                 "occasion": "Personal Care Week"
             },
             {
-                "id": 105, "name": "Facial Cleansing Brush", "price": 1200,
+                "id": 99, "name": "Facial Cleansing Brush", "price": 1200,
                 "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Facial+Cleansing+Brush",
                 "details": {
                     "Brushes": "4 Different Heads",
