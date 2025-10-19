@@ -10,7 +10,7 @@ products = [
         "varieties": [
             {
                 "id": 1, "name": "Dell Inspiron 15", "price": 50000,
-                "image_url": "https://source.unsplash.com/400x300/?laptop,Dell",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Dell+Inspiron+15",
                 "details": {
                     "RAM": "8GB DDR4",
                     "CPU": "Intel Core i5 11th Gen",
@@ -18,12 +18,12 @@ products = [
                     "Storage": "512GB SSD",
                     "Display": "15.6\" FHD"
                 },
-                "discount": 10,
-                "occasion": "Diwali"
+                "discount": 20,
+                "occasion": "Diwali Sale"
             },
             {
                 "id": 2, "name": "HP Pavilion x360", "price": 62000,
-                "image_url": "https://source.unsplash.com/400x300/?laptop,HP",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=HP+Pavilion+x360",
                 "details": {
                     "RAM": "16GB DDR4",
                     "CPU": "Intel Core i7 12th Gen",
@@ -35,14 +35,16 @@ products = [
             },
             {
                 "id": 3, "name": "Apple MacBook Air", "price": 95000,
-                "image_url": "https://source.unsplash.com/400x300/?laptop,Apple",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Apple+MacBook+Air",
                 "details": {
                     "RAM": "8GB Unified",
                     "CPU": "Apple M1",
                     "GPU": "Integrated 7-core",
                     "Storage": "256GB SSD",
                     "Display": "13.3\" Retina"
-                }
+                },
+                "discount": 10,
+                "occasion": "New Year Bonanza"
             }
         ]
     },
@@ -51,7 +53,7 @@ products = [
         "varieties": [
             {
                 "id": 4, "name": "Samsung Galaxy S23", "price": 70000,
-                "image_url": "https://source.unsplash.com/400x300/?smartphone,samsung",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Samsung+Galaxy+S23",
                 "details": {
                     "RAM": "8GB",
                     "CPU": "Snapdragon 8 Gen 2",
@@ -59,12 +61,12 @@ products = [
                     "Camera": "50MP Triple",
                     "Display": "6.1\" FHD+ AMOLED"
                 },
-                "discount": 15,
-                "occasion": "Republic Day"
+                "discount": 25,
+                "occasion": "Holi Festival Offer"
             },
             {
                 "id": 5, "name": "iPhone 14", "price": 80000,
-                "image_url": "https://source.unsplash.com/400x300/?smartphone,iphone",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=iPhone+14",
                 "details": {
                     "RAM": "6GB",
                     "CPU": "Apple A15 Bionic",
@@ -75,14 +77,16 @@ products = [
             },
             {
                 "id": 6, "name": "OnePlus 11", "price": 60000,
-                "image_url": "https://source.unsplash.com/400x300/?smartphone,oneplus",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=OnePlus+11",
                 "details": {
                     "RAM": "8GB",
                     "CPU": "Snapdragon 8 Gen 2",
                     "Storage": "128GB",
                     "Camera": "50MP Triple",
                     "Display": "6.7\" QHD+ AMOLED"
-                }
+                },
+                "discount": 15,
+                "occasion": "Summer Sale"
             }
         ]
     },
@@ -91,7 +95,7 @@ products = [
         "varieties": [
             {
                 "id": 7, "name": "Sony WH-1000XM4", "price": 25000,
-                "image_url": "https://source.unsplash.com/400x300/?headphones,sony",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Sony+WH-1000XM4",
                 "details": {
                     "Type": "Over-ear Wireless",
                     "Battery": "30 hours",
@@ -104,7 +108,7 @@ products = [
             },
             {
                 "id": 8, "name": "Boat Rockerz 450", "price": 1500,
-                "image_url": "https://source.unsplash.com/400x300/?headphones,boat",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Boat+Rockerz+450",
                 "details": {
                     "Type": "Over-ear Wireless",
                     "Battery": "15 hours",
@@ -113,12 +117,12 @@ products = [
                     "Color": "Black/Red",
                     "Features": "Bass Boost, Voice Assistant"
                 },
-                "discount": 20,
-                "occasion": "Music Festival"
+                "discount": 30,
+                "occasion": "Monsoon Mania"
             },
             {
                 "id": 9, "name": "JBL Tune 510BT", "price": 3500,
-                "image_url": "https://source.unsplash.com/400x300/?headphones,jbl",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=JBL+Tune+510BT",
                 "details": {
                     "Type": "Over-ear Wireless",
                     "Battery": "40 hours",
@@ -127,8 +131,8 @@ products = [
                     "Color": "Blue/White/Black",
                     "Features": "JBL Pure Bass, Multi-point Connect"
                 },
-                "discount": 15,
-                "occasion": "Audio Week"
+                "discount": 10,
+                "occasion": "Winter Fest"
             }
         ]
     },
@@ -137,7 +141,7 @@ products = [
         "varieties": [
             {
                 "id": 10, "name": "Atomic Habits", "price": 500,
-                "image_url": "https://source.unsplash.com/400x300/?book,reading",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Atomic+Habits",
                 "details": {
                     "Author": "James Clear",
                     "Pages": "320 pages",
@@ -150,7 +154,7 @@ products = [
             },
             {
                 "id": 11, "name": "The Alchemist", "price": 400,
-                "image_url": "https://source.unsplash.com/400x300/?book,adventure",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=The+Alchemist",
                 "details": {
                     "Author": "Paulo Coelho",
                     "Pages": "208 pages",
@@ -159,12 +163,12 @@ products = [
                     "Genre": "Fiction/Philosophy",
                     "Publisher": "HarperOne"
                 },
-                "discount": 10,
-                "occasion": "Reading Week"
+                "discount": 15,
+                "occasion": "Book Lovers Day"
             },
             {
                 "id": 12, "name": "Rich Dad Poor Dad", "price": 450,
-                "image_url": "https://source.unsplash.com/400x300/?book,finance",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Rich+Dad+Poor+Dad",
                 "details": {
                     "Author": "Robert Kiyosaki",
                     "Pages": "336 pages",
@@ -173,8 +177,7 @@ products = [
                     "Genre": "Personal Finance",
                     "Publisher": "Warner Books"
                 },
-                "discount": 15,
-                "occasion": "Financial Literacy Month"
+                "discount": 0
             }
         ]
     },
@@ -183,7 +186,7 @@ products = [
         "varieties": [
             {
                 "id": 13, "name": "Apple Watch SE", "price": 32000,
-                "image_url": "https://source.unsplash.com/400x300/?smartwatch,apple",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Apple+Watch+SE",
                 "details": {
                     "Display": "40mm/44mm Retina",
                     "Battery": "18 hours",
@@ -192,11 +195,12 @@ products = [
                     "Color": "Space Gray/Silver/Gold",
                     "Features": "Water Resistant, Sleep Tracking"
                 },
-                "discount": 0
+                "discount": 5,
+                "occasion": "Valentine's Special"
             },
             {
                 "id": 14, "name": "Samsung Galaxy Watch 5", "price": 28000,
-                "image_url": "https://source.unsplash.com/400x300/?smartwatch,samsung",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Samsung+Galaxy+Watch+5",
                 "details": {
                     "Display": "1.4\" AMOLED",
                     "Battery": "50 hours",
@@ -205,12 +209,11 @@ products = [
                     "Color": "Black/Silver/Pink Gold",
                     "Features": "Samsung Pay, Bixby Voice"
                 },
-                "discount": 12,
-                "occasion": "Tech Week"
+                "discount": 0
             },
             {
                 "id": 15, "name": "Noise ColorFit Pro", "price": 3500,
-                "image_url": "https://source.unsplash.com/400x300/?smartwatch,noise",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Noise+ColorFit+Pro",
                 "details": {
                     "Display": "1.55\" HD Color",
                     "Battery": "10 days",
@@ -219,8 +222,8 @@ products = [
                     "Color": "Black/Blue/Pink",
                     "Features": "IP68 Water Resistant, 150+ Watch Faces"
                 },
-                "discount": 18,
-                "occasion": "Fitness Month"
+                "discount": 20,
+                "occasion": "Independence Day Sale"
             }
         ]
     },
@@ -229,7 +232,7 @@ products = [
         "varieties": [
             {
                 "id": 16, "name": "JBL Flip 5", "price": 8000,
-                "image_url": "https://source.unsplash.com/400x300/?speaker,jbl",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=JBL+Flip+5",
                 "details": {
                     "Power": "20W",
                     "Battery": "12 hours",
@@ -238,11 +241,12 @@ products = [
                     "Color": "Black/Blue/Red/Pink",
                     "Features": "JBL Connect+, Voice Assistant"
                 },
-                "discount": 0
+                "discount": 10,
+                "occasion": "Ganesh Chaturthi Offer"
             },
             {
                 "id": 17, "name": "Boat Stone 650", "price": 1800,
-                "image_url": "https://source.unsplash.com/400x300/?speaker,boat",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Boat+Stone+650",
                 "details": {
                     "Power": "10W",
                     "Battery": "8 hours",
@@ -251,12 +255,11 @@ products = [
                     "Color": "Black/Blue/Red",
                     "Features": "Bass Boost, TWS Connect"
                 },
-                "discount": 15,
-                "occasion": "Party Season"
+                "discount": 0
             },
             {
                 "id": 18, "name": "Sony SRS-XB13", "price": 3500,
-                "image_url": "https://source.unsplash.com/400x300/?speaker,sony",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Sony+SRS-XB13",
                 "details": {
                     "Power": "16W",
                     "Battery": "16 hours",
@@ -265,8 +268,8 @@ products = [
                     "Color": "Black/Blue/Pink/Orange",
                     "Features": "Extra Bass, Party Connect"
                 },
-                "discount": 10,
-                "occasion": "Music Week"
+                "discount": 15,
+                "occasion": "Christmas Sale"
             }
         ]
     },
@@ -275,7 +278,7 @@ products = [
         "varieties": [
             {
                 "id": 19, "name": "Wildcraft 35L", "price": 1200,
-                "image_url": "https://source.unsplash.com/400x300/?backpack,wildcraft",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Wildcraft+35L",
                 "details": {
                     "Capacity": "35L",
                     "Material": "Ripstop Nylon",
@@ -288,7 +291,7 @@ products = [
             },
             {
                 "id": 20, "name": "Skybags Brat", "price": 1400,
-                "image_url": "https://source.unsplash.com/400x300/?backpack,skybags",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Skybags+Brat",
                 "details": {
                     "Capacity": "30L",
                     "Material": "Polyester",
@@ -297,12 +300,12 @@ products = [
                     "Features": "Anti-theft, USB Charging Port",
                     "Weight": "1.0kg"
                 },
-                "discount": 12,
-                "occasion": "Travel Week"
+                "discount": 10,
+                "occasion": "Back to College"
             },
             {
                 "id": 21, "name": "American Tourister", "price": 1800,
-                "image_url": "https://source.unsplash.com/400x300/?backpack,tourister",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=American+Tourister",
                 "details": {
                     "Capacity": "40L",
                     "Material": "Nylon + PVC",
@@ -311,8 +314,7 @@ products = [
                     "Features": "TSA Lock, Expandable",
                     "Weight": "1.5kg"
                 },
-                "discount": 8,
-                "occasion": "Back to School"
+                "discount": 0
             }
         ]
     },
@@ -321,7 +323,7 @@ products = [
         "varieties": [
             {
                 "id": 22, "name": "Philips LED Desk Lamp", "price": 900,
-                "image_url": "https://source.unsplash.com/400x300/?lamp,philips",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Philips+LED+Desk+Lamp",
                 "details": {
                     "Power": "5W LED",
                     "Brightness": "400 Lumens",
@@ -330,11 +332,12 @@ products = [
                     "Features": "Touch Control, USB Charging Port",
                     "Warranty": "2 years"
                 },
-                "discount": 0
+                "discount": 10,
+                "occasion": "Work from Home Essentials"
             },
             {
                 "id": 23, "name": "Wipro Garnet", "price": 1100,
-                "image_url": "https://source.unsplash.com/400x300/?lamp,wipro",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Wipro+Garnet",
                 "details": {
                     "Power": "8W LED",
                     "Brightness": "600 Lumens",
@@ -343,12 +346,11 @@ products = [
                     "Features": "Dimmable, Memory Function",
                     "Warranty": "3 years"
                 },
-                "discount": 10,
-                "occasion": "Study Week"
+                "discount": 0
             },
             {
                 "id": 24, "name": "Syska Table Lamp", "price": 850,
-                "image_url": "https://source.unsplash.com/400x300/?lamp,syska",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Syska+Table+Lamp",
                 "details": {
                     "Power": "6W LED",
                     "Brightness": "500 Lumens",
@@ -358,7 +360,7 @@ products = [
                     "Warranty": "1 year"
                 },
                 "discount": 15,
-                "occasion": "Office Setup"
+                "occasion": "Student Offer"
             }
         ]
     },
@@ -367,7 +369,7 @@ products = [
         "varieties": [
             {
                 "id": 25, "name": "Logitech M235", "price": 700,
-                "image_url": "https://source.unsplash.com/400x300/?mouse,logitech",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Logitech+M235",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "12 months",
@@ -380,7 +382,7 @@ products = [
             },
             {
                 "id": 26, "name": "HP X200", "price": 650,
-                "image_url": "https://source.unsplash.com/400x300/?mouse,hp",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=HP+X200",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "15 months",
@@ -389,12 +391,11 @@ products = [
                     "Features": "Plug & Play, Energy Saving",
                     "Compatibility": "Windows, Mac"
                 },
-                "discount": 8,
-                "occasion": "Office Week"
+                "discount": 0
             },
             {
                 "id": 27, "name": "Dell WM126", "price": 800,
-                "image_url": "https://source.unsplash.com/400x300/?mouse,dell",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Dell+WM126",
                 "details": {
                     "Connectivity": "Wireless 2.4GHz",
                     "Battery": "18 months",
@@ -403,8 +404,8 @@ products = [
                     "Features": "Nano Receiver, Scroll Wheel",
                     "Compatibility": "Universal"
                 },
-                "discount": 12,
-                "occasion": "Tech Sale"
+                "discount": 10,
+                "occasion": "Gaming Week"
             }
         ]
     },
@@ -413,7 +414,7 @@ products = [
         "varieties": [
             {
                 "id": 28, "name": "Milton Thermosteel", "price": 900,
-                "image_url": "https://source.unsplash.com/400x300/?bottle,milton",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Milton+Thermosteel",
                 "details": {
                     "Capacity": "1L",
                     "Material": "Stainless Steel",
@@ -426,7 +427,7 @@ products = [
             },
             {
                 "id": 29, "name": "Cello Puro", "price": 400,
-                "image_url": "https://source.unsplash.com/400x300/?bottle,cello",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Cello+Puro",
                 "details": {
                     "Capacity": "750ml",
                     "Material": "BPA Free Plastic",
@@ -435,12 +436,11 @@ products = [
                     "Features": "Leak-proof, Lightweight",
                     "Weight": "150g"
                 },
-                "discount": 15,
-                "occasion": "Fitness Week"
+                "discount": 0
             },
             {
                 "id": 30, "name": "Borosil Hydra", "price": 650,
-                "image_url": "https://source.unsplash.com/400x300/?bottle,borosil",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Borosil+Hydra",
                 "details": {
                     "Capacity": "1L",
                     "Material": "Borosilicate Glass",
@@ -449,8 +449,8 @@ products = [
                     "Features": "Heat Resistant, Easy Grip",
                     "Weight": "400g"
                 },
-                "discount": 10,
-                "occasion": "Health Month"
+                "discount": 5,
+                "occasion": "Stay Hydrated Sale"
             }
         ]
     },
@@ -459,7 +459,7 @@ products = [
         "varieties": [
             {
                 "id": 31, "name": "Formal Shirt", "price": 1200,
-                "image_url": "https://source.unsplash.com/400x300/?men,shirt",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Formal+Shirt",
                 "details": {
                     "Material": "100% Cotton",
                     "Size": "S, M, L, XL, XXL",
@@ -472,7 +472,7 @@ products = [
             },
             {
                 "id": 32, "name": "Casual T-Shirt", "price": 600,
-                "image_url": "https://source.unsplash.com/400x300/?men,t-shirt",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Casual+T-Shirt",
                 "details": {
                     "Material": "Cotton Blend",
                     "Size": "S, M, L, XL, XXL",
@@ -482,11 +482,11 @@ products = [
                     "Occasion": "Casual, Daily Wear"
                 },
                 "discount": 20,
-                "occasion": "Summer Sale"
+                "occasion": "Clearance Sale"
             },
             {
                 "id": 33, "name": "Jeans", "price": 1500,
-                "image_url": "https://source.unsplash.com/400x300/?men,jeans",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Jeans",
                 "details": {
                     "Material": "Denim",
                     "Size": "28, 30, 32, 34, 36, 38",
@@ -495,12 +495,11 @@ products = [
                     "Features": "Stretch Denim, Fade Resistant",
                     "Occasion": "Casual, Party"
                 },
-                "discount": 15,
-                "occasion": "Fashion Week"
+                "discount": 0
             },
             {
                 "id": 34, "name": "Kurta", "price": 900,
-                "image_url": "https://source.unsplash.com/400x300/?men,kurta",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Kurta",
                 "details": {
                     "Material": "Cotton",
                     "Size": "S, M, L, XL, XXL",
@@ -509,8 +508,8 @@ products = [
                     "Features": "Handcrafted, Traditional Design",
                     "Occasion": "Festival, Traditional Events"
                 },
-                "discount": 12,
-                "occasion": "Festival Season"
+                "discount": 25,
+                "occasion": "Dussehra Special"
             }
         ]
     },
@@ -519,7 +518,7 @@ products = [
         "varieties": [
             {
                 "id": 35, "name": "Saree", "price": 2000,
-                "image_url": "https://source.unsplash.com/400x300/?women,saree",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Saree",
                 "details": {
                     "Material": "Silk/Cotton/Georgette",
                     "Size": "5.5 meters length",
@@ -528,11 +527,12 @@ products = [
                     "Features": "Blouse Piece Included, Ready to Wear",
                     "Occasion": "Wedding, Festival, Party"
                 },
-                "discount": 0
+                "discount": 30,
+                "occasion": "Karwa Chauth Offer"
             },
             {
                 "id": 36, "name": "Kurti", "price": 800,
-                "image_url": "https://source.unsplash.com/400x300/?women,kurti",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Kurti",
                 "details": {
                     "Material": "Cotton/Rayon",
                     "Size": "S, M, L, XL, XXL",
@@ -541,12 +541,11 @@ products = [
                     "Features": "Comfortable Fit, Easy Care",
                     "Occasion": "Casual, Office, Festival"
                 },
-                "discount": 25,
-                "occasion": "Festival Collection"
+                "discount": 0
             },
             {
                 "id": 37, "name": "Western Dress", "price": 1800,
-                "image_url": "https://source.unsplash.com/400x300/?women,dress",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Western+Dress",
                 "details": {
                     "Material": "Polyester/Cotton Blend",
                     "Size": "S, M, L, XL, XXL",
@@ -555,12 +554,12 @@ products = [
                     "Features": "Machine Washable, Wrinkle Free",
                     "Occasion": "Party, Office, Date"
                 },
-                "discount": 18,
-                "occasion": "Party Wear"
+                "discount": 15,
+                "occasion": "End of Season Sale"
             },
             {
                 "id": 38, "name": "Leggings", "price": 400,
-                "image_url": "https://source.unsplash.com/400x300/?women,leggings",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Leggings",
                 "details": {
                     "Material": "Cotton Lycra",
                     "Size": "S, M, L, XL, XXL",
@@ -569,8 +568,7 @@ products = [
                     "Features": "Opaque, Comfortable",
                     "Occasion": "Casual, Gym, Daily Wear"
                 },
-                "discount": 20,
-                "occasion": "Activewear Sale"
+                "discount": 0
             }
         ]
     },
@@ -579,7 +577,7 @@ products = [
         "varieties": [
             {
                 "id": 46, "name": "Nike Running Shoes", "price": 3500,
-                "image_url": "https://source.unsplash.com/400x300/?shoes,nike",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Nike+Running+Shoes",
                 "details": {
                     "Type": "Running Shoes",
                     "Size": "6, 7, 8, 9, 10, 11, 12",
@@ -588,11 +586,12 @@ products = [
                     "Features": "Air Cushioning, Breathable",
                     "Occasion": "Running, Gym, Casual"
                 },
-                "discount": 0
+                "discount": 10,
+                "occasion": "Fitness Challenge"
             },
             {
                 "id": 47, "name": "Adidas Sneakers", "price": 4000,
-                "image_url": "https://source.unsplash.com/400x300/?shoes,adidas",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Adidas+Sneakers",
                 "details": {
                     "Type": "Casual Sneakers",
                     "Size": "6, 7, 8, 9, 10, 11, 12",
@@ -601,12 +600,11 @@ products = [
                     "Features": "Boost Technology, Comfortable",
                     "Occasion": "Casual, Daily Wear, Sports"
                 },
-                "discount": 15,
-                "occasion": "Sports Week"
+                "discount": 0
             },
             {
                 "id": 48, "name": "Bata Formal Shoes", "price": 1800,
-                "image_url": "https://source.unsplash.com/400x300/?shoes,formal",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Bata+Formal+Shoes",
                 "details": {
                     "Type": "Formal Leather Shoes",
                     "Size": "6, 7, 8, 9, 10, 11, 12",
@@ -615,8 +613,8 @@ products = [
                     "Features": "Polished Finish, Comfortable",
                     "Occasion": "Office, Formal Events, Business"
                 },
-                "discount": 10,
-                "occasion": "Office Wear"
+                "discount": 5,
+                "occasion": "Corporate Deal"
             }
         ]
     },
@@ -625,7 +623,7 @@ products = [
         "varieties": [
             {
                 "id": 49, "name": "Ray-Ban Aviator", "price": 6500,
-                "image_url": "https://source.unsplash.com/400x300/?sunglasses,rayban",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Ray-Ban+Aviator",
                 "details": {
                     "Style": "Aviator",
                     "Lens Color": "Green/Gray/Brown",
@@ -638,7 +636,7 @@ products = [
             },
             {
                 "id": 50, "name": "Fastrack Wayfarer", "price": 1200,
-                "image_url": "https://source.unsplash.com/400x300/?sunglasses,fastrack",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Fastrack+Wayfarer",
                 "details": {
                     "Style": "Wayfarer",
                     "Lens Color": "Black/Brown/Blue",
@@ -647,12 +645,12 @@ products = [
                     "Features": "UV Protection, Lightweight",
                     "Occasion": "Casual, Fashion, Daily Wear"
                 },
-                "discount": 20,
-                "occasion": "Summer Sale"
+                "discount": 40,
+                "occasion": "Flash Sale"
             },
             {
                 "id": 51, "name": "Vincent Chase Round", "price": 900,
-                "image_url": "https://source.unsplash.com/400x300/?sunglasses,round",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Vincent+Chase+Round",
                 "details": {
                     "Style": "Round",
                     "Lens Color": "Black/Brown/Green",
@@ -661,8 +659,7 @@ products = [
                     "Features": "UV Protection, Scratch Resistant",
                     "Occasion": "Fashion, Vintage Style, Casual"
                 },
-                "discount": 15,
-                "occasion": "Fashion Week"
+                "discount": 0
             }
         ]
     },
@@ -671,7 +668,7 @@ products = [
         "varieties": [
             {
                 "id": 91, "name": "Mixer Grinder 750W", "price": 4500,
-                "image_url": "https://source.unsplash.com/400x300/?kitchen,mixer",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Mixer+Grinder+750W",
                 "details": {
                     "Power": "750W",
                     "Jars": "3 Stainless Steel",
@@ -679,11 +676,11 @@ products = [
                     "Features": "Overload Protection"
                 },
                 "discount": 10,
-                "occasion": "Kitchen Upgrade"
+                "occasion": "Navratri Special"
             },
             {
                 "id": 92, "name": "Electric Kettle 1.5L", "price": 1800,
-                "image_url": "https://source.unsplash.com/400x300/?kitchen,kettle",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Electric+Kettle+1.5L",
                 "details": {
                     "Capacity": "1.5L",
                     "Material": "Stainless Steel",
@@ -694,15 +691,15 @@ products = [
             },
             {
                 "id": 93, "name": "Air Fryer 4.2L", "price": 8500,
-                "image_url": "https://source.unsplash.com/400x300/?kitchen,airfryer",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Air+Fryer+4.2L",
                 "details": {
                     "Capacity": "4.2L",
                     "Power": "1500W",
                     "Temperature": "80-200°C",
                     "Features": "Digital Display, Timer"
                 },
-                "discount": 22,
-                "occasion": "Healthy Cooking"
+                "discount": 20,
+                "occasion": "Dhanteras Dhamaka"
             }
         ]
     },
@@ -711,19 +708,19 @@ products = [
         "varieties": [
             {
                 "id": 94, "name": "LED Strip Lights 5m", "price": 800,
-                "image_url": "https://source.unsplash.com/400x300/?decor,led",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=LED+Strip+Lights+5m",
                 "details": {
                     "Length": "5 meters",
                     "Color": "RGB",
                     "Control": "Remote + App",
                     "Features": "Waterproof, Adhesive"
                 },
-                "discount": 30,
-                "occasion": "Festival Lighting"
+                "discount": 50,
+                "occasion": "Diwali Lighting Deal"
             },
             {
                 "id": 95, "name": "Wall Clock Modern", "price": 1200,
-                "image_url": "https://source.unsplash.com/400x300/?decor,clock",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Wall+Clock+Modern",
                 "details": {
                     "Size": "30cm",
                     "Material": "Wooden Frame",
@@ -734,15 +731,14 @@ products = [
             },
             {
                 "id": 96, "name": "Artificial Plants Set", "price": 1500,
-                "image_url": "https://source.unsplash.com/400x300/?decor,plants",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Artificial+Plants+Set",
                 "details": {
                     "Quantity": "3 Plants",
                     "Material": "High Quality Plastic",
                     "Height": "30-45cm",
                     "Features": "UV Resistant, Realistic"
                 },
-                "discount": 18,
-                "occasion": "Home Makeover"
+                "discount": 0
             }
         ]
     },
@@ -751,38 +747,37 @@ products = [
         "varieties": [
             {
                 "id": 103, "name": "Hair Dryer Professional", "price": 2800,
-                "image_url": "https://source.unsplash.com/400x300/?beauty,hairdryer",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Hair+Dryer+Professional",
                 "details": {
                     "Power": "2000W",
                     "Speed": "2 Speed + Cool Shot",
                     "Attachments": "3 Nozzles",
                     "Features": "Ionic Technology, Foldable"
                 },
-                "discount": 18,
-                "occasion": "Beauty Week"
+                "discount": 0
             },
             {
                 "id": 104, "name": "Electric Toothbrush", "price": 1500,
-                "image_url": "https://source.unsplash.com/400x300/?beauty,toothbrush",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Electric+Toothbrush",
                 "details": {
                     "Battery": "30 days",
                     "Modes": "3 Cleaning Modes",
                     "Timer": "2-minute Timer",
                     "Features": "Waterproof, Travel Case"
                 },
-                "discount": 0
+                "discount": 10,
+                "occasion": "Personal Care Week"
             },
             {
                 "id": 105, "name": "Facial Cleansing Brush", "price": 1200,
-                "image_url": "https://source.unsplash.com/400x300/?beauty,cleansing",
+                "image_url": "https://placehold.co/400x300/0a0e27/e8e8ff?text=Facial+Cleansing+Brush",
                 "details": {
                     "Brushes": "4 Different Heads",
                     "Speed": "2 Speed Settings",
                     "Battery": "USB Rechargeable",
                     "Features": "Waterproof, Gentle Exfoliation"
                 },
-                "discount": 22,
-                "occasion": "Skincare Month"
+                "discount": 0
             }
         ]
     }

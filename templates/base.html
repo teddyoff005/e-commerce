@@ -70,6 +70,11 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
         }
+
+        .navbar-nav.mx-auto {
+            flex: 1;
+            justify-content: center;
+        }
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -82,16 +87,19 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('view_cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('my_orders') }}"><i class="fas fa-box"></i> My Orders</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
                     </ul>
-                    <form class="d-flex" action="{{ url_for('home') }}" method="get">
-                        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.args.get('q', '') }}">
-                        <button class="btn btn-outline-info" type="submit">Search</button>
-                    </form>
+                    <div class="d-flex align-items-center">
+                        <form class="d-flex me-2" action="{{ url_for('home') }}" method="get">
+                            <input class="form-control form-control-sm" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.args.get('q', '') }}">
+                            <button class="btn btn-outline-info btn-sm" type="submit">Search</button>
+                        </form>
+                        {% block nav_form %}{% endblock %}
+                    </div>
                     <ul class="navbar-nav ms-3">
                         {% if session.user %}
                             <li class="nav-item dropdown">

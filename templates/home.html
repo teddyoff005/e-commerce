@@ -15,6 +15,28 @@
     .page-header {
         text-align: center;
         margin-bottom: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .promo-text {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #a0a0c0;
+        max-width: 250px;
+        text-align: center;
+        font-style: italic;
+        border-left: 3px solid #00d9ff;
+        padding-left: 15px;
+    }
+
+    .promo-text.right {
+        border-left: none;
+        border-right: 3px solid #9d4edd;
+        padding-left: 0;
+        padding-right: 15px;
     }
 
     .page-title {
@@ -26,28 +48,6 @@
         -webkit-text-fill-color: transparent;
         background-clip: text;
         margin-bottom: 10px;
-    }
-
-    .controls-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        padding: 20px;
-        backdrop-filter: blur(5px);
-        background: rgba(20, 25, 50, 0.4);
-        border: 1px solid rgba(100, 100, 255, 0.15);
-        border-radius: 12px;
-    }
-
-    .sorting-container select {
-        padding: 10px;
-        background: rgba(30, 35, 70, 0.8);
-        border: 1.5px solid rgba(100, 120, 255, 0.25);
-        border-radius: 8px;
-        color: #e8e8ff;
-        font-size: 0.9rem;
-        outline: none;
     }
 
     .category-section-title {
@@ -189,21 +189,26 @@
 </style>
 {% endblock %}
 
+{% block nav_form %}
+<div class="sorting-container ms-2">
+    <select id="sortOptions" onchange="sortProducts()" class="form-select form-select-sm">
+        <option value="default">Sort by</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+    </select>
+</div>
+{% endblock %}
+
 {% block content %}
 <canvas id="bg-canvas"></canvas>
 
 <div class="page-header">
+    <div class="promo-text">
+        <p><strong>Curated Collections:</strong> Discover the latest trends and top brands, all in one place.</p>
+    </div>
     <h1 class="page-title">Explore Our Products</h1>
-</div>
-
-<div class="controls-container">
-    <div class="sorting-container">
-        <label for="sortOptions" style="font-weight: 500; margin-right: 10px;">Sort by:</label>
-        <select id="sortOptions" onchange="sortProducts()">
-            <option value="default">Default</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-        </select>
+    <div class="promo-text right">
+        <p><strong>Seamless Shopping:</strong> Unbeatable prices and a smooth checkout experience, just for you.</p>
     </div>
 </div>
 
@@ -251,6 +256,29 @@
 {% block scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
+    function sortProducts() {
+        const sortValue = document.getElementById('sortOptions').value;
+        if (sortValue === 'default') return;
+
+        const productsLists = document.querySelectorAll('.products-list');
+        productsLists.forEach(productsList => {
+            const products = Array.from(productsList.children);
+
+            products.sort((a, b) => {
+                const priceA = parseFloat(a.dataset.price);
+                const priceB = parseFloat(b.dataset.price);
+
+                if (sortValue === 'price-asc') {
+                    return priceA - priceB;
+                } else {
+                    return priceB - priceA;
+                }
+            });
+
+            products.forEach(product => productsList.appendChild(product));
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         // --- Start of Add to Cart (AJAX) ---
         const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
@@ -311,7 +339,6 @@
             });
         });
         // --- End of Wishlist Add ---
-        // --- End of Scroll Position Save/Restore ---
 
         // This script is a direct copy from the new login page design
         // It creates the animated background effect.
@@ -359,9 +386,6 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
-
-        // Sorting and filtering logic (can be enhanced)
-        function sortProducts() { /* Implement if needed */ }
     });
 </script>
 {% endblock %}
