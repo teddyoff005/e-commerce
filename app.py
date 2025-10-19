@@ -662,14 +662,7 @@ templates = {
     {% for item in cart %}
         <li>
             <div class="item-details">
-                                    <span>{{ item.name }} - Rs.{{ "%.0f"|format(item.discounted_price) if item.get('discount', 0) > 0 else item.price }}</span>
-                                    {% if item.get('discount', 0) > 0 %}
-                                        <div class="discount-info">
-                                            <span class="original-price">Rs.{{ item.original_price }}</span>
-                                            <span class="discounted-price">Rs.{{ "%.0f"|format(item.discounted_price) }}</span>
-                                            <span style="color: #ffb86c; font-size: 0.9em;"> ({{ item.discount }}% off)</span>
-                                        </div>
-                                    {% endif %}
+                                    <span>{{ item.name }} - Rs.{% if item.get('discount', 0) > 0 %}{{ "%.0f"|format(item.discounted_price) }}{% else %}{{ item.price }}{% endif %}</span>
                                 </div>
                                 <div class="item-quantity">
                                     <form action="{{ url_for('update_cart', pid=item.id) }}" method="post" style="display: flex; align-items: center; gap: 5px;">
@@ -678,8 +671,9 @@ templates = {
                                         <a href="{{ url_for('increase_quantity', pid=item.id) }}" class="theme-button" style="background: none; border: none;">+</a>
                                     </form>
                                 </div>                                                    <div class="item-remove">
-                                                        <a href="{{ url_for('remove_from_cart', pid=item.id) }}" class="theme-button" style="background: #ff4d6d;">Remove</a>
-                                                    </div>        </li>
+                                                        <button class="theme-button remove-from-cart-btn" data-product-id="{{ item.id }}" style="background: #ff4d6d;">Remove</button>
+                                                    </div>
+        </li>
     {% endfor %}
 </ul>
 
@@ -701,6 +695,76 @@ templates = {
         </div>
     {% endif %}
 </div>
+</div>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cartList = document.querySelector('.cart-list');
+        const cartCountBadge = document.getElementById('cart-badge');
+
+        cartList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-from-cart-btn')) {
+                e.preventDefault();
+                const productId = e.target.dataset.productId;
+                
+                fetch('/remove_from_cart/' + productId, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Toastify({
+                            text: data.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                        }).showToast();
+
+                        // Remove item from DOM
+                        e.target.closest('li').remove();
+
+                        // Update cart count in navbar
+                        if (cartCountBadge) {
+                            cartCountBadge.textContent = data.cart_count;
+                            cartCountBadge.style.display = data.cart_count > 0 ? 'inline-block' : 'none';
+                        }
+
+                        // If cart becomes empty, display message
+                        if (data.cart_count === 0) {
+                            document.querySelector('.content-wrapper').innerHTML = `
+                                <h1 class="page-title">Your Shopping Cart</h1>
+                                <div class="empty-cart-message">
+                                    <p>Your cart is currently empty.</p>
+                                </div>
+                                <div class="cart-actions" style="justify-content: center;">
+                                    <a href="{{ url_for('home') }}" class="theme-button">Start Shopping</a>
+                                </div>
+                            `;
+                        }
+                    } else {
+                        Toastify({
+                            text: data.message,
+                            duration: 3000,
+                            close: true,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                        }).showToast();
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error:', error);
+                });
+            }
+        });
+    });
+</script>
 {% endblock %}
 """,
     "checkout.html": """{% extends "base.html" %}
@@ -1861,8 +1925,8 @@ templates = {
         }
 
         .show-password-checkbox {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
             accent-color: #00d9ff;
             vertical-align: middle; /* Improved alignment */
         }
@@ -2005,7 +2069,7 @@ templates = {
                             <i class="fas fa-lock input-icon"></i>
                         </div>
                         <div style="margin-top: 10px;">
-                            <input type="checkbox" class.show-password-checkbox" onclick="showPassword()"> Show Password
+                            <input type="checkbox" class="show-password-checkbox" onclick="showPassword()"> Show Password
                         </div>
                     </div>
 
@@ -3474,25 +3538,33 @@ templates = {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        // Remove item from DOM
-                        const listItem = document.getElementById('wishlist-item-' + productId);
-                        if (listItem) {
-                            listItem.remove();
-                        }
-
-                        // Update wishlist count in navbar
-                        if (wishlistCountBadge) {
-                            wishlistCountBadge.textContent = data.wishlist_count;
-                            wishlistCountBadge.style.display = data.wishlist_count > 0 ? 'inline-block' : 'none';
-                        }
-
-                        // If wishlist becomes empty, display message
-                        if (data.wishlist_count === 0) {
-                            wishlistContainer.innerHTML = '<div class="empty-wishlist-message"><p>Your wishlist is empty.</p></div>';
-                        }
-                    } else {
-                        // Handle error, e.g., display a flash message
+                                            if (data.success) {
+                                                Toastify({
+                                                    text: data.message,
+                                                    duration: 3000,
+                                                    close: true,
+                                                    gravity: "top",
+                                                    position: "right",
+                                                    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                                                }).showToast();
+                    
+                                                // Remove item from DOM
+                                                const listItem = document.getElementById('wishlist-item-' + productId);
+                                                if (listItem) {
+                                                    listItem.remove();
+                                                }
+                    
+                                                // Update wishlist count in navbar
+                                                if (wishlistCountBadge) {
+                                                    wishlistCountBadge.textContent = data.wishlist_count;
+                                                    wishlistCountBadge.style.display = data.wishlist_count > 0 ? 'inline-block' : 'none';
+                                                }
+                    
+                                                // If wishlist becomes empty, display message
+                                                if (data.wishlist_count === 0) {
+                                                    wishlistContainer.innerHTML = '<div class="empty-wishlist-message"><p>Your wishlist is empty.</p></div>';
+                                                }
+                                            } else {                        // Handle error, e.g., display a flash message
                         console.error('Error removing from wishlist:', data.message);
                     }
                 })
@@ -4456,14 +4528,17 @@ def add_to_cart(pid):
 @app.route('/remove_from_cart/<int:pid>')
 def remove_from_cart(pid):
     if 'user' not in session:
-        return redirect(url_for('login'))
+        return jsonify({'success': False, 'message': 'Please log in first.'}), 401
 
     cart = session.get('cart', {})
     if str(pid) in cart:
         del cart[str(pid)]
-    session['cart'] = cart
+        session['cart'] = cart
+        message = 'Item removed from cart.'
+    else:
+        message = 'Item not found in cart.'
 
-    return redirect(url_for('view_cart'))
+    return jsonify({'success': True, 'message': message, 'cart_count': len(cart)})
 
 @app.route('/update_cart/<int:pid>', methods=['POST'])
 def update_cart(pid):
