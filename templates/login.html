@@ -288,9 +288,10 @@
 
         .remember-me input {
             cursor: pointer;
-            width: 16px;
-            height: 16px;
+            width: 20px; /* Increased width */
+            height: 20px; /* Increased height */
             accent-color: #00d9ff;
+            vertical-align: middle; /* Improved alignment */
         }
 
         .remember-me:hover {
@@ -401,6 +402,13 @@
         @keyframes float {
             0%, 100% { transform: translate(0, 0); }
             50% { transform: translate(30px, 30px); }
+        }
+
+        .show-password-checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #00d9ff;
+            vertical-align: middle; /* Improved alignment */
         }
 
         /* Responsive design */
@@ -541,7 +549,7 @@
                             <i class="fas fa-lock input-icon"></i>
                         </div>
                         <div style="margin-top: 10px;">
-                            <input type="checkbox" onclick="showPassword()"> Show Password
+                            <input type="checkbox" class="show-password-checkbox" onclick="showPassword()"> Show Password
                         </div>
                     </div>
 
