@@ -695,7 +695,7 @@ templates = {
         </div>
     {% endif %}
 </div>
-</div>
+{% endblock %}
 
 {% block scripts %}
 <script>
@@ -703,66 +703,68 @@ templates = {
         const cartList = document.querySelector('.cart-list');
         const cartCountBadge = document.getElementById('cart-badge');
 
-        cartList.addEventListener('click', function(e) {
-            if (e.target.classList.contains('remove-from-cart-btn')) {
-                e.preventDefault();
-                const productId = e.target.dataset.productId;
-                
-                fetch('/remove_from_cart/' + productId, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Toastify({
-                            text: data.message,
-                            duration: 3000,
-                            close: true,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-                        }).showToast();
+        if(cartList) {
+            cartList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-from-cart-btn')) {
+                    e.preventDefault();
+                    const productId = e.target.dataset.productId;
+                    
+                    fetch('/remove_from_cart/' + productId, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Toastify({
+                                text: data.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            }).showToast();
 
-                        // Remove item from DOM
-                        e.target.closest('li').remove();
+                            // Remove item from DOM
+                            e.target.closest('li').remove();
 
-                        // Update cart count in navbar
-                        if (cartCountBadge) {
-                            cartCountBadge.textContent = data.cart_count;
-                            cartCountBadge.style.display = data.cart_count > 0 ? 'inline-block' : 'none';
+                            // Update cart count in navbar
+                            if (cartCountBadge) {
+                                cartCountBadge.textContent = data.cart_count;
+                                cartCountBadge.style.display = data.cart_count > 0 ? 'inline-block' : 'none';
+                            }
+
+                            // If cart becomes empty, display message
+                            if (data.cart_count === 0) {
+                                document.querySelector('.content-wrapper').innerHTML = `
+                                    <h1 class="page-title">Your Shopping Cart</h1>
+                                    <div class="empty-cart-message">
+                                        <p>Your cart is currently empty.</p>
+                                    </div>
+                                    <div class="cart-actions" style="justify-content: center;">
+                                        <a href="{{ url_for('home') }}" class="theme-button">Start Shopping</a>
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            Toastify({
+                                text: data.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            }).showToast();
                         }
-
-                        // If cart becomes empty, display message
-                        if (data.cart_count === 0) {
-                            document.querySelector('.content-wrapper').innerHTML = `
-                                <h1 class="page-title">Your Shopping Cart</h1>
-                                <div class="empty-cart-message">
-                                    <p>Your cart is currently empty.</p>
-                                </div>
-                                <div class="cart-actions" style="justify-content: center;">
-                                    <a href="{{ url_for('home') }}" class="theme-button">Start Shopping</a>
-                                </div>
-                            `;
-                        }
-                    } else {
-                        Toastify({
-                            text: data.message,
-                            duration: 3000,
-                            close: true,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
-                        }).showToast();
-                    }
-                })
-                .catch(error => {
-                    console.error('Network error:', error);
-                });
-            }
-        });
+                    })
+                    .catch(error => {
+                        console.error('Network error:', error);
+                    });
+                }
+            });
+        }
     });
 </script>
 {% endblock %}
