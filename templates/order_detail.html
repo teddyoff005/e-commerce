@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Order Details - My E-Commerce{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2>Order #{{ order.id }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Shipping Address</h4>
+                    <p><strong>Name:</strong> {{ order.name }}</p>
+                    <p><strong>Address:</strong> {{ order.address }}</p>
+                    <p><strong>City:</strong> {{ order.city }}</p>
+                    <p><strong>Pincode:</strong> {{ order.pincode }}</p>
+                    <p><strong>Country:</strong> {{ order.country }}</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Payment Method</h4>
+                    <p><strong>Method:</strong> {{ order.method }}</p>
+                    <p><strong>Estimated Delivery:</strong> {{ order.delivery_date }}</p>
+                </div>
+            </div>
+            <hr>
+            <h4>Items</h4>
+            <ul class="list-group">
+                {% for item in order.order_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="my-0">{{ item.name }} x {{ item.quantity }}</h6>
+                            <small class="text-muted">{{ item.product }}</small>
+                        </div>
+                        <span>₹{{ "%.2f"|format(item.discounted_price) }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <h4>Total: ₹{{ "%.2f"|format(order.total) }}</h4>
+            <a href="{{ url_for('profile') }}" class="btn btn-primary">Back to Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

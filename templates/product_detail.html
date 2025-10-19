@@ -121,7 +121,7 @@
 
         <div class="page-actions">
             {% if session.user %}
-                <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}" data-product-id="{{ variety.id }}">Add to Cart</a>
+                <button class="theme-button add-to-cart-btn" data-product-id="{{ variety.id }}">Add to Cart</button>
             {% endif %}
             <button class="add-to-wishlist-btn theme-button" data-product-id="{{ variety.id }}" data-product-name="{{ variety.name }}" data-product-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}" style="background: rgba(100, 120, 255, 0.3);"><i class="fas fa-heart"></i> Add to Wishlist</button>
             <a href="{{ url_for('home') }}" class="theme-button" style="background: transparent; border: 1px solid rgba(100, 120, 255, 0.3);">Back to Products</a>
@@ -135,42 +135,4 @@
         </ul>
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Start of Wishlist Add --- 
-        const wishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
-        wishlistButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const productId = this.dataset.productId;
-
-                fetch('/add_to_wishlist/' + productId, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // No flash message for success, silent add
-                    } else {
-                        // No flash message for error, silent add
-                        if (data.message === 'Please log in first.') {
-                            window.location.href = '{{ url_for('login') }}';
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // No visual feedback for errors, as per user request for silent operation
-                });
-            });
-        });
-        // --- End of Wishlist Add ---
-    });
-</script>
 {% endblock %}

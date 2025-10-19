@@ -278,7 +278,7 @@
         </a>
         {% if session.user %}
             <div class="card-actions">
-                <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=product.id) }}" style="flex-grow: 1; text-align: center;">Add to Cart</a>
+                <button class="theme-button add-to-cart-btn" data-product-id="{{ product.id }}" style="flex-grow: 1; text-align: center;">Add to Cart</button>
                 <button class="add-to-wishlist-btn" data-product-id="{{ product.id }}" data-product-name="{{ product.name }}" data-product-price="{{ product.price - (product.price * product.discount // 100) if product.discount and product.discount > 0 else product.price }}"><i class="fas fa-heart"></i></button>
             </div>
         {% endif %}
@@ -304,7 +304,7 @@
         </a>
         {% if session.user %}
             <div class="card-actions">
-                <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=deal.id) }}" style="flex-grow: 1; text-align: center;">Add to Cart</a>
+                <button class="theme-button add-to-cart-btn" data-product-id="{{ deal.id }}" style="flex-grow: 1; text-align: center;">Add to Cart</button>
                 <button class="add-to-wishlist-btn" data-product-id="{{ deal.id }}" data-product-name="{{ deal.name }}" data-product-price="{{ deal.price - (deal.price * deal.discount // 100) if deal.discount and deal.discount > 0 else deal.price }}"><i class="fas fa-heart"></i></button>
             </div>
         {% endif %}
@@ -340,7 +340,7 @@
                     </a>
                     {% if session.user %}
                         <div class="card-actions">
-                            <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=variety.id) }}" style="flex-grow: 1; text-align: center;">Add to Cart</a>
+                            <button class="theme-button add-to-cart-btn" data-product-id="{{ variety.id }}" style="flex-grow: 1; text-align: center;">Add to Cart</button>
                             <button class="add-to-wishlist-btn" data-product-id="{{ variety.id }}" data-product-name="{{ variety.name }}" data-product-price="{{ variety.price - (variety.price * variety.discount // 100) if variety.discount and variety.discount > 0 else variety.price }}"><i class="fas fa-heart"></i></button>
                         </div>
                     {% endif %}
@@ -351,90 +351,4 @@
     {% endif %}
 {% endfor %}
 
-{% endblock %}
-
-{% block scripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Start of Add to Cart (AJAX) ---
-        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const link = this.href;
-
-                fetch(link)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            button.classList.add('clicked', 'pop');
-                            button.textContent = 'Added!';
-                            // Optionally, revert the button after a delay
-                            setTimeout(() => {
-                                button.classList.remove('clicked', 'pop');
-                                button.textContent = 'Add to Cart';
-                            }, 2000);
-                        } else {
-                            // Handle not logged in
-                            if (response.status === 401) {
-                                window.location.href = "{{ url_for('login') }}";
-                            } else {
-                                alert(data.message);
-                            }
-                        }
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
-        // --- End of Add to Cart (AJAX) ---
-
-        // This script is a direct copy from the new login page design
-        // It creates the animated background effect.
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setClearColor(0x0a0e27, 1);
-        camera.position.z = 5;
-
-        const ambientLight = new THREE.AmbientLight(0x5050ff, 0.5);
-        scene.add(ambientLight);
-        const cyanLight = new THREE.PointLight(0x00d9ff, 1.5, 200); cyanLight.position.set(5, 3, 2); scene.add(cyanLight);
-        const purpleLight = new THREE.PointLight(0x9d4edd, 1.5, 200); purpleLight.position.set(-5, -3, 2); scene.add(purpleLight);
-
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 5000;
-        const posArray = new Float32Array(particlesCount * 3);
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * (Math.random() * 5) * 10;
-        }
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-        const particlesMaterial = new THREE.PointsMaterial({ size: 0.015, color: 0x6080ff, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.8 });
-        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particles);
-
-        let scrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
-            scrollY = window.scrollY;
-        });
-
-        const clock = new THREE.Clock();
-        const animate = () => {
-            requestAnimationFrame(animate);
-            const elapsed = clock.getElapsedTime();
-            particles.rotation.y = elapsed * 0.05;
-            particles.position.y = -scrollY * 0.01; // Move particles as user scrolls
-            renderer.render(scene, camera);
-        };
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    });
-</script>
 {% endblock %}

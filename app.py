@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-
-app = Flask(__name__)
+import random
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key in production
@@ -808,17 +808,17 @@ def cover():
 def add_to_wishlist(pid):
     if 'user' not in session:
         return jsonify({'success': False, 'message': 'Please log in first.'}), 401
-    
+
     user = session['user']
     if user not in wishlists:
         wishlists[user] = []
-    
+
     if pid not in wishlists[user]:
         wishlists[user].append(pid)
         message = 'Added to wishlist.'
     else:
         message = 'Item already in wishlist.'
-    
+
     return jsonify({'success': True, 'message': message, 'wishlist_count': len(wishlists[user])})
 
 @app.route('/home')
@@ -874,10 +874,10 @@ def home():
                 # Search in occasion if it exists
                 elif 'occasion' in v and query in v['occasion'].lower():
                     matches = True
-            
+
             if matches:
                 filtered_varieties_for_category.append(v)
-        
+
         if filtered_varieties_for_category:
             # Apply sorting to varieties within each category
             # No sorting applied
@@ -930,12 +930,73 @@ def set_location(location):
 def add_to_cart(pid):
     if 'user' not in session:
         return jsonify({'success': False, 'message': 'Please log in first.'}), 401
-    
-    cart = session.get('cart', [])
-    cart.append(pid)
+
+    cart = session.get('cart', {})
+    if isinstance(cart, list):
+        cart_dict = {}
+        for item_id in cart:
+            cart_dict[str(item_id)] = cart_dict.get(str(item_id), 0) + 1
+        cart = cart_dict
+
+    cart[str(pid)] = cart.get(str(pid), 0) + 1
     session['cart'] = cart
+
+    return jsonify({'success': True, 'message': 'Added to cart.', 'cart_count': len(cart)})
+
+@app.route('/remove_from_cart/<int:pid>')
+def remove_from_cart(pid):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    cart = session.get('cart', {})
+    if str(pid) in cart:
+        del cart[str(pid)]
+    session['cart'] = cart
+
+    return redirect(url_for('view_cart'))
+
+@app.route('/update_cart/<int:pid>', methods=['POST'])
+def update_cart(pid):
+    if 'user' not in session:
+        return jsonify({'success': False, 'message': 'Please log in first.'}), 401
+
+    quantity = int(request.form.get('quantity', 1))
+    cart = session.get('cart', {})
+
+    if quantity > 0:
+        cart[str(pid)] = quantity
+    else:
+        if str(pid) in cart:
+            del cart[str(pid)]
     
-    return jsonify({'success': True, 'message': 'Added to cart.', 'cart_count': len(session.get('cart', []))})
+    session['cart'] = cart
+    return redirect(url_for('view_cart'))
+
+@app.route('/increase_quantity/<int:pid>')
+def increase_quantity(pid):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    cart = session.get('cart', {})
+    cart[str(pid)] = cart.get(str(pid), 0) + 1
+    session['cart'] = cart
+
+    return redirect(url_for('view_cart'))
+
+@app.route('/decrease_quantity/<int:pid>')
+def decrease_quantity(pid):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    cart = session.get('cart', {})
+    if cart.get(str(pid), 0) > 1:
+        cart[str(pid)] -= 1
+    else:
+        if str(pid) in cart:
+            del cart[str(pid)]
+    session['cart'] = cart
+
+    return redirect(url_for('view_cart'))
 
 def get_variety_by_id(pid):
     for p in products:
@@ -946,7 +1007,7 @@ def get_variety_by_id(pid):
 
 @app.context_processor
 def cart_item_count():
-    return {'cart_count': len(session.get('cart', []))}
+    return {'cart_count': len(session.get('cart', {}))}
 
 @app.context_processor
 def wishlist_item_count():
@@ -959,51 +1020,65 @@ def wishlist_item_count():
 def remove_from_wishlist(pid):
     if 'user' not in session:
         return jsonify({'success': False, 'message': 'Please log in first.'}), 401
-    
+
     user = session['user']
     if user in wishlists and pid in wishlists[user]:
         wishlists[user].remove(pid)
         message = 'Removed from wishlist.'
     else:
         message = 'Item not found in wishlist.'
-    
+
     return jsonify({'success': True, 'message': message, 'wishlist_count': len(wishlists.get(user, []))})
 
 @app.route('/cart')
 def view_cart():
-    cart_ids = session.get('cart', [])
+    cart_data = session.get('cart', {})
+    if isinstance(cart_data, list):
+        cart_dict = {}
+        for item_id in cart_data:
+            cart_dict[str(item_id)] = cart_dict.get(str(item_id), 0) + 1
+        cart_data = cart_dict
+        session['cart'] = cart_data
+
     cart_items = []
     total = 0
-    for pid in cart_ids:
-        item = get_variety_by_id(pid)
+    for pid, quantity in cart_data.items():
+        item = get_variety_by_id(int(pid))
         if item:
-            # Calculate discounted price
             original_price = item['price']
             discount_percent = item.get('discount', 0)
             discounted_price = original_price * (1 - discount_percent / 100)
-            
-            # Add calculated fields to item
+
             item['original_price'] = original_price
             item['discounted_price'] = discounted_price
             item['discount_amount'] = original_price - discounted_price
-            
+            item['quantity'] = quantity
+
             cart_items.append(item)
-            total += discounted_price
+            total += discounted_price * quantity
+
     return render_template('cart.html', cart=cart_items, total=total)
 
-# NOTE: The place_order route is redundant since checkout handles order placement, 
+# NOTE: The place_order route is redundant since checkout handles order placement,
 # but is left here for completeness if other parts of your code rely on it.
 @app.route('/place_order')
 def place_order():
     if 'user' not in session:
         flash('Please log in first.')
         return redirect(url_for('login'))
-    cart = session.get('cart', [])
+    cart = session.get('cart', {})
+    if isinstance(cart, list):
+        cart_dict = {}
+        for item_id in cart:
+            cart_dict[item_id] = cart_dict.get(item_id, 0) + 1
+        cart = cart_dict
+        session['cart'] = cart
+
     if not cart:
         flash('Cart is empty.')
         return redirect(url_for('home'))
     orders.append({'user': session['user'], 'items': cart.copy()})
-    session['cart'] = []
+    session['cart'] = {}
     flash('Order placed successfully!')
     return redirect(url_for('view_cart'))
 
@@ -1022,7 +1097,7 @@ def wishlist():
     if 'user' not in session:
         flash('Please log in to view your wishlist.')
         return redirect(url_for('login'))
-    
+
     user = session['user']
     user_wishlist_ids = wishlists.get(user, [])
     wishlist_items = []
@@ -1030,7 +1105,7 @@ def wishlist():
         item = get_variety_by_id(pid)
         if item:
             wishlist_items.append(item)
-            
+
     return render_template('wishlist.html', wishlist_items=wishlist_items)
 
 @app.route('/profile')
@@ -1046,24 +1121,31 @@ def checkout():
     if 'user' not in session:
         flash('Please log in first.')
         return redirect(url_for('login'))
-    cart_ids = session.get('cart', [])
+    cart_data = session.get('cart', {})
+    if isinstance(cart_data, list):
+        cart_dict = {}
+        for item_id in cart_data:
+            cart_dict[str(item_id)] = cart_dict.get(str(item_id), 0) + 1
+        cart_data = cart_dict
+        session['cart'] = cart_data
+
     cart_items = []
     total = 0
-    for pid in cart_ids:
-        item = get_variety_by_id(pid)
+    for pid, quantity in cart_data.items():
+        item = get_variety_by_id(int(pid))
         if item:
-            # Calculate discounted price
             original_price = item['price']
             discount_percent = item.get('discount', 0)
             discounted_price = original_price * (1 - discount_percent / 100)
-            
-            # Add calculated fields to item
+
             item['original_price'] = original_price
             item['discounted_price'] = discounted_price
             item['discount_amount'] = original_price - discounted_price
-            
+            item['quantity'] = quantity
+
             cart_items.append(item)
-            total += discounted_price
+            total += discounted_price * quantity
+
     if request.method == 'POST':
         name = request.form.get('name')
         address = request.form.get('address')
@@ -1074,20 +1156,24 @@ def checkout():
         if not all([name, address, city, pincode, country, method]):
             flash('Please fill all checkout details.')
             return render_template('checkout.html', cart=cart_items, total=total)
-        # Save order (add name, address, method to order)
+
+        delivery_days = random.randint(3, 10)
+        delivery_date = datetime.now() + timedelta(days=delivery_days)
+
         orders.append({
             'id': len(orders) + 1,
             'user': session['user'],
-            'order_items': cart_items,  # Save full item details
+            'order_items': cart_items,
             'name': name,
             'address': address,
             'city': city,
             'pincode': pincode,
             'country': country,
             'method': method,
-            'total': total
+            'total': total,
+            'delivery_date': delivery_date.strftime('%A, %B %d, %Y')
         })
-        session['cart'] = []
+        session['cart'] = {}
         flash('Order placed successfully!')
         return redirect(url_for('my_orders'))
     return render_template('checkout.html', cart=cart_items, total=total)
@@ -1105,6 +1191,90 @@ def product_detail(pid):
         flash("Product not found.")
         return redirect(url_for('home'))
     return render_template('product_detail.html', variety=variety)
+
+@app.route('/order_details/<int:order_id>')
+def order_details(order_id):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    order = next((o for o in orders if o['id'] == order_id and o['user'] == session['user']), None)
+
+    if order:
+        return render_template('order_detail.html', order=order)
+    else:
+        flash('Order not found.')
+        return redirect(url_for('my_orders'))
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        new_username = request.form['username']
+        new_email = request.form['email']
+
+        if not new_username:
+            flash('Username cannot be empty.')
+            return render_template('edit_profile.html')
+
+        # In a real application, you would also update the email and other fields in the database.
+        # For this example, we'll just update the username and email in the session.
+
+        # Check if the new username is already taken
+        if new_username != session['user'] and new_username in users:
+            flash('Username already exists.')
+            return render_template('edit_profile.html')
+
+        # Update the username in the users dictionary if the user exists
+        if session['user'] in users:
+            users[new_username] = users.pop(session['user'])
+
+        session['user'] = new_username
+        session['email'] = new_email
+
+        flash('Profile updated successfully.')
+        return redirect(url_for('profile'))
+
+    return render_template('edit_profile.html')
+
+@app.route('/add_address', methods=['GET', 'POST'])
+def add_address():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        name = request.form['name']
+        address = request.form['address']
+        city = request.form['city']
+        pincode = request.form['pincode']
+        country = request.form['country']
+
+        if 'addresses' not in session:
+            session['addresses'] = []
+
+        session['addresses'].append({
+            'name': name,
+            'address': address,
+            'city': city,
+            'pincode': pincode,
+            'country': country
+        })
+
+        flash('Address added successfully.')
+        return redirect(url_for('profile', _anchor='addresses'))
+
+    return render_template('add_address.html')
+
+@app.route('/delete_address/<int:address_index>')
+def delete_address(address_index):
+    if 'user' not in session:
+        return redirect(url_for('login'))
+
+    if 'addresses' in session and len(session['addresses']) > address_index:
+        session['addresses'].pop(address_index)
+        flash('Address deleted successfully.')
+    return redirect(url_for('profile', _anchor='addresses'))
 
 if __name__ == '__main__':
     app.run(debug=True)

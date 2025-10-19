@@ -42,7 +42,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 15px; /* Add gap between items */
         transition: all 0.3s ease;
+    }
+
+    .item-details {
+        flex-grow: 1; /* Allow item details to take up available space */
     }
 
     .cart-list li:hover {
@@ -99,24 +104,29 @@
 
     {% if cart %}
         <ul class="cart-list">
-            {% for item in cart %}
-                <li>
-                    <div class="item-details">
-                        <span>{{ item.name }}</span>
-                        {% if item.get('discount', 0) > 0 %}
-                            <div class="discount-info">
-                                <span class="original-price">Rs.{{ item.original_price }}</span>
-                                <span class="discounted-price">Rs.{{ "%.0f"|format(item.discounted_price) }}</span>
-                                <span style="color: #ffb86c; font-size: 0.9em;"> ({{ item.discount }}% off)</span>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div class="item-price">
-                        <span>Rs.{{ "%.0f"|format(item.discounted_price) if item.get('discount', 0) > 0 else item.price }}</span>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
+    {% for item in cart %}
+        <li>
+            <div class="item-details">
+                                    <span>{{ item.name }} - Rs.{{ "%.0f"|format(item.discounted_price) if item.get('discount', 0) > 0 else item.price }}</span>
+                                    {% if item.get('discount', 0) > 0 %}
+                                        <div class="discount-info">
+                                            <span class="original-price">Rs.{{ item.original_price }}</span>
+                                            <span class="discounted-price">Rs.{{ "%.0f"|format(item.discounted_price) }}</span>
+                                            <span style="color: #ffb86c; font-size: 0.9em;"> ({{ item.discount }}% off)</span>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="item-quantity">
+                                    <form action="{{ url_for('update_cart', pid=item.id) }}" method="post" style="display: flex; align-items: center; gap: 5px;">
+                                        <a href="{{ url_for('decrease_quantity', pid=item.id) }}" class="theme-button" style="background: none; border: none;">-</a>
+                                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px; text-align: center;" onchange="this.form.submit()">
+                                        <a href="{{ url_for('increase_quantity', pid=item.id) }}" class="theme-button" style="background: none; border: none;">+</a>
+                                    </form>
+                                </div>                                                    <div class="item-remove">
+                                                        <a href="{{ url_for('remove_from_cart', pid=item.id) }}" class="theme-button" style="background: #ff4d6d;">Remove</a>
+                                                    </div>        </li>
+    {% endfor %}
+</ul>
 
         <div class="total-section">
             Total: Rs.{{ total }}

@@ -109,13 +109,14 @@
                     <p><strong>Shipping To:</strong> {{ order.name }}</p>
                     <p><strong>Address:</strong> {{ order.address }}, {{ order.city }}, {{ order.pincode }}, {{ order.country }}</p>
                     <p><strong>Payment Method:</strong> {{ order.method }}</p>
+                    <p><strong>Estimated Delivery:</strong> {{ order.delivery_date }}</p>
                 </div>
 
                 <h3 class="products-title">Products Ordered:</h3>
                 <ul class="product-list">
                     {% for item in order.order_items %}
                         <li>
-                            <span>{{ item.name }} ({{ item.product }})</span>
+                            <span>{{ item.name }} ({{ item.product }}) x {{ item.quantity }}</span>
                             <span>Rs.{{ "%.0f"|format(item.discounted_price) if item.get('discount', 0) > 0 else item.price }}</span>
                         </li>
                     {% endfor %}

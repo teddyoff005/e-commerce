@@ -95,7 +95,7 @@
         <ul class="cart-list">
             {% for item in cart %}
                 <li>
-                    <span>{{ item.product }} - {{ item.name }}</span>
+                    <span>{{ item.product }} - {{ item.name }} x {{ item.quantity }}</span>
                     <span>Rs.{{ "%.0f"|format(item.discounted_price) if item.get('discount', 0) > 0 else item.price }}</span>
                 </li>
             {% endfor %}
