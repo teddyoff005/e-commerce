@@ -197,6 +197,7 @@ templates = {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
         body {
             padding-top: 70px;
@@ -332,16 +333,6 @@ templates = {
     </header>
 
     <main class="container my-5">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
         {% block content %}{% endblock %}
     </main>
 
@@ -377,20 +368,28 @@ templates = {
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    Toastify({
+                        text: "{{ message }}",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        backgroundColor: "{{ 'linear-gradient(to right, #00b09b, #96c93d)' if category == 'success' else 'linear-gradient(to right, #ff5f6d, #ffc371)' }}",
+                    }).showToast();
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const cartCountBadge = document.getElementById('cart-badge');
             const wishlistCountBadge = document.getElementById('wishlist-badge');
             const flashContainer = document.querySelector('main .container');
-
-            // Function to display flash messages
-            function displayFlashMessage(message, category) {
-                const alertDiv = `<div class="alert alert-${category} alert-dismissible fade show" role="alert">
-                                    ${message}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                </div>`;
-                flashContainer.insertAdjacentHTML('afterbegin', alertDiv);
-            }
 
             // Handle Add to Cart
             document.querySelectorAll('.add-to-cart-btn').forEach(button => {
@@ -413,7 +412,14 @@ templates = {
                                 cartCountBadge.textContent = data.cart_count;
                                 cartCountBadge.style.display = data.cart_count > 0 ? 'inline-block' : 'none';
                             }
-                            displayFlashMessage(data.message, 'success');
+                            Toastify({
+                                text: data.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                            }).showToast();
 
                             // Add the animation and change the button text
                             currentButton.classList.add('clicked', 'pop');
@@ -425,7 +431,14 @@ templates = {
                                 currentButton.textContent = 'Add to Cart';
                             }, 2000);
                         } else {
-                            displayFlashMessage(data.message, 'danger');
+                            Toastify({
+                                text: data.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            }).showToast();
                             if (data.message === 'Please log in first.') {
                                 window.location.href = "{{ url_for('login') }}";
                             }
@@ -457,9 +470,23 @@ templates = {
                                 wishlistCountBadge.textContent = data.wishlist_count;
                                 wishlistCountBadge.style.display = data.wishlist_count > 0 ? 'inline-block' : 'none';
                             }
-                            displayFlashMessage(data.message, 'success');
+                            Toastify({
+                                text: data.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                            }).showToast();
                         } else {
-                            displayFlashMessage(data.message, 'danger');
+                            Toastify({
+                                text: data.message,
+                                duration: 3000,
+                                close: true,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            }).showToast();
                             if (data.message === 'Please log in first.') {
                                 window.location.href = '{{ url_for('login') }}';
                             }
