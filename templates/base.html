@@ -101,6 +101,23 @@
                         {% block nav_form %}{% endblock %}
                     </div>
                     <ul class="navbar-nav ms-3">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="locationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-map-marker-alt"></i> {% if session.location %}{{ session.location }}{% else %}Select Location{% endif %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="locationDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='USA') }}">USA</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='UK') }}">UK</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='Japan') }}">Japan</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='Australia') }}">Australia</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='India') }}">India</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='UAE') }}">UAE</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='Singapore') }}">Singapore</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='Canada') }}">Canada</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='Germany') }}">Germany</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('set_location', location='France') }}">France</a></li>
+                            </ul>
+                        </li>
                         {% if session.user %}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

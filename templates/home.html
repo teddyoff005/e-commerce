@@ -185,6 +185,48 @@
         color: #ff79c6;
         border-color: #ff79c6;
     }
+    .horizontal-scroll-section {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+    }
+    .horizontal-scroll-section .product-card-horizontal {
+        display: inline-block;
+        width: 180px;
+        margin-right: 15px;
+        vertical-align: top;
+        white-space: normal;
+    }
+    .product-card-horizontal .product-image-horizontal {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+    .product-card-horizontal .product-info-horizontal {
+        padding: 10px;
+    }
+    .product-card-horizontal .product-variety-horizontal {
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .product-card-horizontal .card-actions {
+        padding: 0 10px 10px 10px;
+    }
+
+    .product-card-horizontal .add-to-cart-btn {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+
+    .product-card-horizontal .original-price {
+        text-decoration: line-through;
+        color: #ff4d6d;
+        margin-right: 10px;
+    }
 
 </style>
 {% endblock %}
@@ -210,6 +252,62 @@
     <div class="promo-text right">
         <p><strong>Seamless Shopping:</strong> Unbeatable prices and a smooth checkout experience, just for you.</p>
     </div>
+</div>
+
+<!-- Trending Products -->
+<h2 class="category-section-title">Trending Products</h2>
+<div class="horizontal-scroll-section">
+    {% for product in trending_products %}
+    <div class="product-card product-card-horizontal">
+        <a href="{{ url_for('product_detail', pid=product.id) }}">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image-horizontal">
+            <div class="product-info-horizontal">
+                <div class="product-variety-horizontal">{{ product.name }}</div>
+                <div class="product-price-horizontal">
+                    {% if product.discount and product.discount > 0 %}
+                        <span class="original-price">Rs.{{ product.price }}</span>
+                        <span class="discounted-price">Rs.{{ product.price - (product.price * product.discount // 100) }}</span>
+                        <span class="discount-tag">({{ product.discount }}% OFF)</span>
+                    {% else %}
+                        <span class="discounted-price">Rs.{{ product.price }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+        {% if session.user %}
+            <div class="card-actions">
+                <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=product.id) }}" style="flex-grow: 1; text-align: center;">Add to Cart</a>
+                <button class="add-to-wishlist-btn" data-product-id="{{ product.id }}" data-product-name="{{ product.name }}" data-product-price="{{ product.price - (product.price * product.discount // 100) if product.discount and product.discount > 0 else product.price }}"><i class="fas fa-heart"></i></button>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Latest Deals -->
+<h2 class="category-section-title">Latest Deals</h2>
+<div class="horizontal-scroll-section">
+    {% for deal in deals %}
+    <div class="product-card product-card-horizontal">
+        <a href="{{ url_for('product_detail', pid=deal.id) }}">
+            <img src="{{ deal.image_url }}" alt="{{ deal.name }}" class="product-image-horizontal">
+            <div class="product-info-horizontal">
+                <div class="product-variety-horizontal">{{ deal.name }}</div>
+                <div class="product-price-horizontal">
+                    <span class="original-price">Rs.{{ deal.price }}</span>
+                    <span class="discounted-price">Rs.{{ deal.price - (deal.price * deal.discount // 100) }}</span>
+                    <span class="discount-tag">({{ deal.discount }}% OFF)</span>
+                </div>
+            </div>
+        </a>
+        {% if session.user %}
+            <div class="card-actions">
+                <a class="theme-button add-to-cart-btn" href="{{ url_for('add_to_cart', pid=deal.id) }}" style="flex-grow: 1; text-align: center;">Add to Cart</a>
+                <button class="add-to-wishlist-btn" data-product-id="{{ deal.id }}" data-product-name="{{ deal.name }}" data-product-price="{{ deal.price - (deal.price * deal.discount // 100) if deal.discount and deal.discount > 0 else deal.price }}"><i class="fas fa-heart"></i></button>
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
 </div>
 
 {% set categories = products | map(attribute='name') | unique | list %}

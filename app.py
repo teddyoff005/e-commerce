@@ -1,4 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
+
+app = Flask(__name__)
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key in production
@@ -791,12 +794,34 @@ def root():
 
 @app.route('/cover')
 def cover():
-    return render_template('landing.html')
+    all_varieties = []
+    for p in products:
+        for v in p['varieties']:
+            all_varieties.append(v)
+    # Manually select new arrivals by ID
+    new_arrival_ids = [2, 5, 9, 14, 21]
+    new_arrivals = [v for v in all_varieties if v['id'] in new_arrival_ids]
+    return render_template('landing.html', new_arrivals=new_arrivals)
 
 @app.route('/home')
 def home():
     query = request.args.get('q', '').lower()
     filtered_products = []
+    trending_products = []
+    deals = []
+
+    all_varieties = []
+    for p in products:
+        for v in p['varieties']:
+            all_varieties.append(v)
+
+    # Manually select trending products by ID
+    trending_ids = [3, 4, 7, 46, 49]
+    trending_products = [v for v in all_varieties if v['id'] in trending_ids]
+
+    # Filter for deals (e.g., discount >= 20%)
+    deals = [v for v in all_varieties if v.get('discount', 0) >= 20]
+
     for product in products:
         filtered_varieties = []
         for v in product['varieties']:
@@ -829,7 +854,7 @@ def home():
                 'name': product['name'],
                 'varieties': filtered_varieties
             })
-    return render_template('home.html', products=filtered_products)
+    return render_template('home.html', products=filtered_products, trending_products=trending_products, deals=deals)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -839,7 +864,7 @@ def register():
         if username in users:
             flash('Username already exists.')
         else:
-            users[username] = password
+            users[username] = generate_password_hash(password)
             flash('Registration successful. Please log in.')
             return redirect(url_for('login'))
     return render_template('register.html')
@@ -849,7 +874,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if users.get(username) == password:
+        if username in users and check_password_hash(users.get(username), password):
             session['user'] = username
             flash('Login successful.')
             return redirect(url_for('home'))
@@ -861,6 +886,11 @@ def login():
 def logout():
     session.pop('user', None)
     flash('Logged out.')
+    return redirect(url_for('home'))
+
+@app.route('/set_location/<location>')
+def set_location(location):
+    session['location'] = location
     return redirect(url_for('home'))
 
 @app.route('/add_to_cart/<int:pid>')
@@ -959,8 +989,11 @@ def checkout():
     if request.method == 'POST':
         name = request.form.get('name')
         address = request.form.get('address')
+        city = request.form.get('city')
+        pincode = request.form.get('pincode')
+        country = request.form.get('country')
         method = request.form.get('method')
-        if not name or not address or not method:
+        if not all([name, address, city, pincode, country, method]):
             flash('Please fill all checkout details.')
             return render_template('checkout.html', cart=cart_items, total=total)
         # Save order (add name, address, method to order)
@@ -970,6 +1003,9 @@ def checkout():
             'order_items': cart_items,  # Save full item details
             'name': name,
             'address': address,
+            'city': city,
+            'pincode': pincode,
+            'country': country,
             'method': method,
             'total': total
         })

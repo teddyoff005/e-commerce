@@ -110,7 +110,22 @@
                 <input type="text" name="name" placeholder="Full Name" class="form-input" required>
             </div>
             <div class="input-group">
-                <textarea name="address" placeholder="Delivery Address" class="form-input" required></textarea>
+                <textarea name="address" placeholder="Street Address" class="form-input" required></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" name="city" placeholder="City" class="form-input" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" name="pincode" placeholder="Pin Code" class="form-input" required>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <input type="text" name="country" placeholder="Country" class="form-input" value="{% if session.location %}{{ session.location }}{% endif %}" required>
             </div>
             <div class="input-group">
                 <select name="method" class="form-input" required>

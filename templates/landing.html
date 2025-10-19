@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
+        :root {
+            --primary-color: #00d9ff;
+            --secondary-color: #9d4edd;
+            --background-color: #0a0e27;
+            --text-color: #e8e8ff;
+            --card-background: rgba(20, 25, 50, 0.4);
+            --border-color: rgba(100, 100, 255, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -19,70 +28,63 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0a0e27;
-            color: #e8e8ff;
-            overflow: hidden;
+            background: var(--background-color);
+            color: var(--text-color);
             line-height: 1.6;
         }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
         #bg-canvas {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            z-index: -1;
+        }
+
+        .hero-content {
             z-index: 1;
-            display: block;
+            animation: fadeIn 1.5s ease-out;
         }
 
-        .wrapper {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .content-container {
-            max-width: 800px;
-            animation: slideUp 1s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .logo {
-            font-size: 4rem;
+        .hero-title {
+            font-size: 4.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #00d9ff, #9d4edd);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             font-family: 'Space Grotesk', sans-serif;
             margin-bottom: 20px;
-            letter-spacing: -2px;
             text-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
         }
 
-        .main-subtitle {
-            font-size: 1.3rem;
+        .hero-subtitle {
+            font-size: 1.4rem;
             color: #b0b0d0;
-            font-weight: 300;
-            line-height: 1.8;
             margin-bottom: 40px;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -90,157 +92,344 @@
         .cta-button {
             display: inline-block;
             padding: 16px 40px;
-            background: linear-gradient(135deg, #00d9ff 0%, #9d4edd 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             border: none;
             border-radius: 12px;
             color: #fff;
             font-size: 1.1rem;
             font-weight: 600;
-            letter-spacing: 0.5px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
-            text-transform: uppercase;
             text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px) scale(1.05);
+            transform: translateY(-3px);
             box-shadow: 0 8px 30px rgba(0, 217, 255, 0.5);
         }
 
-        .cta-button:hover::before {
-            left: 100%;
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
         }
 
-        .features-section {
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* F1 Philosophy Section */
+        .philosophy-section {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 60px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
         }
 
-        .feature-card {
-            backdrop-filter: blur(8px);
-            background: rgba(20, 25, 50, 0.35);
-            border: 1px solid rgba(100, 100, 255, 0.1);
+        .philosophy-content {
+            flex: 1;
+        }
+
+        .philosophy-content h3 {
+            font-size: 1.8rem;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .philosophy-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .philosophy-image i {
+            font-size: 10rem;
+            color: var(--secondary-color);
+            opacity: 0.7;
+        }
+
+        /* Why Shop With Us Section */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .why-us-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 30px;
-            width: 220px;
+            text-align: center;
             transition: all 0.3s ease;
         }
 
-        .feature-card:hover {
+        .why-us-card:hover {
             transform: translateY(-5px);
-            background: rgba(25, 30, 60, 0.5);
+            border-color: var(--primary-color);
+        }
+
+        .why-us-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .why-us-card h4 {
+            font-size: 1.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        /* New Arrivals Section */
+        .horizontal-scroll-section {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .product-card-horizontal {
+            display: inline-block;
+            width: 220px;
+            margin-right: 20px;
+            vertical-align: top;
+            white-space: normal;
+            background-color: #1c1e3e;
+            border: 1px solid rgba(100, 100, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .product-card-horizontal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 217, 255, 0.2);
             border-color: rgba(0, 217, 255, 0.3);
         }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #00d9ff, #9d4edd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .product-card-horizontal a {
+            text-decoration: none;
+            color: inherit;
         }
-
-        .feature-title {
-            font-size: 1.1rem;
+        .product-image-horizontal {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        .product-info-horizontal {
+            padding: 15px;
+        }
+        .product-variety-horizontal {
+            font-size: 1rem;
             font-weight: 600;
-            color: #e0e0ff;
-            margin-bottom: 8px;
-            font-family: 'Space Grotesk', sans-serif;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-
-        .feature-desc {
+        .product-price-horizontal {
             font-size: 0.9rem;
-            color: #a0a0c0;
-            font-weight: 300;
         }
 
-        .gradient-orb {
-            position: fixed;
-            pointer-events: none;
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            z-index: 0;
+            margin-right: 15px;
         }
 
-        .orb-1 { width: 500px; height: 500px; background: linear-gradient(135deg, #00d9ff, transparent); top: -150px; right: -150px; animation: float 20s ease-in-out infinite; }
-        .orb-2 { width: 400px; height: 400px; background: linear-gradient(135deg, #9d4edd, transparent); bottom: -100px; left: -100px; animation: float 25s ease-in-out infinite reverse; }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(40px, 40px); }
+        /* Brands Section */
+        .brands-grid {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
         }
 
-        @media (max-width: 768px) {
-            body { overflow-y: auto; }
-            .wrapper { position: relative; height: auto; padding: 60px 20px; }
-            .logo { font-size: 3rem; }
-            .main-subtitle { font-size: 1.1rem; }
-            .features-section { flex-direction: column; align-items: center; gap: 20px; }
-            .feature-card { width: 100%; max-width: 300px; }
+        .brand-logo {
+            font-size: 2rem;
+            color: #a0a0c0;
+            transition: all 0.3s ease;
         }
+
+        .brand-logo:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0a0e27;
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            color: #a0a0c0;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="gradient-orb orb-1"></div>
-    <div class="gradient-orb orb-2"></div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <canvas id="bg-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">◆ One Stop Store</h1>
+            <p class="hero-subtitle">The ultimate pit stop for premium tech and lifestyle products. <br>Engineered for speed, curated for excellence.</p>
+            <a href="{{ url_for('home') }}" class="cta-button">Enter the Fast Lane</a>
+        </div>
+    </section>
 
-    <canvas id="bg-canvas"></canvas>
-
-    <div class="wrapper">
-        <div class="content-container">
-            <h1 class="logo">◆ One Stop Store</h1>
-            <p class="main-subtitle">
-                Your one-stop destination for cutting-edge tech and modern lifestyle products. <br>Discover amazing deals, secure checkout, and a seamless shopping experience.
-            </p>
-            <a href="{{ url_for('home') }}" class="cta-button">Enter Store</a>
-
-            <div class="features-section">
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3 class="feature-title">Easy Shopping</h3>
-                    <p class="feature-desc">Browse and add products to your cart with a single click.</p>
+    <main>
+        <!-- New Arrivals Section -->
+        <section class="content-section container">
+            <h2 class="section-title">New Arrivals</h2>
+            <div class="horizontal-scroll-section">
+                {% for product in new_arrivals %}
+                <div class="product-card-horizontal">
+                    <a href="{{ url_for('product_detail', pid=product.id) }}">
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image-horizontal">
+                        <div class="product-info-horizontal">
+                            <div class="product-variety-horizontal">{{ product.name }}</div>
+                            <div class="product-price-horizontal">
+                                <span class="discounted-price">Rs.{{ product.price }}</span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3 class="feature-title">Secure Orders</h3>
-                    <p class="feature-desc">Your orders and personal data are always kept safe and private.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- F1 Philosophy Section -->
+        <section class="content-section container">
+            <div class="philosophy-section">
+                <div class="philosophy-content">
+                    <h2 class="section-title" style="text-align: left;">Inspired by the Perfect Pit Stop</h2>
+                    <p>In Formula 1, a one-stop strategy is a commitment to peak efficiency and having the best of everything, exactly when you need it. It's about having the right tires, the right fuel, and the right team to win the race with a single, perfectly executed stop.</p>
+                    <br>
+                    <p>That's the philosophy behind One Stop Store. We bring you a curated selection of the best products, so you don't have to waste time searching. We are your single, efficient stop for everything you need to stay ahead in the race of life.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
-                    <h3 class="feature-title">Fast Checkout</h3>
-                    <p class="feature-desc">A quick and streamlined checkout process for your convenience.</p>
+                <div class="philosophy-image">
+                    <i class="fas fa-flag-checkered"></i>
                 </div>
             </div>
+        </section>
+
+        <!-- Why Shop With Us Section -->
+        <section class="content-section container">
+            <h2 class="section-title">Why We're on Pole Position</h2>
+            <div class="why-us-grid">
+                <div class="why-us-card">
+                    <div class="why-us-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Lightning-Fast Checkout</h4>
+                    <p>Our streamlined checkout process gets you from cart to confirmation in record time.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon"><i class="fas fa-check-circle"></i></div>
+                    <h4>Podium-Worthy Products</h4>
+                    <p>We hand-pick only the best, most innovative products, so you always get the best quality.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Fort-Knox Security</h4>
+                    <p>Your data and privacy are protected with the most advanced security measures.</p>
+                </div>
+                <div class="why-us-card">
+                    <div class="why-us-icon"><i class="fas fa-headset"></i></div>
+                    <h4>24/7 Support</h4>
+                    <p>Our support team is always available to help you with any questions or issues.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="content-section container">
+            <h2 class="section-title">From Our Customers</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"The best online store I've ever used. The products are top-notch and the delivery is always on time."</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="User 1">
+                        <div>
+                            <strong>John Doe</strong><br>
+                            <span>Tech Enthusiast</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"I love the curated selection of products. I always find something new and exciting here."</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="User 2">
+                        <div>
+                            <strong>Jane Smith</strong><br>
+                            <span>Fashion Lover</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The customer service is amazing. They were so helpful when I had a question about my order."</p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="User 3">
+                        <div>
+                            <strong>Peter Jones</strong><br>
+                            <span>Gadget Geek</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brands Section -->
+        <section class="content-section container">
+            <h2 class="section-title">Featured Brands</h2>
+            <div class="brands-grid">
+                <div class="brand-logo"><i class="fab fa-apple"></i></div>
+                <div class="brand-logo"><i class="fab fa-samsung"></i></div>
+                <div class="brand-logo"><i class="fab fa-sony"></i></div>
+                <div class="brand-logo"><i class="fab fa-logitech"></i></div>
+                <div class="brand-logo"><i class="fab fa-nike"></i></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 One Stop Store. All Rights Reserved.</p>
         </div>
-    </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // This script is a direct copy from the new login page design
-        // It creates the animated background effect.
-
+        // Three.js background animation
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
@@ -249,18 +438,11 @@
         renderer.setClearColor(0x0a0e27, 1);
         camera.position.z = 5;
 
-        const ambientLight = new THREE.AmbientLight(0x5050ff, 0.5);
-        scene.add(ambientLight);
-        const cyanLight = new THREE.PointLight(0x00d9ff, 2, 150); cyanLight.position.set(8, 5, 3); scene.add(cyanLight);
-        const purpleLight = new THREE.PointLight(0x9d4edd, 2, 150); purpleLight.position.set(-8, -5, 3); scene.add(purpleLight);
-
         const particlesGeometry = new THREE.BufferGeometry();
         const particlesCount = 8000;
         const posArray = new Float32Array(particlesCount * 3);
-        for (let i = 0; i < particlesCount * 3; i += 3) {
+        for (let i = 0; i < particlesCount * 3; i++) {
             posArray[i] = (Math.random() - 0.5) * 50;
-            posArray[i + 1] = (Math.random() - 0.5) * 50;
-            posArray[i + 2] = (Math.random() - 0.5) * 50;
         }
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         const particlesMaterial = new THREE.PointsMaterial({ size: 0.02, color: 0x6080ff, transparent: true, opacity: 0.6, sizeAttenuation: true, blending: THREE.AdditiveBlending });
@@ -279,11 +461,6 @@
             const elapsed = clock.getElapsedTime();
             particles.rotation.y = elapsed * 0.02;
             particles.rotation.x = elapsed * 0.01;
-
-            cyanLight.position.x = Math.sin(elapsed * 0.3) * 12;
-            cyanLight.position.z = Math.cos(elapsed * 0.3) * 12;
-            purpleLight.position.x = Math.cos(elapsed * 0.4) * 12;
-            purpleLight.position.z = Math.sin(elapsed * 0.4) * 12;
 
             let targetCameraX = mouseX * 0.3;
             let targetCameraY = mouseY * 0.3;
